@@ -1,3 +1,4 @@
 in Rank Tree:
-    *GetZero() - retrieves the pointer to level 0 node (O(1))
+    GetZero() - retrieves the scores array of level 0. should be independant of other nodes, to avoid complexity of logn (gilgulim)
+    in case there are no players with level 0 and we add a new one. (should be O(1) total)
 
