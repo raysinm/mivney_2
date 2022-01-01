@@ -1,0 +1,3 @@
+in Rank Tree:
+    *GetZero() - retrieves the pointer to level 0 node (O(1))
+
