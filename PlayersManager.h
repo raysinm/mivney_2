@@ -20,6 +20,24 @@ namespace PM{
         
         int players_num; 
 
+        class ScoreArray{
+            friend PlayersManager;
+            int* scores;
+            int scale;
+
+            public:
+            
+            explicit ScoreArray(int scale):scale(scale){
+                scores = new int[scale];
+            }
+            
+            void Refresh(const ScoreArray& left, const ScoreArray& right){
+                //......
+            }
+            
+            //USE: RankTree<int, int, ScoreArray> (the third parameter is the rank)
+        }
+
         class GroupData{
             friend PlayersManager;
             int group_id,
