@@ -17,11 +17,47 @@ TO DO:
 
 namespace UF{
 
-    template<class T, class Data>
+    template<class Data>
     class UnionFind{
-        
+
+        class GroupNode{
+            friend class UnionFind;
+            Data data; //data holds AVL
+            int size;
+            public:
+               GroupNode(Data data): data(data), size(1){};
+
+        };
+
+        GroupNode* groups;
+
         public:
+               UnionFind(int k):{
+                   groups = new int[k+1];
+                   for(int i=1; i<=k; i++){
+                       Data data_k; //create empty AVL data
+                       group_k = new GroupNode(data_k);
+                       groups[i] = group_k;
+                   }
+               };
+
+            void Union(int group1, int group2);
     };
+
+    template<class Data>
+    void Union(int group1, int group2){
+        GroupNode g1 = groups[group1];
+        GroupNode g2 = groups[group2];
+
+        if(group1.group_size > group2.group_size)
+        {
+            //merge datas
+            group1.size += group2.size;
+            delete group2;
+            //in case more than one place in array points to group, how to change all to point at new group
+
+        }
+    }
 }
 
 #endif

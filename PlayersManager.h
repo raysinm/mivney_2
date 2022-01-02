@@ -8,8 +8,8 @@
 #include "./AVLRanktree.h"
 
   
-
-typedef AVLRank::AVLTree<int, int*> RankTree;  //HAVE TO THINK: do we add rank to AVLTree? (Key, Data, Rank)
+//TODO: need to change int* to ScoreArray - doesnt recognize
+typedef AVLRank::AVLTree<int, int, int*> RankTree;  //HAVE TO THINK: do we add rank to AVLTree? (Key, Data, Rank)
                                                         //do we keep array of scores in rank or in data?
 
 namespace PM{
@@ -23,27 +23,41 @@ namespace PM{
         class ScoreArray{
             friend PlayersManager;
             int* scores;
-            int scale;
+            int scale; // ! turn to const? also in PM
 
             public:
             
             explicit ScoreArray(int scale):scale(scale){
-                scores = new int[scale];
+                scores = new int[scale+1]; // ! initialized to all zeros?
+                // * added +1 so we can refer to the level by level num and not level-1
             }
+
+            void operator+=(const ScoreArray& other){  
+                        for(int i=1; i<=scale; i++)
+                        {
+                            scores[i] += other.scores[i];
+                        }
+                    };
+            
+            void operator-=(const ScoreArray& other){  
+                        for(int i=1; i<=scale; i++)
+                        {
+                            scores[i] -= other.scores[i];
+                        }
+                    };
             
             void Refresh(const ScoreArray& left, const ScoreArray& right){
                 //......
             }
             
             //USE: RankTree<int, int, ScoreArray> (the third parameter is the rank)
-        }
+        };
 
         class GroupData{
             friend PlayersManager;
             int group_id,
                 group_size; //num of players, because *unionfind group size* is not relevant in PlayersManager
             RankTree group_levels;
-
         };
 
         class PlayerData{

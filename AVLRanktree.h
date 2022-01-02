@@ -10,7 +10,7 @@
 
 namespace AVLRank{
     
-    template <class KeyElem, class Data>
+    template <class KeyElem, class Data, class Rank>
     class AVLTree{
             private:
 
@@ -18,7 +18,8 @@ namespace AVLRank{
 
                 friend class AVLTree;
                 KeyElem key;
-                Data data;
+                Data data; //* will be num of players in level
+                Rank rank;
                 int BF; //balance factor
                 int height; 
 
@@ -27,8 +28,9 @@ namespace AVLRank{
                 TNode* right_son; //bigger
 
                 public:
-                    TNode(const KeyElem& key, const Data& data):
-                        key(key), data(data),
+                // ! should rank be const?
+                    TNode(const KeyElem& key, const Data& data, const Rank& rank):
+                        key(key), data(data), rank(rank)
                         BF(0), height(0),
                         father(nullptr), left_son(nullptr), right_son(nullptr){};
                     
@@ -98,9 +100,9 @@ namespace AVLRank{
             
             TNode* ArrayToAVLTree(TNode** array, int start, int end, TNode* father);
             void InOrderOutputTNodes_rec(TNode* node, TNode** arr, int& arr_index, const int arr_size);
-            void MergeArray(AVLTree<KeyElem,Data>::TNode** arr1, const int arr1_size,
-                                AVLTree<KeyElem,Data>::TNode** arr2, const int arr2_size,
-                                AVLTree<KeyElem,Data>::TNode** merged_arr);
+            void MergeArray(AVLTree<KeyElem,Data,Rank>::TNode** arr1, const int arr1_size,
+                                AVLTree<KeyElem,Data,Rank>::TNode** arr2, const int arr2_size,
+                                AVLTree<KeyElem,Data,Rank>::TNode** merged_arr);
             TNode* AVLGetFirst() const;
             void printTree_rec(const std::string& prefix, const TNode* node, bool isLeft);
             void printTreeData_rec(const std::string& prefix, const TNode* node, bool isLeft);
@@ -176,9 +178,9 @@ namespace AVLRank{
             }
 
             bool AVLExist(const KeyElem&) const;
-            void AVLInsert(const KeyElem&, const Data&);
+            void AVLInsert(const KeyElem&, const Data&, const Rank& rank);
             void AVLRemove(const KeyElem&);
-            void AVLMerge(AVLTree<KeyElem,Data>& other_tree);
+            void AVLMerge(AVLTree<KeyElem,Data,Rank>& other_tree);
             Data& AVLGet(const KeyElem& key) const;
             int size() const;
             KeyElem& AVLMin() const;
@@ -192,33 +194,19 @@ namespace AVLRank{
     //___________***___PUBLIC FUNCTIONS IMPLEMENTATION___***___________//
 
 
-    /**
-     * @brief checks if an element with a specified key exists in tree
-     * 
-     * @tparam KeyElem 
-     * @tparam Data 
-     * @param key_to_find input key
-     * @return true 
-     * @return false 
-     */
-    template <class KeyElem, class Data>
-    bool AVLTree<KeyElem,Data>:: AVLExist(const KeyElem& key_to_find) const{
+    
+    template <class KeyElem, class Data, class Rank>
+    bool AVLTree<KeyElem,Data,Rank>:: AVLExist(const KeyElem& key_to_find) const{
         return (AVLFind(key_to_find) != nullptr);
     }
 
-    /**
-     * @brief inserts a new node with input key and data to the tree. 
-            if the action causes tree imbalance- it calls the balancing function.
-     * 
-     * @tparam KeyElem 
-     * @tparam Data 
-     * @param key unique key of element to insert
-     * @param data user input data for the element
-     */
-    template <class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: AVLInsert(const KeyElem& key, const Data& data){
+    
+    // ! should rank be const?
+    //TODO: update father rank and kids if needed
+    template <class KeyElem, class Data, class Rank>
+    void AVLTree<KeyElem,Data,Rank>:: AVLInsert(const KeyElem& key, const Data& data, const Rank& rank){
         try{
-            TNode* insert_node = new TNode(key, data);
+            TNode* insert_node = new TNode(key, data, rank);
 
             if(!this->root){
                 this->root = insert_node;
@@ -245,29 +233,18 @@ namespace AVLRank{
         }
     }
     
-    /**
-     * @brief removes an element from tree
-     * 
-     * @tparam KeyElem 
-     * @tparam Data 
-     * @param key -key of element the user wants to remove
-     */
-    template <class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: AVLRemove(const KeyElem& key){
+    // TODO: update father rank
+    template <class KeyElem, class Data, class Rank>
+    void AVLTree<KeyElem,Data,Rank>:: AVLRemove(const KeyElem& key){
         AVLRemove_rec(this->root, key);
         tree_size--; 
     }
 
-    /**
-     * @brief merges a tree to this tree, by re-arranging the TNode pointers. 
-     *        the merged tree is not usable after 
-     * 
-     * @tparam KeyElem 
-     * @tparam Data 
-     * @param other_tree -tree to merge with this tree
-     */
-    template<class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>::AVLMerge(AVLTree<KeyElem,Data>& other_tree){
+    
+
+    // TODO: we need a new merge because some levels should be the same and we do not want to re-add them
+    template <class KeyElem, class Data, class Rank>
+    void AVLTree<KeyElem,Data,Rank>::AVLMerge(AVLTree<KeyElem,Data,Rank>& other_tree){
         //allocating two arrays for merging
         TNode** tree1_arr;
         TNode** other_tree_arr;
@@ -278,21 +255,9 @@ namespace AVLRank{
         merged_arr = new TNode*[this->tree_size + other_tree.tree_size];
 
         int i1 = 0, i2 = 0;
-        /* std::cout << "\nthis tree: " << std::endl;
-        this->printTree();
-        std::cout << "\nother tree: " << std::endl;
-        other_tree.printTree(); */
 
         InOrderOutputTNodes_rec(this->root, tree1_arr, i1, this->tree_size);
         InOrderOutputTNodes_rec(other_tree.root, other_tree_arr, i2, other_tree.tree_size);
-
-        /* for(int i=0; i< this->tree_size; i++){
-            std::cout << tree1_arr[i]->key <<", " << std::endl;
-        }
-        std::cout << "\n" << std::endl;
-        for(int i=0; i< other_tree.tree_size; i++){
-            std::cout << other_tree_arr[i]->key <<", " << std::endl;
-        } */
 
         this->root = nullptr;
         other_tree.root = nullptr;
@@ -301,7 +266,6 @@ namespace AVLRank{
         this->root = this->ArrayToAVLTree(merged_arr, 0, (this->tree_size + other_tree.tree_size - 1), nullptr);
         this->tree_size += other_tree.tree_size;
         
-        //other_tree.root = nullptr;
         delete[] tree1_arr;
         delete[] other_tree_arr;
         delete[] merged_arr;
@@ -317,40 +281,21 @@ namespace AVLRank{
         }
     }
 
-    /**
-     * @brief returns reference to data inside an element with a certain key
-     * 
-     * @tparam KeyElem 
-     * @tparam Data 
-     * @param key -key of the element whose data is returned
-     * @return Data& -a reference to the found data is returned
-     */
-    template<class KeyElem, class Data>
-    Data& AVLTree<KeyElem,Data>:: AVLGet(const KeyElem& key) const{   //return data by reference or as a ptr?
+    
+    template <class KeyElem, class Data, class Rank>
+    Data& AVLTree<KeyElem,Data,Rank>:: AVLGet(const KeyElem& key) const{
         return AVLFind(key)->data;
     }
 
-    /**
-     * @brief returns the number of elements in this tree
-     * 
-     * @tparam KeyElem 
-     * @tparam Data 
-     * @return int 
-     */
-    template<class KeyElem, class Data>
-    int AVLTree<KeyElem,Data>::size() const{
+    
+    template <class KeyElem, class Data, class Rank>
+    int AVLTree<KeyElem,Data,Rank>::size() const{
             return this->tree_size;
     }
 
-    /**
-     * @brief returns reference to the key to the maximum element in tree
-     * 
-     * @tparam KeyElem 
-     * @tparam Data 
-     * @return const KeyElem& 
-     */
-    template<class KeyElem, class Data>
-    KeyElem& AVLTree<KeyElem,Data>::AVLMin() const{
+    
+    template <class KeyElem, class Data, class Rank>
+    KeyElem& AVLTree<KeyElem,Data,Rank>::AVLMin() const{
         auto* current = this->root; //added *
         while(current->left_son){
             current = current->left_son;
@@ -358,23 +303,17 @@ namespace AVLRank{
         return current->key;
     }
 
-    /**
-     * @brief prints out the keys in Inorder
-     * 
-     */
-    template <class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>::printTree(){
+    
+    template <class KeyElem, class Data, class Rank>
+    void AVLTree<KeyElem,Data,Rank>::printTree(){
         std::cout << "\n" << std::endl;
         this->printTree_rec("", this->root, false);
         std::cout << "\n" << std::endl;
     }
 
-    /**
-     * @brief prints out the datas in Inorder
-     * 
-     */
-    template <class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>::printTreeData(){
+    
+    template <class KeyElem, class Data, class Rank>
+    void AVLTree<KeyElem,Data,Rank>::printTreeData(){
         std::cout << "\n" << std::endl;
         this->printTreeData_rec("", this->root, false);
         std::cout << "\n" << std::endl;
@@ -385,16 +324,9 @@ namespace AVLRank{
     //___________***___PRIVATE FUNCTIONS IMPLEMENTATION___***___________//
     
     
-    /**
-     * @brief balances the tree. goes through search root of the "start" node, upwards.
-     *          if Balance factor of a certain node exceeds the legal values, it performs a rotation.
-     * 
-     * @tparam KeyElem 
-     * @tparam Data 
-     * @param start -node to start balancing from
-     */
-    template <class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: AVLBalance(TNode* start){
+    // TODO: balance rank too with refresh rank
+    template <class KeyElem, class Data, class Rank>
+    void AVLTree<KeyElem,Data,Rank>:: AVLBalance(TNode* start){
         
         auto current_node = start;
         while(current_node){
@@ -437,12 +369,9 @@ namespace AVLRank{
 
         //******************_ROTATIONS_********************//
 
-    /**
-     * @brief performs a Left-Left rotation
-     * @param node_uneven node that is being balanced
-     */
-    template <class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: AVLRotate_LL(TNode* node_uneven) {    
+    
+    template <class KeyElem, class Data, class Rank>
+    void AVLTree<KeyElem,Data,Rank>:: AVLRotate_LL(TNode* node_uneven) {    
 
         TNode* temp_left_right_son = node_uneven->left_son->right_son; 
         TNode* left_son = node_uneven->left_son; 
@@ -467,12 +396,9 @@ namespace AVLRank{
        
     }
 
-    /**
-     * @brief performs a Right-Right rotation
-     * @param node_uneven node that is being balanced
-     */
-    template <class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: AVLRotate_RR(TNode* node_uneven){
+    
+    template <class KeyElem, class Data, class Rank>
+    void AVLTree<KeyElem,Data,Rank>:: AVLRotate_RR(TNode* node_uneven){
 
         TNode* temp_right_left_son = (node_uneven->right_son->left_son);
         TNode* right_son = node_uneven->right_son;
@@ -497,33 +423,24 @@ namespace AVLRank{
         
     }
 
-    /**
-     * @brief performs a Left-Right rotation using other rotations
-     * @param node_uneven node that is being balanced
-     */
-    template <class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: AVLRotate_LR(TNode* node_uneven){
+    
+    template <class KeyElem, class Data, class Rank>
+    void AVLTree<KeyElem,Data,Rank>:: AVLRotate_LR(TNode* node_uneven){
         AVLRotate_RR(node_uneven->left_son);
         AVLRotate_LL(node_uneven);
     }
 
-    /**
-     * @brief performs a Right-Left rotation using other rotations
-     * @param node_uneven node that is being balanced
-     */
-    template <class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: AVLRotate_RL(TNode* node_uneven){
+    
+    template <class KeyElem, class Data, class Rank>
+    void AVLTree<KeyElem,Data,Rank>:: AVLRotate_RL(TNode* node_uneven){
         AVLRotate_LL(node_uneven->right_son);
         AVLRotate_RR(node_uneven);
 
     }
 
-    /**
-     * @brief refreshes the height of a given node using the saved heights of it's sons
-     * @param node 
-     */
-    template <class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: AVLNodeRefreshHeight(TNode* node) const{
+    
+    template <class KeyElem, class Data, class Rank>
+    void AVLTree<KeyElem,Data,Rank>:: AVLNodeRefreshHeight(TNode* node) const{
         if(!node) return;
 
         if(!node->right_son && !node->left_son){
@@ -540,12 +457,9 @@ namespace AVLRank{
         }
     }
 
-    /**
-     * @brief refreshes the BF of a given node using the saved heights of it's sons
-     * @param node 
-     */
-    template <class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: AVLNodeRefreshBF(TNode* node) const{
+   
+    template <class KeyElem, class Data, class Rank>
+    void AVLTree<KeyElem,Data,Rank>:: AVLNodeRefreshBF(TNode* node) const{
         if(!node) return;
         if(!node->right_son && !node->left_son){
             node->BF = 0;
@@ -561,35 +475,17 @@ namespace AVLRank{
         }
     }
 
-    /**
-     * @brief finds a node that holds a specific key in the tree using recursive function  AVLFind_rec
-     * 
-     * @tparam KeyElem 
-     * @tparam Data 
-     * @param key_to_find the key of needed node
-     * @return AVLTree<KeyElem,Data>::TNode* returns pointer to the node that hold the key
-     */
-    template <class KeyElem, class Data>
-    typename AVLTree<KeyElem,Data>::TNode* AVLTree<KeyElem,Data>::AVLFind(const KeyElem& key_to_find) const{
+    
+    template <class KeyElem, class Data, class Rank>
+    typename AVLTree<KeyElem,Data,Rank>::TNode* AVLTree<KeyElem,Data,Rank>::AVLFind(const KeyElem& key_to_find) const{
         TNode* dummy_ptr;
         return AVLFind_rec(this->root, key_to_find, &dummy_ptr);
     }
 
-    /**
-     * @brief recursively searches for a node holding a specific given key.
-     * if found- it returns a pointer to that node, and assigns a parameter holding a pointer to it's father.
-     * if not found- returns nullptr.
-     * 
-     * @tparam KeyElem 
-     * @tparam Data 
-     * @param current_node current node in recursion
-     * @param key_to_find the key searched for
-     * @param father_to_ret if the node is found, this parameter will hold it's father.
-     * @return AVLTree<KeyElem,Data>::TNode*    returns a pointer to the found node, or nullptr if not found.
-     */
-    template <class KeyElem, class Data>
-    typename AVLTree<KeyElem,Data>::TNode* AVLTree<KeyElem,Data>::AVLFind_rec(AVLTree<KeyElem,Data>::TNode* current_node,
-                                     const KeyElem& key_to_find, AVLTree<KeyElem,Data>::TNode** father_to_ret) const{
+    
+    template <class KeyElem, class Data, class Rank>
+    typename AVLTree<KeyElem,Data,Rank>::TNode* AVLTree<KeyElem,Data,Rank>::AVLFind_rec(AVLTree<KeyElem,Data,Rank>::TNode* current_node,
+                                     const KeyElem& key_to_find, AVLTree<KeyElem,Data,Rank>::TNode** father_to_ret) const{
 
         if(!current_node){
             return nullptr;
@@ -614,23 +510,12 @@ namespace AVLRank{
     }
 
 
-    /**
-     * @brief recursively searches for a node holding a specific key, and removes it.
-     * uses multiple case-scenarios depending on number of sons of the node to remove.
-     * assigns updated values to neighbouring nodes.
-     * calls the balancing function.
-     * 
-     * @tparam KeyElem 
-     * @tparam Data 
-     * @param node current node in recursion
-     * @param key key of node to remove
-     */
-    template <class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: AVLRemove_rec(TNode* node, const KeyElem& key){
+    
+    template <class KeyElem, class Data, class Rank>
+    void AVLTree<KeyElem,Data,Rank>:: AVLRemove_rec(TNode* node, const KeyElem& key){
         if(!node){
             return;
         }
-                                         //ADD METHODS TO TNODE!!!!!!!!!!
         if(node->key == key){
             auto temp_father = node->father;
             if(!node->leftSonExists() && !node->rightSonExists()){  //This is a leaf
@@ -748,17 +633,9 @@ namespace AVLRank{
         
     }
 
-    /**
-     * @brief finds the node with the biggest key that is smaller than the key of a given node.
-     * used exlusively in AVLRemove function
-     * 
-     * @tparam KeyElem 
-     * @tparam Data 
-     * @param node 
-     * @return AVLTree<KeyElem,Data>::TNode* 
-     */
-    template <class KeyElem, class Data>
-    typename AVLTree<KeyElem,Data>::TNode* AVLTree<KeyElem,Data>::findReplacingNode(AVLTree<KeyElem,Data>::TNode* node) const{
+    
+    template <class KeyElem, class Data, class Rank>
+    typename AVLTree<KeyElem,Data,Rank>::TNode* AVLTree<KeyElem,Data,Rank>::findReplacingNode(AVLTree<KeyElem,Data,Rank>::TNode* node) const{
         auto replacer = node->left_son;
         while(replacer->right_son){
             replacer = replacer -> right_son;
@@ -766,20 +643,10 @@ namespace AVLRank{
         return replacer;
     }
     
-    /**
-     * @brief recursively creates a balnced AVL Tree from a *sorted* array of pointers to TNodes.
-     * In each step, takes the middle of the array to be a root and moves on recursively to both halves of the array.
-     * @tparam KeyElem 
-     * @tparam Data 
-     * @param array a sorted array that holds pointers to TNodes
-     * @param start helper index
-     * @param end helper index
-     * @param father holds the father to the next TNode in recursion
-     * @return AVLTree<KeyElem,Data>::TNode*  returns pointer to first root, which is the main root of the tree.
-     */
-    template<class KeyElem, class Data>
-    typename AVLTree<KeyElem,Data>::TNode* AVLTree<KeyElem,Data>::ArrayToAVLTree(AVLTree<KeyElem,Data>::TNode** array,
-                                                        int start, int end, AVLTree<KeyElem,Data>::TNode* father){
+    
+    template <class KeyElem, class Data, class Rank>
+    typename AVLTree<KeyElem,Data,Rank>::TNode* AVLTree<KeyElem,Data,Rank>::ArrayToAVLTree(AVLTree<KeyElem,Data,Rank>::TNode** array,
+                                                        int start, int end, AVLTree<KeyElem,Data,Rank>::TNode* father){
         if(end < start || start > end){
             return nullptr;
         }
@@ -794,20 +661,9 @@ namespace AVLRank{
         return current_root;
     }
 
-    /**
-     * @brief recursively assigns slots in a given array to hold pointers to all tree nodes, by inorder.
-     * empties the tree in the process, without destroying the nodes.
-     * used in AVLMerge function
-     * 
-     * @tparam KeyElem 
-     * @tparam Data 
-     * @param node current node in recursion
-     * @param arr the array to assign to
-     * @param arr_index reference to current index of the array
-     * @param arr_size size of the given array
-     */
-    template<class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: InOrderOutputTNodes_rec(TNode* node, TNode** arr, int& arr_index, const int arr_size){
+    
+    template <class KeyElem, class Data, class Rank>
+    void AVLTree<KeyElem,Data,Rank>:: InOrderOutputTNodes_rec(TNode* node, TNode** arr, int& arr_index, const int arr_size){
         if(!node || arr_index == arr_size){
             return;
         }
@@ -820,20 +676,10 @@ namespace AVLRank{
         node = nullptr;
     }
 
-   /**
-    * @brief merges to arrays of pointers to TNodes into one sorted array
-    * 
-    * @tparam KeyElem 
-    * @tparam Data 
-    * @param arr1 
-    * @param arr1_size 
-    * @param arr2 
-    * @param arr2_size 
-    * @param merged_arr 
-    */
-    template<class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>::MergeArray(typename AVLTree<KeyElem,Data>::TNode** arr1, const int arr1_size, 
-                    typename AVLTree<KeyElem,Data>::TNode** arr2, const int arr2_size, typename AVLTree<KeyElem,Data>::TNode** merged_arr){
+   
+    template <class KeyElem, class Data, class Rank>
+    void AVLTree<KeyElem,Data,Rank>::MergeArray(typename AVLTree<KeyElem,Data,Rank>::TNode** arr1, const int arr1_size, 
+                    typename AVLTree<KeyElem,Data,Rank>::TNode** arr2, const int arr2_size, typename AVLTree<KeyElem,Data,Rank>::TNode** merged_arr){
         int index = 0;
         int index1 = 0;
         int index2 = 0;
@@ -867,15 +713,9 @@ namespace AVLRank{
         }
     }
 
-    /**
-     * @brief returns pointer to minimal element in tree
-     * 
-     * @tparam KeyElem 
-     * @tparam Data 
-     * @return AVLTree<KeyElem,Data>::TNode* 
-     */
-    template <class KeyElem, class Data>
-    typename AVLTree<KeyElem,Data>::TNode* AVLTree<KeyElem,Data>:: AVLGetFirst() const{
+    
+    template <class KeyElem, class Data, class Rank>
+    typename AVLTree<KeyElem,Data,Rank>::TNode* AVLTree<KeyElem,Data,Rank>:: AVLGetFirst() const{
         if(!this->root) return nullptr;
         auto* node = this->root; //added *
         while(node->left_son){
@@ -884,12 +724,9 @@ namespace AVLRank{
         return node;
     }
 
-    /**
-     * @brief recursively prints keys of nodes in the tree in In Order and a nice structure
-     * 
-     */
-    template <class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>::printTree_rec(const std::string& prefix, const AVLTree<KeyElem,Data>::TNode* node, bool isLeft){
+    
+    template <class KeyElem, class Data, class Rank>
+    void AVLTree<KeyElem,Data,Rank>::printTree_rec(const std::string& prefix, const AVLTree<KeyElem,Data,Rank>::TNode* node, bool isLeft){
     if( node != nullptr ){
         std::cout << prefix;
 
@@ -904,12 +741,9 @@ namespace AVLRank{
         }
     }
 
-    /**
-     * @brief recursively prints datas of nodes in the tree in In Order and a nice structure
-     * 
-     */
-    template <class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>::printTreeData_rec(const std::string& prefix, const AVLTree<KeyElem,Data>::TNode* node, bool isLeft){
+    
+    template <class KeyElem, class Data, class Rank>
+    void AVLTree<KeyElem,Data,Rank>::printTreeData_rec(const std::string& prefix, const AVLTree<KeyElem,Data,Rank>::TNode* node, bool isLeft){
     if( node != nullptr ){
         std::cout << prefix;
 
@@ -923,16 +757,9 @@ namespace AVLRank{
         }
     }
 
-    /**
-     * @brief recursively deletes (and calls destructors) of all nodes in tree.
-     * used in destructor of AVLTree
-     * 
-     * @tparam KeyElem 
-     * @tparam Data 
-     * @param node 
-     */
-    template<class KeyElem, class Data>
-    void AVLTree<KeyElem,Data>:: AVLDestroy_rec(TNode* node) const{
+
+    template <class KeyElem, class Data, class Rank>
+    void AVLTree<KeyElem,Data,Rank>:: AVLDestroy_rec(TNode* node) const{
         if(!node){
             return;
         }
