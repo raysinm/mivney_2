@@ -40,7 +40,9 @@ namespace PM{
         RankTree& group_levels = group.group_levels;
 
         if(player_data.level != 0){
-            ScoreArray& player_score_array_group = group_levels.GetRank(player_data.level);   //TODO: add GetRank to AVLRank tree
+
+            //! better to change rank INSIDE AVL
+            ScoreArray& player_score_array_group = group_levels.updateRank(player_data.level, player_data.score, );   //TODO: add GetRank to AVLRank tree
             if (player_score_array_group.IsEmpty()){
                 group_levels.AVLRemove(player_data.level);
             }
@@ -55,9 +57,6 @@ namespace PM{
         }
 
         --group.group_size;
-        if(group.group_size == 0){
-            //! what to do if group is now empty? nothing, right?
-        }
 
         all_players_hash.Remove(PlayerID);
         
