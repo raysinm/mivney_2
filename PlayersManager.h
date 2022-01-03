@@ -23,29 +23,41 @@ namespace PM{
         class ScoreArray{
             friend PlayersManager;
             int* scores;
-            int scale; // ! turn to const? also in PM
+            int size; // ! turn to const? also in PM
 
             public:
             
-            explicit ScoreArray(int scale):scale(scale){
-                scores = new int[scale+1]; // ! initialized to all zeros?
-                // * added +1 so we can refer to the level by level num and not level-1
+            explicit ScoreArray(int scale):size(scale+1){
+                scores = new int[size]; // ! initialized to all zeros? ----added this
+                for(int i = 0; i < size; i++){  // * still O(1)
+                    scores[i] = 0;
+                }  
+                // * added +1 so we can refer to the level by level num and not level-1 ---NICE!
             }
 
             void operator+=(const ScoreArray& other){  
-                        for(int i=1; i<=scale; i++)
+                        for(int i=1; i < size; i++)
                         {
                             scores[i] += other.scores[i];
                         }
                     };
             
             void operator-=(const ScoreArray& other){  
-                        for(int i=1; i<=scale; i++)
+                        for(int i=1; i < size; i++)
                         {
                             scores[i] -= other.scores[i];
                         }
                     };
             
+            bool IsEmpty(){
+                for(int i = 1; i < size; i++){
+                    if(scores[i] != 0){
+                        return false;
+                    }
+                }
+                return true;
+            }
+
             void Refresh(const ScoreArray& left, const ScoreArray& right){
                 //......
             }
@@ -80,7 +92,7 @@ namespace PM{
         int k;
         int scale;
         
-        PlayersManager(int k, int scale): k(k), scale(scale), groups(), all_players_hash(), all_players_by_level(){};
+        PlayersManager(int k, int scale): k(k), scale(scale), groups(k), all_players_hash(), all_players_by_level(){};
         PlayersManager(const PlayersManager&) = delete;
         ~PlayersManager() = default;
         

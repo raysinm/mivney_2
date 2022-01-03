@@ -24,8 +24,11 @@ StatusType MergeGroups(void *DS, int GroupID1, int GroupID2){
     try{
         return ((Manager*)DS)->MergeGroups(GroupID1, GroupID2);
     }
-    catch(PM::Failure& e){
+    catch(PM::Failure& e1){
         return FAILURE;
+    }
+    catch(std::bad_alloc& e2){
+        return ALLOCATION_ERROR;
     }
 }
 
@@ -34,7 +37,15 @@ StatusType AddPlayer(void *DS, int PlayerID, int GroupID, int score){
         PlayerID <= 0 || score <= 0 || score > ((Manager*)DS)->scale){
             return INVALID_INPUT;
         }
-    return ((Manager*)DS)->AddPlayer(PlayerID, GroupID, score);
+    try{
+        return ((Manager*)DS)->AddPlayer(PlayerID, GroupID, score);
+    }
+    catch(PM::Failure& e1){
+        return FAILURE;
+    }
+    catch(std::bad_alloc& e2){
+        return ALLOCATION_ERROR;
+    }
 }
 
 
@@ -42,7 +53,15 @@ StatusType RemovePlayer(void *DS, int PlayerID){
     if(DS==NULL || PlayerID <= 0){
             return INVALID_INPUT;
         }
-    return ((Manager*)DS)->RemovePlayer(PlayerID);
+    try{
+        return ((Manager*)DS)->RemovePlayer(PlayerID);
+    }
+    catch(PM::Failure& e1){
+        return FAILURE;
+    }
+    catch(std::bad_alloc& e2){
+        return ALLOCATION_ERROR;
+    }
 }
 
 StatusType IncreasePlayerIDLevel(void *DS, int PlayerID, int LevelIncrease){

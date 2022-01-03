@@ -22,12 +22,19 @@ namespace UF{
 
         class GroupNode{
             friend class UnionFind;
+<<<<<<< HEAD
             int groupNum;
             Data data; //data holds AVL
             int size; //holds num of groups
             GroupNode* father; //points to father if exists
             public:
                GroupNode(int groupNum, Data data): groupNum(groupNum), data(data), size(1), father(nullptr){};
+=======
+            Data data; //*data holds AVL
+            int size;
+            public:
+               GroupNode(Data data): data(data), size(1){}; //! data(data) could be dangerous- might copy the entire tree in O(n)
+>>>>>>> be78b274d04d50f58b256803280a4044d6a7dac0
 
         };
 
@@ -35,7 +42,11 @@ namespace UF{
         int num_of_groups;
 
         public:
+<<<<<<< HEAD
                UnionFind(int k): num_of_groups(k){
+=======
+            explicit UnionFind(int k): size(k){
+>>>>>>> be78b274d04d50f58b256803280a4044d6a7dac0
                    groups = new int[k+1];
                    for(int i=1; i<=k; i++){
                        Data data_k; //create empty AVL data
