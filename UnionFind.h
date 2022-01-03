@@ -22,17 +22,20 @@ namespace UF{
 
         class GroupNode{
             friend class UnionFind;
+            int groupNum;
             Data data; //data holds AVL
-            int size;
+            int size; //holds num of groups
+            GroupNode* father; //points to father if exists
             public:
-               GroupNode(Data data): data(data), size(1){};
+               GroupNode(int groupNum, Data data): groupNum(groupNum), data(data), size(1), father(nullptr){};
 
         };
 
         GroupNode* groups;
+        int num_of_groups;
 
         public:
-               UnionFind(int k):{
+               UnionFind(int k): num_of_groups(k){
                    groups = new int[k+1];
                    for(int i=1; i<=k; i++){
                        Data data_k; //create empty AVL data
