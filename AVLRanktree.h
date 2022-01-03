@@ -8,18 +8,21 @@
 #include <math.h>
 #include "./course_files/library2.h"
 
+
+//TODO: add a seperate node to hold level 0 player scores. or should it be in PlayersManager?
+
 namespace AVLRank{
     
     template <class KeyElem, class Data, class Rank>
     class AVLTree{
             private:
-
+            
             class TNode{
 
                 friend class AVLTree;
                 KeyElem key;
                 Data data; //* will be num of players in level
-                Rank rank;
+                Rank rank;  // TODO: add GetRank(Key key) function. it returns a reference to the rank in the tree (needed for changing array)
                 int BF; //balance factor
                 int height; 
 
@@ -28,7 +31,7 @@ namespace AVLRank{
                 TNode* right_son; //bigger
 
                 public:
-                // ! should rank be const?
+                // ! should rank be const? ---no, has to be updated constantly
                     TNode(const KeyElem& key, const Data& data, const Rank& rank):
                         key(key), data(data), rank(rank)
                         BF(0), height(0),
@@ -243,6 +246,8 @@ namespace AVLRank{
     
 
     // TODO: we need a new merge because some levels should be the same and we do not want to re-add them
+    // * idea: add a merge method for TNodes in case their key is the same. should be called after the merged array is created.
+    // * (we have the O(n) needed for another run on the array)
     template <class KeyElem, class Data, class Rank>
     void AVLTree<KeyElem,Data,Rank>::AVLMerge(AVLTree<KeyElem,Data,Rank>& other_tree){
         //allocating two arrays for merging
