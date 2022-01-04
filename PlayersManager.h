@@ -76,7 +76,7 @@ namespace PM{
     class ScoreArray{
         friend PlayersManager;
         int* scores;
-        const int size; // ! turn to const? also in PM
+        const int size;
 
         public:
         
