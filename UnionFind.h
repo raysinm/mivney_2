@@ -22,10 +22,11 @@ namespace UF{
 
         class GroupNode{
             friend class UnionFind;
+            int group_num;
             //needs to hold groupNum?
             GroupNode* father; //points to father if exists
             public:
-               GroupNode(): father(nullptr){};
+               GroupNode(int group_num): group_num(group_num), father(nullptr){};
 
         };
 
@@ -47,30 +48,60 @@ namespace UF{
                    groups = new UnionGroup[k+1];
                    for(int i=1; i<=k; i++){
                        groups[i].data(new Data); // ! legit?
-                       group_node_i = new GroupNode();
+                       group_node_i = new GroupNode(i);
                        group_nodes[i] = group_node_i;
                    }
                };
 
             void Union(int group1, int group2);
+            void mergeIntoGroup(UnionGroup* g1, UnionGroup* g2);
             Data& Find(int group);
     };
 
     template<class Data>
     void Union(int group1, int group2){
-        GroupNode g1 = group_nodes[group1];
-        GroupNode g2 = group_nodes[group2];
-       // UnionGroup g1 = groups[group1];
-        //UnionGroup g2 = groups[group2];
+        GroupNode* g1_node = group_nodes[group1];
+        GroupNode* g2_node = group_nodes[group2];
 
-        if(group1.group_size > group2.group_size)
+        while (g1_node->father)
+        {
+            g1_node = g1_node->father;
+        }
+        while (g2_node->father)
+        {
+            g2_node = g1_node->father;
+        }
+
+        if(g1_node.group_num == g2_node.group_num)
+        {
+            return SUCCESS; //TODO: check that case realy is success
+        }
+    
+        UnionGroup* g1 = groups[g1_node.group_num];
+        UnionGroup* g2 = groups[g2_node.group_num];
+
+        if(g1.size > g2.size){
+            mergeIntoGroup(g1,g2);
+        }
+        else{
+            mergeIntoGroup(g2,g1);
+        }
+
+       /* if(group1.group_size > group2.group_size)
         {
             //merge datas
             group1.size += group2.size;
             delete group2;
             //in case more than one place in array points to group, how to change all to point at new group
 
-        }
+        } */
+    }
+
+    template<class Data>
+    void mergeIntoGroup(UnionGroup* g1, UnionGroup* g2)
+    {
+        g1.size += g2.size;
+        //TODO: merge Data func (AVL + level 0)
     }
 
     template<class Data>
@@ -78,8 +109,9 @@ namespace UF{
         GroupNode* node = group_nodes[group];
         while (node->father != nullptr)
         {
-            node = node->father
+            node = node->father;
         }
+        UnionGroup* 
         
 
     }
