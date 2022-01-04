@@ -37,6 +37,7 @@
 
 #Other Files
 *.Identifier
+*.jsbeautifyrc
 
 #cmake files
 *.cmake
