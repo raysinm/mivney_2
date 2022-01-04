@@ -14,14 +14,32 @@ To ADD:
     -Exists(Key key) method, checks if player exists in hashtable
 */
 
-namespace DHash{
-    template <class Key, class Data>
+namespace DH{
+
+    template <class Data>
     class DynamicHashtable{
         
+
+        DA:DynamicArray table;
+
+        int& Rehash(int current_size);
+
         public:
-        void Add(const Key& key, const Data& data){}
-        bool Exists(const Key& key){}
+
+        DynamicHashtable(): table(){};
+        void Add(const int& key, const Data& data){}
+        bool Exists(const int& key){}
+
+        typedef DynamicHashtable<Data> DHash;
     };
+
+    
+    
+    
+
+
+
+
 }
 
 #endif
