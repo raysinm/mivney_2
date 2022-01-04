@@ -53,7 +53,7 @@ namespace UF{
                };
 
             void Union(int group1, int group2);
-            UnionGroup Find(int group);
+            Data& Find(int group);
     };
 
     template<class Data>
@@ -74,7 +74,7 @@ namespace UF{
     }
 
     template<class Data>
-    UnionGroup Find(int group){
+    Data& Find(int group){  //* notice that Find returns reference to group data
         GroupNode* node = group_nodes[group];
         while (node->father != nullptr)
         {

@@ -87,6 +87,7 @@ namespace AVLRank{
             
             TNode* root;
             int tree_size;
+            Key min_key;
 
             void AVLBalance(TNode*);
             void AVLRotate_LL(TNode*);
@@ -117,6 +118,8 @@ namespace AVLRank{
 
             
             AVLTree(): root(nullptr), tree_size(0){};
+            AVLTree(Key min): root(nullptr), tree_size(0), min_key(min){};
+            
             AVLTree(const AVLTree& other): AVLTree(){
                 if(other.tree_size != 0) return;
                 this->root = other.root;

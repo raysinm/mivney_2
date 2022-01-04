@@ -16,58 +16,15 @@ namespace PM{
 
     class Failure : std::exception{};
 
+    typedef enum{
+        PLAYER_ADD, PLAYER_REMOVE
+    }PlayerAction;
+
+    
+
     class PlayersManager{
         
         int players_num; 
-
-        class ScoreArray{
-            friend PlayersManager;
-            int* scores;
-            const int size; // ! turn to const? also in PM
-
-            public:
-            
-            explicit ScoreArray(const int scale):size(scale+1){
-                scores = new int[size]; // ! initialized to all zeros? ----added this
-                for(int i = 0; i < size; i++){  // * still O(1)
-                    scores[i] = 0;
-                }
-                // * added +1 so we can refer to the level by level num and not level-1 ---NICE!
-            }
-
-            void operator+=(const ScoreArray& other){  
-                        for(int i=1; i < size; i++)
-                        {
-                            scores[i] += other.scores[i];
-                        }
-                    };
-            
-            void operator-=(const ScoreArray& other){  
-                        for(int i=1; i < size; i++)
-                        {
-                            scores[i] -= other.scores[i];
-                        }
-                    };
-            
-            general operator (int score){
-                //change array[score]
-            }
-
-            bool IsEmpty(){
-                for(int i = 1; i < size; i++){
-                    if(scores[i] != 0){
-                        return false;
-                    }
-                }
-                return true;
-            }
-
-            void Refresh(const ScoreArray& left, const ScoreArray& right){
-                //......
-            }
-            
-            //USE: RankTree<int, int, ScoreArray> (the third parameter is the rank)
-        };
 
         class GroupData{
             friend PlayersManager;
@@ -91,6 +48,8 @@ namespace PM{
         HashTable all_players_hash;
         RankTree all_players_by_level;
 
+        friend void modifyRankTreesByPlayerScores(RankTree& tree, int level, int score, int scale, const PlayerAction& action);
+
         public:
 
         int k;
@@ -112,6 +71,51 @@ namespace PM{
                                     int * LowerBoundPlayers, int * HigherBoundPlayers);
 
 
+    };
+
+    class ScoreArray{
+        friend PlayersManager;
+        int* scores;
+        const int size; // ! turn to const? also in PM
+
+        public:
+        
+        explicit ScoreArray(const int scale):size(scale+1){
+            scores = new int[size]; // ! initialized to all zeros? ----added this
+            for(int i = 0; i < size; i++){  // * still O(1)
+                scores[i] = 0;
+            }
+            // * added +1 so we can refer to the level by level num and not level-1 ---NICE!
+        }
+
+        ~ScoreArray(){
+            delete[] scores;
+        }
+
+        void operator+=(const ScoreArray& other){  
+            for(int i=1; i < size; i++){
+                scores[i] += other.scores[i];
+            }
+        }
+        
+        void operator-=(const ScoreArray& other){  
+            for(int i=1; i < size; i++){
+                scores[i] -= other.scores[i];
+            }
+        }
+        
+        int& operator[](int index){
+            return scores[index];
+        }
+
+        bool operator!(){
+            for(int i = 1; i< size; i++){
+                if (scores[i]!= 0){
+                    return false;
+                }
+            }
+            return true;
+        }
     };
 
 }
