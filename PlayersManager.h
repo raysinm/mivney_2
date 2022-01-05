@@ -1,16 +1,19 @@
-#ifndef _PLAYERS_MANAGER_H
-#define _PLAYERS_MANAGER_H
-
 #include "./AVLRanktree.h"
 #include "./DynamicHashtable.h"
 #include "./UnionFind.h"
 #include "./course_files/library2.h"
 
+#ifndef _PLAYERS_MANAGER_H
+#define _PLAYERS_MANAGER_H
+
+
+
+
+namespace PM {
+
 //TODO: need to change int* to ScoreArray - doesnt recognize
 typedef AVLRank::AVLTree<int, int, int *> RankTree;  //HAVE TO THINK: do we add rank to AVLTree? (Key, Data, Rank)
                                                      //do we keep array of scores in rank or in data?
-
-namespace PM {
 
 class Failure : std::exception {};
 
