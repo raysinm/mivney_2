@@ -1,12 +1,11 @@
+#ifndef _UNION_FIND_H
+#define _UNION_FIND_H
 
 #include <math.h>
 
 #include <cassert>
 #include <iostream>
 #include <memory>
-
-#ifndef _UNION_FIND_H
-#define _UNION_FIND_H
 
 /*
 TO DO:
@@ -27,7 +26,7 @@ class UnionFind {
         //needs to hold groupNum?
         GroupNode* father;  //points to father if exists
        public:
-        GroupNode(int group_num) : group_num(group_num), father(nullptr) {}
+        GroupNode(int group_num) : group_num(group_num), father(nullptr) {};
     };
 
     class UnionGroup {
@@ -35,7 +34,7 @@ class UnionFind {
         Data data;  //data holds GroupData with AVL
         int size;   //holds num of groups
        public:
-        UnionGroup(Data data) : data(data), size(1) {}
+        UnionGroup(Data data) : data(data), size(1) {};
     };
 
     GroupNode* group_nodes;
@@ -51,7 +50,7 @@ class UnionFind {
             GroupNode group_node_i = new GroupNode(i);
             group_nodes[i] = group_node_i;
         }
-    }
+    };
 
     void Union(int group1, int group2);
     void mergeIntoGroup(UnionGroup* g1, UnionGroup* g2);

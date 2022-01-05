@@ -21,7 +21,7 @@ class AVLTree {
         friend class AVLTree;
         KeyElem key;
         Data data;  //* will be num of players in level
-        Rank rank;  // TODO: add GetRank(Key key) function. it returns a reference to the rank in the tree (needed for changing array)
+        Rank rank;  // ! added AVLGetRank
         int BF;     //balance factor
         int height;
 
@@ -102,7 +102,7 @@ class AVLTree {
 
     TNode *ArrayToAVLTree(TNode **array, int start, int end, TNode *father);
     void InOrderOutputTNodes_rec(TNode *node, TNode **arr, int &arr_index, const int arr_size);
-    void MergeArray(AVLTree<KeyElem, Data, Rank>::TNode **arr1, const int arr1_size,
+    int MergeArray(AVLTree<KeyElem, Data, Rank>::TNode **arr1, const int arr1_size,
                     AVLTree<KeyElem, Data, Rank>::TNode **arr2, const int arr2_size,
                     AVLTree<KeyElem, Data, Rank>::TNode **merged_arr);
     TNode *AVLGetFirst() const;
@@ -180,9 +180,13 @@ class AVLTree {
 
     bool AVLExist(const KeyElem &) const;
     void AVLInsert(const KeyElem &, const Data &, const Rank &rank);
+    void AVLTree<KeyElem, Data, Rank>::AVLAddToFathersRank(TNode *node, Rank rank);
     void AVLRemove(const KeyElem &);
     void AVLMerge(AVLTree<KeyElem, Data, Rank> &other_tree);
+    void AVLTree<KeyElem, Data, Rank>::IgnoreSonsRank(TNode *node);
+    void AVLTree<KeyElem, Data, Rank>::AddSonsRank(TNode *node);
     Data &AVLGet(const KeyElem &key) const;
+    Data &AVLGetRank(const KeyElem &key) const;
     int size() const;
     KeyElem &AVLMin() const;
 
@@ -198,7 +202,7 @@ bool AVLTree<KeyElem, Data, Rank>::AVLExist(const KeyElem &key_to_find) const {
 }
 
 // ! should rank be const?
-//TODO: update father rank and kids if needed
+//TODO: update father rank in case of balance
 template <class KeyElem, class Data, class Rank>
 void AVLTree<KeyElem, Data, Rank>::AVLInsert(const KeyElem &key, const Data &data, const Rank &rank) {
     try {
@@ -220,11 +224,21 @@ void AVLTree<KeyElem, Data, Rank>::AVLInsert(const KeyElem &key, const Data &dat
         }
 
         insert_node->father = insert_after_node;
+        AVLAddToFathersRank(insert_after_node);
         AVLBalance(insert_node->father);
         tree_size++;
     } catch (std::bad_alloc &e) {
         throw(e);
     }
+}
+
+template <class KeyElem, class Data, class Rank>
+void AVLTree<KeyElem, Data, Rank>::AVLAddToFathersRank(TNode *node, Rank rank) {
+    if(!node){
+        return;
+    }
+    node->rank += rank;
+    AVLAddToFathersRank(node->father);
 }
 
 // TODO: update father rank
@@ -234,9 +248,7 @@ void AVLTree<KeyElem, Data, Rank>::AVLRemove(const KeyElem &key) {
     tree_size--;
 }
 
-// TODO: we need a new merge because some levels should be the same and we do not want to re-add them
-// * idea: add a merge method for TNodes in case their key is the same. should be called after the merged array is created.
-// * (we have the O(n) needed for another run on the array)
+// done
 template <class KeyElem, class Data, class Rank>
 void AVLTree<KeyElem, Data, Rank>::AVLMerge(AVLTree<KeyElem, Data, Rank> &other_tree) {
     //allocating two arrays for merging
@@ -250,15 +262,20 @@ void AVLTree<KeyElem, Data, Rank>::AVLMerge(AVLTree<KeyElem, Data, Rank> &other_
 
         int i1 = 0, i2 = 0;
 
+        IgnoreSonsRank(root);
+        IgnoreSonsRank(other_tree.root);
+
         InOrderOutputTNodes_rec(this->root, tree1_arr, i1, this->tree_size);
         InOrderOutputTNodes_rec(other_tree.root, other_tree_arr, i2, other_tree.tree_size);
 
         this->root = nullptr;
         other_tree.root = nullptr;
-        MergeArray(tree1_arr, this->tree_size, other_tree_arr, other_tree.tree_size, merged_arr);
+        int merged_tree_size = MergeArray(tree1_arr, this->tree_size, other_tree_arr, other_tree.tree_size, merged_arr);
 
-        this->root = this->ArrayToAVLTree(merged_arr, 0, (this->tree_size + other_tree.tree_size - 1), nullptr);
-        this->tree_size += other_tree.tree_size;
+        this->root = this->ArrayToAVLTree(merged_arr, 0, merged_tree_size, nullptr);
+        this->tree_size = merged_tree_size;
+
+        AddSonsRank(root);
 
         delete[] tree1_arr;
         delete[] other_tree_arr;
@@ -277,6 +294,11 @@ void AVLTree<KeyElem, Data, Rank>::AVLMerge(AVLTree<KeyElem, Data, Rank> &other_
 template <class KeyElem, class Data, class Rank>
 Data &AVLTree<KeyElem, Data, Rank>::AVLGet(const KeyElem &key) const {
     return AVLFind(key)->data;
+}
+
+template <class KeyElem, class Data, class Rank>
+Data &AVLTree<KeyElem, Data, Rank>::AVLGetRank(const KeyElem &key) const {
+    return AVLFind(key)->rank;
 }
 
 template <class KeyElem, class Data, class Rank>
@@ -619,7 +641,87 @@ void AVLTree<KeyElem, Data, Rank>::InOrderOutputTNodes_rec(TNode *node, TNode **
     node = nullptr;
 }
 
-Normalize 
+template <class KeyElem, class Data, class Rank>
+void AVLTree<KeyElem, Data, Rank>::IgnoreSonsRank(TNode *node){
+    if(!node)
+    {
+        return;
+    }
+    IgnoreSonsRank(node->right_son);
+    IgnoreSonsRank(node->left_son);
+    if(node->right_son){
+        node->rank += node->right_son->rank;
+    }
+    if(node->left_son){
+        node->rank += node->left_son->rank;
+    }
+} 
+
+template <class KeyElem, class Data, class Rank>
+void AVLTree<KeyElem, Data, Rank>::AddSonsRank(TNode *node){
+    if(!node)
+    {
+        return;
+    }
+    AddSonsRank(node->right_son);
+    AddSonsRank(node->left_son);
+    if(node->right_son){
+        node->rank += node->right_son->rank;
+    }
+    if(node->left_son){
+        node->rank += node->left_son->rank;
+    }
+} 
+
+
+//changed to return merged size array and treat case of ame level in both trees
+template <class KeyElem, class Data, class Rank>
+int AVLTree<KeyElem, Data, Rank>::MergeArray(typename AVLTree<KeyElem, Data, Rank>::TNode **arr1, const int arr1_size,
+                                              typename AVLTree<KeyElem, Data, Rank>::TNode **arr2, const int arr2_size, typename AVLTree<KeyElem, Data, Rank>::TNode **merged_arr) {
+    int index = 0;
+    int index1 = 0;
+    int index2 = 0;
+    while ((index1 < arr1_size) && (index2 < arr2_size)) {
+        if(arr1[index1]->key == arr2[index2]->key){
+            merged_arr[index] = arr1[index1];
+            merged_arr[index]->rank += arr2[index2]->rank;
+            index1++;
+            index2++;
+        }
+        if (arr1[index1]->key < arr2[index2]->key) {
+            merged_arr[index] = arr1[index1];
+            index1++;
+        } else {
+            merged_arr[index] = arr2[index2];
+            index2++;
+        }
+        //std::cout << merged_arr[index]->key << std::endl;
+        index++;
+
+        //did not include arr1[index1] == arr2[index2] because not possible
+    }
+    if (index1 < arr1_size) {
+        while (index1 < arr1_size) {
+            merged_arr[index] = arr1[index1];
+            index1++;
+            index++;
+        }
+    }
+    if (index2 < arr2_size) {
+        while (index2 < arr2_size) {
+            merged_arr[index] = arr2[index2];
+            index2++;
+            index++;
+        }
+    }
+    return index;
+}
+
+
+
+/*
+
+! old version of MergeArray
 
 template <class KeyElem, class Data, class Rank>
 void AVLTree<KeyElem, Data, Rank>::MergeArray(typename AVLTree<KeyElem, Data, Rank>::TNode **arr1, const int arr1_size,
@@ -654,7 +756,7 @@ void AVLTree<KeyElem, Data, Rank>::MergeArray(typename AVLTree<KeyElem, Data, Ra
             index++;
         }
     }
-}
+}*/
 
 template <class KeyElem, class Data, class Rank>
 typename AVLTree<KeyElem, Data, Rank>::TNode *AVLTree<KeyElem, Data, Rank>::AVLGetFirst() const {
