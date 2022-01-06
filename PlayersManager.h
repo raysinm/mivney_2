@@ -12,7 +12,9 @@ class Failure : std::exception {};
 
 typedef enum {
     PLAYER_ADD,
-    PLAYER_REMOVE
+    PLAYER_REMOVE,
+    LEVEL_ADD1,
+    LEVEL_SUB1
 } PlayerAction;
 
 class ScoreArray {
@@ -62,12 +64,17 @@ class PlayersManager {
 
     class GroupData {
         friend PlayersManager;
-        int group_id,
-            group_size;  //num of players, because *unionfind group size* is not relevant in PlayersManager
+        //int group_id,
+        int group_size;  //num of players, because *unionfind group size* is not relevant in PlayersManager
         RankTree group_levels;
 
        public:
-        GroupData() : group_id(0), group_size(0), group_levels() {}
+        GroupData() : group_size(0), group_levels() {}
+
+        void operator+=(GroupData &other) { //operator for mergining groups
+            group_size += other.group_size;
+            group_levels.AVLMerge(other.group_levels);    
+        } 
     };
 
     class PlayerData {
@@ -86,7 +93,7 @@ class PlayersManager {
     RankTree all_players_by_level;
 
     friend void modifyRankTreesByPlayerScores(RankTree *tree, int level, int score, int scale, const PlayerAction &action);
-
+    friend void modifyRankTreesLevels(RankTree *tree, int level, const PlayerAction &action);
    public:
     int k;
     int scale;

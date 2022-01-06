@@ -81,6 +81,27 @@ class AVLTree {
                 next_node = next_node->father;
             }
         }
+        TNode *prevInOrder() {  //!did exactly like nextInOrder but changed all right to left (and viceversa)
+            TNode *next_node = this;
+            if (next_node->left_son) {
+                next_node = next_node->left_son;
+                while (next_node->right_son) {
+                    next_node = next_node->right_son;
+                }
+                return next_node;
+            }
+            while (1) {
+                if (next_node->father == nullptr) {
+                    next_node = nullptr;
+                    return next_node;
+                }
+                if (next_node->isRightSon()) {
+                    next_node = next_node->father;
+                    return next_node;
+                }
+                next_node = next_node->father;
+            }
+        }
     };
 
     TNode *root;
@@ -103,12 +124,17 @@ class AVLTree {
     TNode *ArrayToAVLTree(TNode **array, int start, int end, TNode *father);
     void InOrderOutputTNodes_rec(TNode *node, TNode **arr, int &arr_index, const int arr_size);
     int MergeArray(AVLTree<KeyElem, Data, Rank>::TNode **arr1, const int arr1_size,
-                    AVLTree<KeyElem, Data, Rank>::TNode **arr2, const int arr2_size,
-                    AVLTree<KeyElem, Data, Rank>::TNode **merged_arr);
+                   AVLTree<KeyElem, Data, Rank>::TNode **arr2, const int arr2_size,
+                   AVLTree<KeyElem, Data, Rank>::TNode **merged_arr);
     TNode *AVLGetFirst() const;
+    TNode *AVLGetLast() const;
     void printTree_rec(const std::string &prefix, const TNode *node, bool isLeft);
     void printTreeData_rec(const std::string &prefix, const TNode *node, bool isLeft);
     void AVLDestroy_rec(TNode *) const;
+    void AVLAddToFathersRank(TNode *node, Rank rank);
+    void AVLRemoveFromFathersRank(TNode *node, Rank rank);
+    void IgnoreSonsRank(TNode *node);
+    void AddSonsRank(TNode *node);
 
    public:
     AVLTree() : root(nullptr), tree_size(0){};
@@ -164,30 +190,63 @@ class AVLTree {
         }
     };
 
-    Iterator begin() {
+    class ReverseIterator {
+        TNode *current_node;
+
+       public:
+        ReverseIterator(TNode *t) : current_node(t){};
+        Data &operator*() {
+            return current_node->data;
+        }
+        ReverseIterator &operator++() {
+            current_node = current_node->prevInOrder();
+            return *this;
+        }
+        friend bool operator==(ReverseIterator &it1, ReverseIterator &it2) {
+            return it1.current_node == it2.current_node;
+        }
+        friend bool operator!=(ReverseIterator &it1, ReverseIterator &it2) {
+            return !(it1 == it2);
+        }
+        KeyElem &IKey() {
+            return current_node->key;
+        }
+        Data &IData() {
+            return current_node->data;
+        }
+        Rank &IRank() {
+            return current_node->rank;
+        }
+    };
+
+    Iterator& begin() {
         return Iterator(AVLGetFirst());
     }
-    Iterator end() {
+    Iterator& end() {
         return Iterator(nullptr);
     }
 
-    ConstIterator begin() const {
+    ConstIterator& begin() const {
         return ConstIterator(AVLGetFirst());
     }
-    ConstIterator end() const {
+    ConstIterator& end() const {
         return ConstIterator(nullptr);
+    }
+
+    ReverseIterator& rbegin() {
+        return ReverseIterator(AVLGetLast());
+    }
+    ReverseIterator& rend() {
+        return ReverseIterator(nullptr);
     }
 
     bool AVLExist(const KeyElem &) const;
     void AVLInsert(const KeyElem &, const Data &, const Rank &rank);
-    void AVLAddToFathersRank(TNode *node, Rank rank);
-    void AVLRemoveFromFathersRank(TNode *node, Rank rank);
     void AVLRemove(const KeyElem &);
     void AVLMerge(AVLTree<KeyElem, Data, Rank> &other_tree);
-    void IgnoreSonsRank(TNode *node);
-    void AddSonsRank(TNode *node);
     Data &AVLGet(const KeyElem &key) const;
-    Data &AVLGetRank(const KeyElem &key) const;
+    Rank &AVLGetRank(const KeyElem &key) const;
+    void updateRank(const KeyElem &key, const Rank &rank);
     int size() const;
     KeyElem &AVLMin() const;
 
@@ -234,22 +293,21 @@ void AVLTree<KeyElem, Data, Rank>::AVLInsert(const KeyElem &key, const Data &dat
 
 template <class KeyElem, class Data, class Rank>
 void AVLTree<KeyElem, Data, Rank>::AVLAddToFathersRank(TNode *node, Rank rank) {
-    if(!node){
+    if (!node) {
         return;
     }
     node->rank += rank;
-    AVLAddToFathersRank(node->father);
+    AVLAddToFathersRank(node->father, rank);
 }
 
 template <class KeyElem, class Data, class Rank>
 void AVLTree<KeyElem, Data, Rank>::AVLRemoveFromFathersRank(TNode *node, Rank rank) {
-    if(!node){
+    if (!node) {
         return;
     }
     node->rank -= rank;
-    AVLAddToFathersRank(node->father);
+    AVLAddToFathersRank(node->father, rank);
 }
-
 
 template <class KeyElem, class Data, class Rank>
 void AVLTree<KeyElem, Data, Rank>::AVLRemove(const KeyElem &key) {
@@ -257,9 +315,16 @@ void AVLTree<KeyElem, Data, Rank>::AVLRemove(const KeyElem &key) {
     tree_size--;
 }
 
+template <class KeyElem, class Data, class Rank>
+void AVLTree<KeyElem, Data, Rank>::updateRank(const KeyElem &key, const Rank &rank) {
+    TNode *node = AVLFind(key);
+    node->rank += rank;
+    AVLAddToFathersRank(node->father, rank);
+}
+
 // done
 template <class KeyElem, class Data, class Rank>
-void AVLTree<KeyElem, Data, Rank>::AVLMerge(AVLTree<KeyElem, Data, Rank> &other_tree) {
+void AVLMerge(AVLTree<KeyElem, Data, Rank> &other_tree) {
     //allocating two arrays for merging
     TNode **tree1_arr;
     TNode **other_tree_arr;
@@ -306,7 +371,7 @@ Data &AVLTree<KeyElem, Data, Rank>::AVLGet(const KeyElem &key) const {
 }
 
 template <class KeyElem, class Data, class Rank>
-Data &AVLTree<KeyElem, Data, Rank>::AVLGetRank(const KeyElem &key) const {
+Rank &AVLTree<KeyElem, Data, Rank>::AVLGetRank(const KeyElem &key) const {
     return AVLFind(key)->rank;
 }
 
@@ -343,7 +408,6 @@ void AVLTree<KeyElem, Data, Rank>::printTreeData() {
 }
 
 //___________***___PRIVATE FUNCTIONS IMPLEMENTATION___***___________//
-
 
 template <class KeyElem, class Data, class Rank>
 void AVLTree<KeyElem, Data, Rank>::AVLBalance(TNode *start) {
@@ -393,15 +457,14 @@ void AVLTree<KeyElem, Data, Rank>::AVLRotate_LL(TNode *node_uneven) {
 
     left_son->father = node_uneven->father;
     left_son->right_son = node_uneven;
-    if (temp_left_right_son)
-    {
+    if (temp_left_right_son) {
         left_son->rank -= temp_left_right_son->rank;
         node_uneven->rank += temp_left_right_son->rank;
 
         temp_left_right_son->father = node_uneven;
     }
 
-    left_son->rank += node_uneven->rank; 
+    left_son->rank += node_uneven->rank;
 
     node_uneven->left_son = temp_left_right_son;
     node_uneven->father = left_son;
@@ -424,18 +487,17 @@ void AVLTree<KeyElem, Data, Rank>::AVLRotate_RR(TNode *node_uneven) {
     TNode *right_son = node_uneven->right_son;
 
     node_uneven->rank -= right_son->rank;
-    
+
     right_son->father = node_uneven->father;
     right_son->left_son = node_uneven;
-    if (temp_right_left_son)
-    {
+    if (temp_right_left_son) {
         right_son->rank -= temp_right_left_son->rank;
         node_uneven->rank += temp_right_left_son->rank;
 
         temp_right_left_son->father = node_uneven;
     }
 
-    right_son->rank += node_uneven->rank; 
+    right_son->rank += node_uneven->rank;
 
     node_uneven->right_son = temp_right_left_son;
     node_uneven->father = right_son;
@@ -536,10 +598,10 @@ void AVLTree<KeyElem, Data, Rank>::AVLRemove_rec(TNode *node, const KeyElem &key
             if (node == this->root) {
                 this->root = nullptr;
             } else if (node->isLeftSon()) {
-                AVLRemoveFromFathersRank(node->father,node->rank);
-                node->father->left_son = nullptr; 
+                AVLRemoveFromFathersRank(node->father, node->rank);
+                node->father->left_son = nullptr;
             } else if (node->isRightSon()) {
-                AVLRemoveFromFathersRank(node->father,node->rank);
+                AVLRemoveFromFathersRank(node->father, node->rank);
                 node->father->right_son = nullptr;
             }
             AVLBalance(temp_father);
@@ -553,12 +615,12 @@ void AVLTree<KeyElem, Data, Rank>::AVLRemove_rec(TNode *node, const KeyElem &key
                 this->root = node_son;
             } else if (node->isLeftSon()) {
                 node->rank -= node_son->rank;
-                AVLRemoveFromFathersRank(node->father,node->rank);
+                AVLRemoveFromFathersRank(node->father, node->rank);
 
                 node->father->left_son = node_son;
             } else if (node->isRightSon()) {
                 node->rank -= node_son->rank;
-                AVLRemoveFromFathersRank(node->father,node->rank);
+                AVLRemoveFromFathersRank(node->father, node->rank);
 
                 node->father->right_son = node_son;
             }
@@ -568,12 +630,11 @@ void AVLTree<KeyElem, Data, Rank>::AVLRemove_rec(TNode *node, const KeyElem &key
             return;
         } else if (node->leftSonExists() && node->rightSonExists()) {  //Has TWO sons
             // ! update rank in replacer case
-            auto replacer = findReplacingNode(node);                   //replacer is the biggest node that is smaller than our node
+            auto replacer = findReplacingNode(node);  //replacer is the biggest node that is smaller than our node
 
             node->rank -= node->right_son->rank;
             node->rank -= node->left_son->rank;
-            if(replacer->left_son)
-            {
+            if (replacer->left_son) {
                 node->rank += replacer->left_son->rank;
                 replacer->rank -= replacer->left_son_rank;
             }
@@ -620,10 +681,10 @@ void AVLTree<KeyElem, Data, Rank>::AVLRemove_rec(TNode *node, const KeyElem &key
             if (!node->leftSonExists() && !node->rightSonExists()) {  //This is a leaf
 
                 if (node->father == replacer) {
-                    AVLRemoveFromFathersRank(node->father,node->rank);
+                    AVLRemoveFromFathersRank(node->father, node->rank);
                     node->father->left_son = nullptr;
                 } else {
-                    AVLRemoveFromFathersRank(node->father,node->rank);
+                    AVLRemoveFromFathersRank(node->father, node->rank);
                     node->father->right_son = nullptr;
                 }
                 AVLBalance(node->father);
@@ -637,13 +698,13 @@ void AVLTree<KeyElem, Data, Rank>::AVLRemove_rec(TNode *node, const KeyElem &key
 
                 if (node->father == replacer) {
                     node->rank -= node_son->rank;
-                    AVLRemoveFromFathersRank(node->father,node->rank);
+                    AVLRemoveFromFathersRank(node->father, node->rank);
 
                     node->father->left_son = node_son;
                 } else {
                     node->rank -= node_son->rank;
-                    AVLRemoveFromFathersRank(node->father,node->rank);
-                    
+                    AVLRemoveFromFathersRank(node->father, node->rank);
+
                     node->father->right_son = node_son;
                 }
                 node_son->father = node->father;
@@ -700,47 +761,44 @@ void AVLTree<KeyElem, Data, Rank>::InOrderOutputTNodes_rec(TNode *node, TNode **
 }
 
 template <class KeyElem, class Data, class Rank>
-void AVLTree<KeyElem, Data, Rank>::IgnoreSonsRank(TNode *node){
-    if(!node)
-    {
+void AVLTree<KeyElem, Data, Rank>::IgnoreSonsRank(TNode *node) {
+    if (!node) {
         return;
     }
     IgnoreSonsRank(node->right_son);
     IgnoreSonsRank(node->left_son);
-    if(node->right_son){
+    if (node->right_son) {
         node->rank += node->right_son->rank;
     }
-    if(node->left_son){
+    if (node->left_son) {
         node->rank += node->left_son->rank;
     }
-} 
+}
 
 template <class KeyElem, class Data, class Rank>
-void AVLTree<KeyElem, Data, Rank>::AddSonsRank(TNode *node){
-    if(!node)
-    {
+void AVLTree<KeyElem, Data, Rank>::AddSonsRank(TNode *node) {
+    if (!node) {
         return;
     }
     AddSonsRank(node->right_son);
     AddSonsRank(node->left_son);
-    if(node->right_son){
+    if (node->right_son) {
         node->rank += node->right_son->rank;
     }
-    if(node->left_son){
+    if (node->left_son) {
         node->rank += node->left_son->rank;
     }
-} 
-
+}
 
 //changed to return merged size array and treat case of ame level in both trees
 template <class KeyElem, class Data, class Rank>
 int AVLTree<KeyElem, Data, Rank>::MergeArray(typename AVLTree<KeyElem, Data, Rank>::TNode **arr1, const int arr1_size,
-                                              typename AVLTree<KeyElem, Data, Rank>::TNode **arr2, const int arr2_size, typename AVLTree<KeyElem, Data, Rank>::TNode **merged_arr) {
+                                             typename AVLTree<KeyElem, Data, Rank>::TNode **arr2, const int arr2_size, typename AVLTree<KeyElem, Data, Rank>::TNode **merged_arr) {
     int index = 0;
     int index1 = 0;
     int index2 = 0;
     while ((index1 < arr1_size) && (index2 < arr2_size)) {
-        if(arr1[index1]->key == arr2[index2]->key){
+        if (arr1[index1]->key == arr2[index2]->key) {
             merged_arr[index] = arr1[index1];
             merged_arr[index]->rank += arr2[index2]->rank;
             index1++;
@@ -774,8 +832,6 @@ int AVLTree<KeyElem, Data, Rank>::MergeArray(typename AVLTree<KeyElem, Data, Ran
     }
     return index;
 }
-
-
 
 /*
 
@@ -823,6 +879,17 @@ typename AVLTree<KeyElem, Data, Rank>::TNode *AVLTree<KeyElem, Data, Rank>::AVLG
     auto *node = this->root;  //added *
     while (node->left_son) {
         node = node->left_son;
+    }
+    return node;
+}
+
+template <class KeyElem, class Data, class Rank>
+typename AVLTree<KeyElem, Data, Rank>::TNode *AVLTree<KeyElem, Data, Rank>::AVLGetLast() const {
+    if (!this->root)
+        return nullptr;
+    auto *node = this->root;  //added *
+    while (node->right_son) {
+        node = node->right_son;
     }
     return node;
 }

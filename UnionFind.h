@@ -23,7 +23,6 @@ class UnionFind {
     class GroupNode {
         friend class UnionFind;
         int group_num;
-        //needs to hold groupNum?
         GroupNode* father;  //points to father if exists
        public:
         GroupNode(int group_num) : group_num(group_num), father(nullptr){};
@@ -40,6 +39,8 @@ class UnionFind {
     GroupNode* group_nodes;
     UnionGroup* groups;
     int num_of_groups;
+    void mergeIntoGroup(UnionGroup* g1, UnionGroup* g2);
+    
 
    public:
     UnionFind(int k) : num_of_groups(k) {
@@ -51,9 +52,7 @@ class UnionFind {
             group_nodes[i] = group_node_i;
         }
     };
-
     void Union(int group1, int group2);
-    void mergeIntoGroup(UnionGroup* g1, UnionGroup* g2);
     Data& Find(int group);
 };
 
@@ -70,7 +69,7 @@ void UnionFind<Data>::Union(int group1, int group2) {
     }
 
     if (g1_node.group_num == g2_node.group_num) {
-        return SUCCESS;  //TODO: check that case realy is success
+        return SUCCESS;
     }
 
     UnionGroup* g1 = groups[g1_node.group_num];
@@ -95,6 +94,7 @@ void UnionFind<Data>::Union(int group1, int group2) {
 template <class Data>
 void UnionFind<Data>::mergeIntoGroup(UnionGroup* g1, UnionGroup* g2) {
     g1.size += g2.size;
+    g1.data += g2.data;
     //TODO: merge Data func (AVL + level 0)
 }
 
