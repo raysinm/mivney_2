@@ -26,7 +26,7 @@ class UnionFind {
         //needs to hold groupNum?
         GroupNode* father;  //points to father if exists
        public:
-        GroupNode(int group_num) : group_num(group_num), father(nullptr) {};
+        GroupNode(int group_num) : group_num(group_num), father(nullptr){};
     };
 
     class UnionGroup {
@@ -34,7 +34,7 @@ class UnionFind {
         Data data;  //data holds GroupData with AVL
         int size;   //holds num of groups
        public:
-        UnionGroup(Data data) : data(data), size(1) {};
+        UnionGroup(Data data) : data(data), size(1){};
     };
 
     GroupNode* group_nodes;
@@ -58,7 +58,7 @@ class UnionFind {
 };
 
 template <class Data>
-void Union(int group1, int group2) {
+void UnionFind<Data>::Union(int group1, int group2) {
     GroupNode* g1_node = group_nodes[group1];
     GroupNode* g2_node = group_nodes[group2];
 
@@ -93,13 +93,13 @@ void Union(int group1, int group2) {
 }
 
 template <class Data>
-void mergeIntoGroup(UnionGroup* g1, UnionGroup* g2) {
+void UnionFind<Data>::mergeIntoGroup(UnionGroup* g1, UnionGroup* g2) {
     g1.size += g2.size;
     //TODO: merge Data func (AVL + level 0)
 }
 
 template <class Data>
-Data& Find(int group) {  //* notice that Find returns reference to group data
+Data& UnionFind<Data>::Find(int group) {  //* notice that Find returns reference to group data
     GroupNode* node = group_nodes[group];
     while (node->father != nullptr) {
         node = node->father;

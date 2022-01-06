@@ -112,7 +112,7 @@ class AVLTree {
 
    public:
     AVLTree() : root(nullptr), tree_size(0){};
-    AVLTree(Key min) : root(nullptr), tree_size(0), min_key(min){};
+    AVLTree(KeyElem min) : root(nullptr), tree_size(0), min_key(min){};
 
     AVLTree(const AVLTree &other) : AVLTree() {
         if (other.tree_size != 0)

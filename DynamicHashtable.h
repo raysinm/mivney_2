@@ -1,6 +1,5 @@
 #include <math.h>
 
-#include <cassert>
 #include <iostream>
 #include <memory>
 
@@ -19,31 +18,15 @@ class DynamicHashtable {
        public:
         Cell(const int& key, const Data& data) : key(key), data(data), next(nullptr){};
 
-    }
+    };
 
     Cell** table;
     int used_size;
     int capacity;  //we want to keep: used_size = O(capacity)
 
-   public:
-    DynamicHashtable() : used_size(0), capacity(10) {
-        table = new Cell* [10] { nullptr };
-    }
-    explicit DynamicHashtable(int cap) : used_size(0), capacity(cap) {
-        table = new Cell* [cap] { nullptr };
-    }
-
-    DynamicHashtable& DynamicHashtable(const DynamicHashtable& other) = delete;
-
-    ~DynamicHashtable() {
-        delete[] table;
-    }
-
-    int& Hash(int key) {
-        return (key)mod(capacity);
-    }
-
+    //PRIVATE METHODS
     void Rehash() {
+        try{
         int old_cap = capacity;
         capacity *= 2;
 
@@ -63,6 +46,38 @@ class DynamicHashtable {
         }
 
         delete[] old_table;
+        }
+        catch(std::bad_alloc &e){
+            throw e;
+        }
+    }
+
+   public:
+    DynamicHashtable() : used_size(0), capacity(10) {
+        try{
+            table = new Cell* [10] { nullptr };
+        }
+        catch(std::bad_alloc &e){
+            throw e;
+        }
+    }
+    explicit DynamicHashtable(int cap) : used_size(0), capacity(cap) {
+        try{
+            table = new Cell* [cap] { nullptr };
+        }
+        catch(std::bad_alloc &e){
+            throw e;
+        }
+    }
+
+    DynamicHashtable& DynamicHashtable(const DynamicHashtable& other) = delete;
+
+    ~DynamicHashtable() {
+        delete[] table;
+    }
+
+    int& Hash(int key) {
+        return (key)mod(capacity);
     }
 
     void Insert(int key, Data data) {
@@ -131,7 +146,7 @@ class DynamicHashtable {
     bool Exists(int key) {
         return (Find(key != nullptr));
     }
-}
+};
 
 }  // namespace DH
 
