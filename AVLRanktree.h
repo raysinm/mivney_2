@@ -85,7 +85,7 @@ class AVLTree {
 
     TNode *root;
     int tree_size;
-    Key min_key;
+    KeyElem min_key;
 
     void AVLBalance(TNode *);
     void AVLRotate_LL(TNode *);
@@ -180,11 +180,12 @@ class AVLTree {
 
     bool AVLExist(const KeyElem &) const;
     void AVLInsert(const KeyElem &, const Data &, const Rank &rank);
-    void AVLTree<KeyElem, Data, Rank>::AVLAddToFathersRank(TNode *node, Rank rank);
+    void AVLAddToFathersRank(TNode *node, Rank rank);
+    void AVLRemoveFromFathersRank(TNode *node, Rank rank);
     void AVLRemove(const KeyElem &);
     void AVLMerge(AVLTree<KeyElem, Data, Rank> &other_tree);
-    void AVLTree<KeyElem, Data, Rank>::IgnoreSonsRank(TNode *node);
-    void AVLTree<KeyElem, Data, Rank>::AddSonsRank(TNode *node);
+    void IgnoreSonsRank(TNode *node);
+    void AddSonsRank(TNode *node);
     Data &AVLGet(const KeyElem &key) const;
     Data &AVLGetRank(const KeyElem &key) const;
     int size() const;
@@ -202,7 +203,6 @@ bool AVLTree<KeyElem, Data, Rank>::AVLExist(const KeyElem &key_to_find) const {
 }
 
 // ! should rank be const?
-//TODO: update father rank in case of balance
 template <class KeyElem, class Data, class Rank>
 void AVLTree<KeyElem, Data, Rank>::AVLInsert(const KeyElem &key, const Data &data, const Rank &rank) {
     try {
@@ -241,7 +241,16 @@ void AVLTree<KeyElem, Data, Rank>::AVLAddToFathersRank(TNode *node, Rank rank) {
     AVLAddToFathersRank(node->father);
 }
 
-// TODO: update father rank
+template <class KeyElem, class Data, class Rank>
+void AVLTree<KeyElem, Data, Rank>::AVLRemoveFromFathersRank(TNode *node, Rank rank) {
+    if(!node){
+        return;
+    }
+    node->rank -= rank;
+    AVLAddToFathersRank(node->father);
+}
+
+
 template <class KeyElem, class Data, class Rank>
 void AVLTree<KeyElem, Data, Rank>::AVLRemove(const KeyElem &key) {
     AVLRemove_rec(this->root, key);
@@ -335,7 +344,7 @@ void AVLTree<KeyElem, Data, Rank>::printTreeData() {
 
 //___________***___PRIVATE FUNCTIONS IMPLEMENTATION___***___________//
 
-// TODO: balance rank too with refresh rank
+
 template <class KeyElem, class Data, class Rank>
 void AVLTree<KeyElem, Data, Rank>::AVLBalance(TNode *start) {
     auto current_node = start;
@@ -380,10 +389,20 @@ void AVLTree<KeyElem, Data, Rank>::AVLRotate_LL(TNode *node_uneven) {
     TNode *temp_left_right_son = node_uneven->left_son->right_son;
     TNode *left_son = node_uneven->left_son;
 
+    node_uneven->rank -= left_son->rank;
+
     left_son->father = node_uneven->father;
     left_son->right_son = node_uneven;
     if (temp_left_right_son)
+    {
+        left_son->rank -= temp_left_right_son->rank;
+        node_uneven->rank += temp_left_right_son->rank;
+
         temp_left_right_son->father = node_uneven;
+    }
+
+    left_son->rank += node_uneven->rank; 
+
     node_uneven->left_son = temp_left_right_son;
     node_uneven->father = left_son;
 
@@ -404,10 +423,20 @@ void AVLTree<KeyElem, Data, Rank>::AVLRotate_RR(TNode *node_uneven) {
     TNode *temp_right_left_son = (node_uneven->right_son->left_son);
     TNode *right_son = node_uneven->right_son;
 
+    node_uneven->rank -= right_son->rank;
+    
     right_son->father = node_uneven->father;
     right_son->left_son = node_uneven;
     if (temp_right_left_son)
+    {
+        right_son->rank -= temp_right_left_son->rank;
+        node_uneven->rank += temp_right_left_son->rank;
+
         temp_right_left_son->father = node_uneven;
+    }
+
+    right_son->rank += node_uneven->rank; 
+
     node_uneven->right_son = temp_right_left_son;
     node_uneven->father = right_son;
 
@@ -507,8 +536,10 @@ void AVLTree<KeyElem, Data, Rank>::AVLRemove_rec(TNode *node, const KeyElem &key
             if (node == this->root) {
                 this->root = nullptr;
             } else if (node->isLeftSon()) {
-                node->father->left_son = nullptr;
+                AVLRemoveFromFathersRank(node->father,node->rank);
+                node->father->left_son = nullptr; 
             } else if (node->isRightSon()) {
+                AVLRemoveFromFathersRank(node->father,node->rank);
                 node->father->right_son = nullptr;
             }
             AVLBalance(temp_father);
@@ -521,8 +552,14 @@ void AVLTree<KeyElem, Data, Rank>::AVLRemove_rec(TNode *node, const KeyElem &key
             if (node == this->root) {
                 this->root = node_son;
             } else if (node->isLeftSon()) {
+                node->rank -= node_son->rank;
+                AVLRemoveFromFathersRank(node->father,node->rank);
+
                 node->father->left_son = node_son;
             } else if (node->isRightSon()) {
+                node->rank -= node_son->rank;
+                AVLRemoveFromFathersRank(node->father,node->rank);
+
                 node->father->right_son = node_son;
             }
             node_son->father = node->father;
@@ -530,7 +567,16 @@ void AVLTree<KeyElem, Data, Rank>::AVLRemove_rec(TNode *node, const KeyElem &key
             delete node;
             return;
         } else if (node->leftSonExists() && node->rightSonExists()) {  //Has TWO sons
+            // ! update rank in replacer case
             auto replacer = findReplacingNode(node);                   //replacer is the biggest node that is smaller than our node
+
+            node->rank -= node->right_son->rank;
+            node->rank -= node->left_son->rank;
+            if(replacer->left_son)
+            {
+                node->rank += replacer->left_son->rank;
+                replacer->rank -= replacer->left_son_rank;
+            }
 
             if (node == this->root) {
                 this->root = replacer;
@@ -562,6 +608,10 @@ void AVLTree<KeyElem, Data, Rank>::AVLRemove_rec(TNode *node, const KeyElem &key
             replacer->right_son = temp_node_right_son;
             replacer->right_son->father = replacer;
             replacer->left_son->father = replacer;
+
+            replacer->rank += replacer->left_son->rank;
+            replacer->rank += replacer->right_son->rank;
+
             replacer->BF = node->BF;
             replacer->height = node->height;
             AVLNodeRefreshHeight(node);
@@ -570,8 +620,10 @@ void AVLTree<KeyElem, Data, Rank>::AVLRemove_rec(TNode *node, const KeyElem &key
             if (!node->leftSonExists() && !node->rightSonExists()) {  //This is a leaf
 
                 if (node->father == replacer) {
+                    AVLRemoveFromFathersRank(node->father,node->rank);
                     node->father->left_son = nullptr;
                 } else {
+                    AVLRemoveFromFathersRank(node->father,node->rank);
                     node->father->right_son = nullptr;
                 }
                 AVLBalance(node->father);
@@ -584,8 +636,14 @@ void AVLTree<KeyElem, Data, Rank>::AVLRemove_rec(TNode *node, const KeyElem &key
                 TNode *node_son = node->leftSonExists() ? node->left_son : node->right_son;
 
                 if (node->father == replacer) {
+                    node->rank -= node_son->rank;
+                    AVLRemoveFromFathersRank(node->father,node->rank);
+
                     node->father->left_son = node_son;
                 } else {
+                    node->rank -= node_son->rank;
+                    AVLRemoveFromFathersRank(node->father,node->rank);
+                    
                     node->father->right_son = node_son;
                 }
                 node_son->father = node->father;
