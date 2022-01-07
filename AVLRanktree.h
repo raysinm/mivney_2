@@ -249,6 +249,7 @@ class AVLTree {
     void updateRank(const KeyElem &key, const Rank &rank);
     int size() const;
     KeyElem &AVLMin() const;
+    Rank* RankInRange(const KeyElem& lower, const KeyElem& higher);
 
     void printTree();
     void printTreeData();
@@ -942,6 +943,24 @@ void AVLTree<KeyElem, Data, Rank>::AVLDestroy_rec(TNode *node) const {
     delete node;
     return;
 }
+
+template<class KeyElem, class Data, class Rank>
+Rank* AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem& lower, const KeyElem& higher){
+    if (! AVLExist(lower){
+        TNode* imagine_father = AVLFindRec(lower);
+        //* if lower > imagine_father->key{
+            *lower_key = imagine_father.nextInOrder()->key;
+        }
+
+
+}
+
+
+
+
+
+
+
 
 }  // namespace AVLRank
 
