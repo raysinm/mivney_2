@@ -118,7 +118,7 @@ StatusType PlayersManager::GetPercentOfPlayersWithScoreInBounds(int GroupID, int
         GroupData& group = groups.Find(GroupID);
         RankTree& group_tree = group.group_levels;
 
-        ScoreArray* scores_in_range = group_tree.RankInRange(lowerLevel, higherLevel);
+        ScoreArray* scores_in_range = group_tree.RankInRange(lowerLevel, higherLevel, scale);
         if(scores_in_range == nullptr){
 
             if(lowerLevel <= 0 && higherLevel >= 0){

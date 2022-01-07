@@ -135,6 +135,7 @@ class AVLTree {
     void AVLRemoveFromFathersRank(TNode *node, Rank rank);
     void IgnoreSonsRank(TNode *node);
     void AddSonsRank(TNode *node);
+    void FindRank(const KeyElem& key, Rank *node_rank);
 
    public:
     AVLTree() : root(nullptr), tree_size(0){};
@@ -249,7 +250,7 @@ class AVLTree {
     void updateRank(const KeyElem &key, const Rank &rank);
     int size() const;
     KeyElem &AVLMin() const;
-    Rank* RankInRange(const KeyElem& lower, const KeyElem& higher);
+    Rank* RankInRange(const KeyElem& lower, const KeyElem& higher, int scale);
 
     void printTree();
     void printTreeData();
@@ -945,14 +946,72 @@ void AVLTree<KeyElem, Data, Rank>::AVLDestroy_rec(TNode *node) const {
 }
 
 template<class KeyElem, class Data, class Rank>
-Rank* AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem& lower, const KeyElem& higher){
-    if (! AVLExist(lower){
-        TNode* imagine_father = AVLFindRec(lower);
-        //* if lower > imagine_father->key{
-            *lower_key = imagine_father.nextInOrder()->key;
+Rank* AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem& lower, const KeyElem& higher, int scale){
+    TNode* lowerNode;
+    TNode* higherNode;
+    Rank rank_in_range(scale);
+    Rank higher_rank(scale);
+    Rank lower_rank(scale);
+    Rank lowerNode_rank(scale);
+    if(AVLExist(lower)){
+        lowerNode = AVLFind(lower);
+    }
+    else{
+        TNode* imagine_father = AVLFind_rec(lower);
+        if (lower > imagine_father->key)Rank lower_rank(scale);
+        {
+            lowerNode = imagine_father.nextInOrder();
         }
+    }
 
+    if(AVLExist(higher)){
+        higherNode = AVLFind(higher);
+    }
+    else{
+        TNode* imagine_father = AVLFind_rec(higher);
+        if (higher < imagine_father->key)
+        {
+            higherNode = imagine_father.prevInOrder();
+        }
+    }
 
+    if(!(higherNode && lowerNode)){
+        return nullptr;
+    }
+
+    FindRank(higher, higher_rank);
+    FindRank(lower, lower_rank);
+    rank_in_range += higher_rank;
+    rank_in_range -= lower_rank;
+    lowerNode_rank = lower.rank;
+    if(lowerNode->left_son)
+    {
+        lowerNode_rank -= lowerNode->left_son.rank;
+    }
+    if(lowerNode->right_son)
+    {
+        lowerNode_rank -= lowerNode->right_son.rank;
+    }
+
+    rank_in_range += lowerNode_rank;
+    return rank_in_range;
+    // ! need to delete all ranks I created?
+}
+
+template<class KeyElem, class Data, class Rank>
+void AVLTree<KeyElem, Data, Rank>::FindRank(const KeyElem& key, Rank *node_rank){
+    TNode* current_node = root;
+    while (current_node->key != key)
+    {
+        if (key < current_node->key) 
+        {
+            current_node = current_node->left_son;
+        }   
+        else {
+            node_rank += current_node.rank;
+            node_rank -= current_node->right_son.rank;
+        }
+    }
 }
 
 
