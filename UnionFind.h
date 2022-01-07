@@ -77,34 +77,36 @@ void UnionFind<Data>::Union(int group1, int group2) {
 
     if (g1.size > g2.size) {
         mergeIntoGroup(g1, g2);
+        g2_node->father = g1_node->father;
     } else {
         mergeIntoGroup(g2, g1);
+        g1_node->father = g1_node->father;
     }
-
-    /* if(group1.group_size > group2.group_size)
-        {
-            //merge datas
-            group1.size += group2.size;
-            delete group2;
-            //in case more than one place in array points to group, how to change all to point at new group
-
-        } */
 }
 
 template <class Data>
 void UnionFind<Data>::mergeIntoGroup(UnionGroup* g1, UnionGroup* g2) {
     g1.size += g2.size;
     g1.data += g2.data;
-    //TODO: merge Data func (AVL + level 0)
+    g2.size = 0;
+    // call g2.data destructor
 }
 
 template <class Data>
 Data& UnionFind<Data>::Find(int group) {  //* notice that Find returns reference to group data
     GroupNode* node = group_nodes[group];
-    while (node->father != nullptr) {
-        node = node->father;
+    GroupNode* next_node;
+    GroupNode* root = group_nodes[group];
+    while (root->father != nullptr) {
+        root = root->father;
     }
-    //UnionGroup*
+    while (node->father != root) {
+        next_node = node->father;
+        node->father = root;
+        node = next_node;
+    }
+    UnionGroup* group_cell = groups[root.group_num];
+    return group_cell.data;
 }
 }  // namespace UF
 
