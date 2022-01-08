@@ -17,17 +17,40 @@ typedef enum {
 
 class ScoreArray {
     int *scores;
-    const int size;
+    int size;
 
    public:
-    explicit ScoreArray(const int scale) : size(scale + 1) {
+    explicit ScoreArray(const int& scale) : size(scale + 1) {
         scores = new int[size]{0};           // ! initialized to all zeros? ----added this
         // * added +1 so we can refer to the level by level num and not level-1 ---NICE!
     };
 
+    ScoreArray(const ScoreArray& other): size(other.size){
+        scores = new int[other.size];
+        for(int i = 0; i < other.size; i++){
+            scores[i] = other.scores[i];
+        }
+    }
+
     ~ScoreArray() {
         delete[] scores;
     }
+
+
+
+    ScoreArray& operator=(const ScoreArray& other){
+        if(this == &other){
+            return *this;
+        }
+        this->size = other.size;
+        int* new_scores = new int[other.size];
+        for(int i = 0; i < size; i++){
+            new_scores[i] = other.scores[i];
+        }
+        delete scores;
+        scores = new_scores;
+    }
+
 
     void operator+=(const ScoreArray &other) {
         for (int i = 1; i < size; i++) {
@@ -53,29 +76,42 @@ class ScoreArray {
         }
         return true;
     }
+
+    int& MembersAmount(){
+        int total;
+        for(int i = 0; i < size; i++){
+            total += scores[i];
+        }
+        return total;
+    }
 };
 
 typedef AVLRank::AVLTree<int, int, ScoreArray> RankTree;
+int global_scale;   //!so that all classes know the scale without having to look for it in PlayersManager. relevant for c'tor of GroupData
+
+
+class GroupData {
+    friend PlayersManager;
+    //int group_id,
+    int group_size;  //num of players, because *unionfind group size* is not relevant in PlayersManager
+    RankTree group_levels;
+    ScoreArray group_level_0;
+    
+    public:
+    GroupData() : group_size(0), group_levels(), group_level_0(global_scale){}
+
+    void operator+=(GroupData &other) { //operator for mergining groups
+        group_size += other.group_size;
+        group_levels.AVLMerge(other.group_levels);    
+    }
+    
+    ~GroupData() = default;
+};
+
 
 class PlayersManager {
     int players_num;
 
-    class GroupData {
-        friend PlayersManager;
-        //int group_id,
-        int group_size;  //num of players, because *unionfind group size* is not relevant in PlayersManager
-        RankTree group_levels;
-        
-       public:
-        GroupData() : group_size(0), group_levels() {}
-
-        void operator+=(GroupData &other) { //operator for mergining groups
-            group_size += other.group_size;
-            group_levels.AVLMerge(other.group_levels);    
-        }
-        
-        ~GroupData() = default;
-    };
 
     class PlayerData {
         friend PlayersManager;
@@ -85,20 +121,25 @@ class PlayersManager {
         PlayerData(int id, int group_id, int score, int level = 0) : player_id(id), owner_group_id(group_id), score(score), level(level){};
     };
 
+    friend GroupData;
+
     typedef UF::UnionFind<GroupData> UnionFind;
     typedef DH::DynamicHashtable<PlayerData> HashTable;
 
     UnionFind groups;
     HashTable all_players_hash;
     RankTree all_players_by_level;
+    ScoreArray level_0;
 
     friend void modifyRankTreesByPlayerScores(RankTree *tree, int level, int score, int scale, const PlayerAction &action);
     friend void modifyRankTreesLevels(RankTree *tree, int level, const PlayerAction &action);
    public:
-    int k;
-    int scale;
+    const int k;
+    const int scale;
 
-    PlayersManager(int k, int scale) : k(k), scale(scale), groups(k), all_players_hash(), all_players_by_level(){};
+    PlayersManager(const int& k, const int& scale) : k(k), scale(scale), groups(k), all_players_hash(), all_players_by_level(), level_0(scale){
+        global_scale = scale;
+    };
     PlayersManager(const PlayersManager &) = delete;
     ~PlayersManager() = default;
 

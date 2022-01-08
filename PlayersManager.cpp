@@ -14,11 +14,15 @@ StatusType PlayersManager::AddPlayer(int PlayerID, int GroupID, int score) {
 
     GroupData &group = groups.Find(GroupID);
 
-    PlayerData *new_player = new PlayerData(PlayerID, GroupID, score);
+    //PlayerData *new_player() new PlayerData(PlayerID, GroupID, score);    //!should we allocate on heap or on stack
+    //TODO: ///////////////////////STOPPED HERE, trying to figure out where (and if) to allocate player data
     all_players_hash.Insert(PlayerID, *new_player);
 
-    modifyRankTreesByPlayerScores(&group.group_levels, 0, score, scale, PLAYER_ADD);
-    modifyRankTreesByPlayerScores(&all_players_by_level, 0, score, scale, PLAYER_ADD);
+    ++group.group_level_0[score];
+    ++level_0[score];
+
+/*     modifyRankTreesByPlayerScores(&group.group_levels, 0, score, scale, PLAYER_ADD);
+    modifyRankTreesByPlayerScores(&all_players_by_level, 0, score, scale, PLAYER_ADD); */
 
     ++group.group_size;
     ++players_num;
@@ -31,17 +35,23 @@ StatusType PlayersManager::RemovePlayer(int PlayerID) {
         throw Failure();
     }
 
-    PlayerData &player_data = all_players_hash.Find(PlayerID);
-    GroupData &group = groups.Find(player_data.owner_group_id);
+    PlayerData* player_data = &all_players_hash.Find(PlayerID);
+    GroupData &group = groups.Find(player_data->owner_group_id);
 
     //! better to change rank INSIDE AVL
     //! AVL has to check if level == 0 (or key == min_key)
 
-    modifyRankTreesByPlayerScores(&group.group_levels, player_data.level, player_data.score, scale, PLAYER_REMOVE);
-    modifyRankTreesByPlayerScores(&all_players_by_level, player_data.level, player_data.score, scale, PLAYER_REMOVE);
-
+    if(player_data->level != 0){
+        modifyRankTreesByPlayerScores(&group.group_levels, player_data->level, player_data->score, scale, PLAYER_REMOVE);
+        modifyRankTreesByPlayerScores(&all_players_by_level, player_data->level, player_data->score, scale, PLAYER_REMOVE);
+    }
+    else if(player_data->level == 0){
+        --group.group_level_0[player_data->score];
+        --level_0[player_data->score];
+    }
     --group.group_size;
 
+    //delete player_data;   //! might create a double free in hashtable
     all_players_hash.Remove(PlayerID);
 
     --players_num;
@@ -118,8 +128,9 @@ StatusType PlayersManager::GetPercentOfPlayersWithScoreInBounds(int GroupID, int
         GroupData& group = groups.Find(GroupID);
         RankTree& group_tree = group.group_levels;
 
-        ScoreArray* scores_in_range = group_tree.RankInRange(lowerLevel, higherLevel, scale);
-        if(scores_in_range == nullptr){
+        ScoreArray scores_in_range(scale);
+        auto result = group_tree.RankInRange(lowerLevel, higherLevel, scores_in_range);
+        if(result == AVLRank::RankStatus::RANK_OUT_OF_RANGE){
 
             if(lowerLevel <= 0 && higherLevel >= 0){
                 players_in_score; //TODO level0[score];
@@ -129,9 +140,9 @@ StatusType PlayersManager::GetPercentOfPlayersWithScoreInBounds(int GroupID, int
                 throw Failure();
             }
         }else{
-            players_in_score = (*scores_in_range)[score];
+            players_in_score = scores_in_range[score];
             for(int i = 0; i< scale; i++){
-                total_players_in_range += (*scores_in_range)[i];
+                total_players_in_range += scores_in_range[i];
             }
             *players = double(players_in_score)/double(total_players_in_range);
 
