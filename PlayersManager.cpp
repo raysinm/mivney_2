@@ -13,15 +13,14 @@ StatusType PlayersManager::AddPlayer(int PlayerID, int GroupID, int score) {
     }
 
     GroupData &group = groups.Find(GroupID);
+    PlayerData new_player(PlayerID, GroupID, score);  //!should we allocate on heap or on stack
 
-    //PlayerData *new_player() new PlayerData(PlayerID, GroupID, score);    //!should we allocate on heap or on stack
-    //TODO: ///////////////////////STOPPED HERE, trying to figure out where (and if) to allocate player data
-    all_players_hash.Insert(PlayerID, *new_player);
+    all_players_hash.Insert(PlayerID, new_player);
 
     ++group.group_level_0[score];
     ++level_0[score];
 
-/*     modifyRankTreesByPlayerScores(&group.group_levels, 0, score, scale, PLAYER_ADD);
+    /*     modifyRankTreesByPlayerScores(&group.group_levels, 0, score, scale, PLAYER_ADD);
     modifyRankTreesByPlayerScores(&all_players_by_level, 0, score, scale, PLAYER_ADD); */
 
     ++group.group_size;
@@ -35,17 +34,16 @@ StatusType PlayersManager::RemovePlayer(int PlayerID) {
         throw Failure();
     }
 
-    PlayerData* player_data = &all_players_hash.Find(PlayerID);
+    PlayerData *player_data = &all_players_hash.Find(PlayerID);
     GroupData &group = groups.Find(player_data->owner_group_id);
 
     //! better to change rank INSIDE AVL
     //! AVL has to check if level == 0 (or key == min_key)
 
-    if(player_data->level != 0){
+    if (player_data->level != 0) {
         modifyRankTreesByPlayerScores(&group.group_levels, player_data->level, player_data->score, scale, PLAYER_REMOVE);
         modifyRankTreesByPlayerScores(&all_players_by_level, player_data->level, player_data->score, scale, PLAYER_REMOVE);
-    }
-    else if(player_data->level == 0){
+    } else if (player_data->level == 0) {
         --group.group_level_0[player_data->score];
         --level_0[player_data->score];
     }
@@ -69,12 +67,19 @@ StatusType PlayersManager::IncreasePlayerIDLevel(int PlayerID, int LevelIncrease
 
     int new_level = player_data.level + LevelIncrease;
 
+    if (player_data.level == 0) {
+        --level_0[player_data.score];
+        --group.group_level_0[player_data.score];
+    } else {
+        modifyRankTreesByPlayerScores(&group.group_levels, player_data.level, player_data.score, scale, PLAYER_REMOVE);
+        modifyRankTreesByPlayerScores(&all_players_by_level, player_data.level, player_data.score, scale, PLAYER_REMOVE);
+    }
     //*group players ScoreArray update
-    modifyRankTreesByPlayerScores(&group.group_levels, player_data.level, player_data.score, scale, PLAYER_REMOVE);
+
     modifyRankTreesByPlayerScores(&group.group_levels, new_level, player_data.score, scale, PLAYER_ADD);
 
     //*all players ScoreArray update
-    modifyRankTreesByPlayerScores(&all_players_by_level, player_data.level, player_data.score, scale, PLAYER_REMOVE);
+
     modifyRankTreesByPlayerScores(&all_players_by_level, new_level, player_data.score, scale, PLAYER_ADD);
 
     //! notice that modifylevels() also removes the level nodes in the tree in case there are no more players left
@@ -85,8 +90,6 @@ StatusType PlayersManager::IncreasePlayerIDLevel(int PlayerID, int LevelIncrease
     return SUCCESS;
 }
 
-
-
 StatusType PlayersManager::ChangePlayerIDScore(int PlayerID, int NewScore) {
     if (!all_players_hash.Exists(PlayerID)) {
         throw Failure();
@@ -95,63 +98,69 @@ StatusType PlayersManager::ChangePlayerIDScore(int PlayerID, int NewScore) {
     PlayerData &player_data = all_players_hash.Find(PlayerID);
     GroupData &group = groups.Find(player_data.owner_group_id);
 
-    ScoreArray &score_array = group.group_levels.AVLGetRank(player_data.level);
-    --score_array[player_data.score];
-    ++score_array[NewScore];
+    ScoreArray *group_score_array;
+    ScoreArray *all_score_array;
+
+    if (player_data.level == 0) {
+        group_score_array = &(group.group_level_0);
+        all_score_array = &level_0;
+
+    } else {
+        group_score_array = &(group.group_levels.AVLGetRank(player_data.level));
+        all_score_array = &(all_players_by_level.AVLGetRank(player_data.level));
+    }
+
+    --(*group_score_array)[player_data.score];
+    ++(*group_score_array)[NewScore];
+
+    --(*all_score_array)[player_data.score];
+    ++(*all_score_array)[NewScore];
 
     player_data.score = NewScore;
 }
 
 StatusType PlayersManager::GetPercentOfPlayersWithScoreInBounds(int GroupID, int score, int lowerLevel, int higherLevel, double *players) {
-    if(score <=0 || score > scale){
+    if (score <= 0 || score > scale) {
         *players = 0;
         return SUCCESS;
     }
 
     int players_in_score;
     int total_players_in_range;
+
+    RankTree *tree;
     
     if (GroupID == 0) {  //*all players
-
-        if(lowerLevel <= 0 || higherLevel <=0){
-            //!טיפול מיוחד בלבל 0
-        }
-
-        /*         auto iter = all_players_by_level.begin();
-        const int& min_level_in_tree = iter.IKey(); */
+        tree = &all_players_by_level;
         //TODO: check if lower/higher bound lower than minimum key in tree
-
-
-
-
-    }else{ 
-        GroupData& group = groups.Find(GroupID);
-        RankTree& group_tree = group.group_levels;
-
-        ScoreArray scores_in_range(scale);
-        auto result = group_tree.RankInRange(lowerLevel, higherLevel, scores_in_range);
-        if(result == AVLRank::RankStatus::RANK_OUT_OF_RANGE){
-
-            if(lowerLevel <= 0 && higherLevel >= 0){
-                players_in_score; //TODO level0[score];
-                //TODO: treat level 0 array
-            }
-            else{
-                throw Failure();
-            }
-        }else{
-            players_in_score = scores_in_range[score];
-            for(int i = 0; i< scale; i++){
-                total_players_in_range += scores_in_range[i];
-            }
-            *players = double(players_in_score)/double(total_players_in_range);
-
-            //! stopped working in here
-        }
-
-        
-
+    } else {  //*group players
+        GroupData &group = groups.Find(GroupID);
+        tree = &group.group_levels;
     }
+
+    ScoreArray scores_in_range(scale);
+    auto result = tree->RankInRange(lowerLevel, higherLevel, scores_in_range);
+
+    if (result == AVLRank::RankStatus::RANK_OUT_OF_RANGE) {
+        if (lowerLevel <= 0 && higherLevel >= 0) {
+            if (GroupID == 0) {
+                players_in_score = level_0[score];
+                total_players_in_range = level_0.MembersAmount();
+            } else {
+                GroupData &group = groups.Find(GroupID);
+                players_in_score = group.group_level_0[score];
+                total_players_in_range = group.group_level_0.MembersAmount();
+            }
+        } else {
+            throw Failure();
+        }
+    } else {
+        players_in_score = scores_in_range[score];
+        total_players_in_range = scores_in_range.MembersAmount();
+    }
+
+    *players = (double(players_in_score) / double(total_players_in_range)) * 100.0;
+
     return SUCCESS;
 }
 
@@ -258,7 +267,5 @@ void modifyRankTreesByPlayerScores(RankTree *tree, int level, int score, int sca
         --num_of_players_in_level;
     }
  */
-
-
 
 }  // namespace PM
