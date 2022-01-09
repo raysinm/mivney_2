@@ -1,0 +1,63 @@
+//! LOTS OF CALCULATIONS, HIGH RISK FOR BUG!!
+StatusType PlayersManager::AverageHighestPlayerLevelByGroup(int GroupID, int m, double *level) {
+    if (GroupID == 0) {  //*all players
+        if (m > players_num) {
+            throw Failure();
+        }
+
+        int players_num = 0;
+        int levels_sum = 0;
+        for (auto iter = all_players_by_level.rbegin(); iter != all_players_by_level.rend(); ++iter) {
+            int &current_level = iter.IKey();
+            int &players_num_in_level = iter.IData();
+
+            levels_sum += current_level * players_num_in_level;
+
+            players_num += players_num_in_level;
+
+            if (players_num >= m) {
+                levels_sum -= (m - players_num) * current_level;  //*substracting those that are too many
+                break;
+            }
+        }
+
+        *level = double(levels_sum);
+
+    } else {  //* group players
+        GroupData &group = groups.Find(GroupID);
+        if (m > group.group_size) {
+            throw Failure();
+        }
+
+        RankTree &group_tree = group.group_levels;
+
+        int players_num = 0, level_sum = 0, level_counter = 0;
+        double level_avg = 0, total_level_avg = 0;
+
+        for (auto iter = group_tree.rbegin(); iter != group_tree.rend(); ++iter) {
+            int &current_level = iter.IKey();
+            int num_of_players_in_level = iter.IData();
+
+            level_counter++;
+            players_num += num_of_players_in_level;
+
+            if (players_num >= m) {
+                //* final calcultion
+                num_of_players_in_level -= (m - players_num);
+                level_sum = num_of_players_in_level * current_level;
+
+                level_avg = double(level_sum) / double(num_of_players_in_level);
+                total_level_avg += level_avg;
+                break;
+            }
+
+            level_sum = num_of_players_in_level * current_level;
+            level_avg = double(level_sum) / double(num_of_players_in_level);
+            total_level_avg += level_avg;
+        }
+
+        *level = total_level_avg / double(level_counter);
+    }
+
+    return SUCCESS;
+}

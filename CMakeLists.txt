@@ -18,6 +18,12 @@ set(CMAKE_CPP_FLAGS ${MIVNEY_FLAGS_DEBUG})
 
 
 # Add the names of your source files here
-set(CPP_FILES_1 "./hash_tests/DynamicHashtable.h" "./hash_tests/main.cpp")
+set(CPP_FILES_1 "./hash_tests/DynamicHashtable.h" "./hash_tests/minimain.cpp")
+set(CPP_FILES_1_1 "./hash_tests/DynamicHashtable.h" "./hash_tests/HashTest/main.cpp")
 
-add_executable(hash_test ${CPP_FILES_1})
+set(CPP_FILES_2 "./unionfind_tests/UnionFind.h" "./unionfind_tests/main.cpp")
+
+
+add_executable(hash_mini_test ${CPP_FILES_1})
+add_executable(hash_big_test ${CPP_FILES_1_1})
+add_executable(uf_test ${CPP_FILES_2})

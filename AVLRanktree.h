@@ -141,6 +141,7 @@ class AVLTree {
     void IgnoreSonsRank(TNode *node);
     void AddSonsRank(TNode *node);
     Rank &FindRank(const KeyElem &key);
+    double AvgHighRank(int m);
 
    public:
     AVLTree() : root(nullptr), tree_size(0){};
@@ -1006,6 +1007,23 @@ RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const
 
 template <class KeyElem, class Data, class Rank>
 Rank &AVLTree<KeyElem, Data, Rank>::FindRank(const KeyElem &key) {
+    TNode *current_node = root;
+    Rank node_rank(root->rank);       // *we have to give it some value
+    while (current_node->key != key)  // ! what if root has the right key?
+    {
+        if (key < current_node->key) {
+            current_node = current_node->left_son;
+        } else if (key > current_node->key) {
+            node_rank += current_node.rank;
+            node_rank -= current_node->right_son.rank;
+        }
+    }
+    return node_rank;
+}
+
+template <class KeyElem, class Data, class Rank>
+double &AVLTree<KeyElem, Data, Rank>::AvgHighRank(int m) {
+
     TNode *current_node = root;
     Rank node_rank(root->rank);       // *we have to give it some value
     while (current_node->key != key)  // ! what if root has the right key?

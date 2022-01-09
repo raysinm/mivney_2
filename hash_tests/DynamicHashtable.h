@@ -9,8 +9,17 @@
 
 namespace DH {
 
+typedef enum{
+    SUCCESS,
+    NOT_FOUND,
+    ALREADY_EXIST
+}DH_RESULT;
+
 template <class Data>
 class DynamicHashtable {
+
+    class NotFound : public std::exception{};
+
     class Cell {
         friend DynamicHashtable;
         
@@ -33,8 +42,8 @@ class DynamicHashtable {
         int old_cap = capacity;
         capacity *= 2;
 
-        Cell** old_table;
-        memcpy(old_table, this->table);
+        Cell** old_table = new Cell*[old_cap];
+        memcpy(old_table, this->table, sizeof(old_table));
 
         delete[] table;
         table = new Cell* [capacity] { nullptr };
@@ -53,6 +62,11 @@ class DynamicHashtable {
         catch(std::bad_alloc &e){
             throw e;
         }
+    }
+    
+    int Hash(int key) {
+        int hash_key = key % capacity;
+        return hash_key;
     }
 
    public:
@@ -79,12 +93,12 @@ class DynamicHashtable {
         delete[] table;
     }
 
-    int& Hash(int key) {
-        int hash_key = key % capacity;
-        return hash_key;
-    }
 
-    void Insert(int key, Data data) {
+
+    DH_RESULT Insert(int key, Data data) {
+        if(Exists(key)){
+            return ALREADY_EXIST;
+        }
         int index = Hash(key);
 
         Cell* new_cell = new Cell(key, data);
@@ -101,26 +115,28 @@ class DynamicHashtable {
         if (used_size == capacity) {
             Rehash();  //TODO
         }
+        return SUCCESS;
     }
 
-    Data& Find(int key) {
+    Data* Find(int key) {              //*return this after big bug test to Data&
         int index = Hash(key);
 
         Cell* cell = table[index];
 
         while (cell) {
             if (cell->key == key) {
-                return cell->data;
+                return &(cell->data);
             }
             cell = cell->next;
         }
-
         return nullptr;
+
+        //throw NotFound(); //*return after big bug test
     }
 
-    void Remove(int key) {
-        if (!Find(key)) {
-            return;
+    DH_RESULT Remove(int key) {
+        if(!Exists(key)){
+            return NOT_FOUND;
         }
 
         int index = Hash(key);
@@ -145,10 +161,34 @@ class DynamicHashtable {
             table[index] = nullptr;
         }
         used_size--;
+
+        return SUCCESS;
     }
 
     bool Exists(int key) {
-        return (Find(key != nullptr));
+        if(Find(key) == nullptr){
+            return false;
+        }
+        return true;
+/*         try{         //*return this after big bug test
+            Find(key);
+            return true;
+        }
+        catch(NotFound& e){
+            return false;
+        } */
+    }
+
+    void Print(){
+        for(int i = 0; i < capacity; i++){
+            Cell* cell = table[i];
+            while (cell){
+
+                std::cout << cell->data;
+
+                cell = cell->next;
+            }
+        }
     }
 };
 

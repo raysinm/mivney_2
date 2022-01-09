@@ -44,7 +44,8 @@ class UnionFind {
 
    public:
     UnionFind(int k) : num_of_groups(k) {
-        group_nodes = new GroupNode[k + 1] groups = new UnionGroup[k + 1];
+        group_nodes = new GroupNode[k + 1];
+        groups = new UnionGroup[k + 1];
 
         for (int i = 1; i <= k; i++) {
             groups[i].data(Data());  // ! legit?
@@ -52,6 +53,12 @@ class UnionFind {
             group_nodes[i] = group_node_i;
         }
     };
+
+    ~UnionFind(){
+        delete[] group_nodes;
+        delete[] groups;
+    };
+
     void Union(int group1, int group2);
     Data& Find(int group);
 };

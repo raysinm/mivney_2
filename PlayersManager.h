@@ -85,8 +85,40 @@ class ScoreArray {
         return total;
     }
 };
+/* 
+class EverythingRank{
+    const int scale;
+    ScoreArray score_array;
+    int players_num;
+    int players_num_times_level;
+    friend PlayersManager;
 
-typedef AVLRank::AVLTree<int, int, ScoreArray> RankTree;
+    public:
+    EverythingRank(const int& scale): scale(scale), score_array(scale), players_num(0), players_num_times_level(0){};
+    EverythingRank(const int& scale, const int& player_num_times_level, const int& players_num=1):
+                    scale(scale), score_array(scale), players_num(players_num), players_num_times_level(players_num_times_level){};
+    
+    EverythingRank& operator+=(const EverythingRank& other){
+        score_array += other.score_array;
+        players_num += other.players_num;
+        players_num_times_level += other.players_num_times_level;
+    }
+    EverythingRank& operator-=(const EverythingRank& other){
+        score_array -= other.score_array;
+        players_num -= other.players_num;
+        players_num_times_level -= other.players_num_times_level;
+    }
+    bool operator<=(const Everything& other){
+        return players_num <= other.players_num;
+    }
+    void AddToScoreArray(const int& index, const int& change){
+        score_array[index] += change;
+    }
+
+}; */
+
+typedef AVLRank::AVLTree<int, int, int> RankTreeInt;
+typedef AVLRank::AVLTree<int, int, ScoreArray> RankTreeScoreArray;
 int global_scale;   //!so that all classes know the scale without having to look for it in PlayersManager. relevant for c'tor of GroupData
 
 
@@ -94,15 +126,21 @@ class GroupData {
     friend PlayersManager;
     //int group_id,
     int group_size;  //num of players, because *unionfind group size* is not relevant in PlayersManager
-    RankTree group_levels;
+    RankTreeScoreArray group_levels_scores;
+    RankTreeInt group_levels_sums;   //with num_of_players
+    RankTreeInt group_levels_multi;    //with num_of_players_times_level
+    
     ScoreArray group_level_0;
     
     public:
-    GroupData() : group_size(0), group_levels(), group_level_0(global_scale){}
+    GroupData() : group_size(0), group_levels_scores(), group_levels_sums(), group_levels_multi(), group_level_0(global_scale){}
 
-    void operator+=(GroupData &other) { //operator for mergining groups
+    GroupData& operator+=(GroupData &other) { //operator for mergining groups
         group_size += other.group_size;
-        group_levels.AVLMerge(other.group_levels);    
+        group_levels_scores.AVLMerge(other.group_levels_scores);  
+        group_levels_sums.AVLMerge(other.group_levels_sums);
+        group_levels_multi.AVLMerge(other.group_levels_multi);
+        group_level_0 += other.group_level_0;
     }
     
     ~GroupData() = default;
@@ -128,16 +166,22 @@ class PlayersManager {
 
     UnionFind groups;
     HashTable all_players_hash;
-    RankTree all_players_by_level;
+    RankTreeScoreArray all_players_by_level;
+    RankTreeInt all_players_by_level_sums;
+    RankTreeInt all_players_by_level_multi;
+    
     ScoreArray level_0;
 
-    friend void modifyRankTreesByPlayerScores(RankTree *tree, int level, int score, int scale, const PlayerAction &action);
-    friend void modifyRankTreesLevels(RankTree *tree, int level, const PlayerAction &action);
+    //friend void modifyRankTrees(RankTreeInt *tree, int level, int score, const PlayerAction &action);
+    friend void modifyRankTreesByPlayerScores(RankTreeScoreArray *tree, int level, int score, int scale, const PlayerAction &action);
+    friend void modifyRankTreesSumsMultis(RankTreeInt * tree, int level, int score, int scale, const PlayerAction &action);
+    //void ModifyTreesIfLevelEmpty(int level, GroupData* group);
    public:
     const int k;
     const int scale;
 
-    PlayersManager(const int& k, const int& scale) : k(k), scale(scale), groups(k), all_players_hash(), all_players_by_level(), level_0(scale){
+    PlayersManager(const int& k, const int& scale) : k(k), scale(scale), groups(k), all_players_hash(),
+                                                    all_players_by_level(), all_players_by_level_sums(), all_players_by_level_multi(), level_0(scale){
         global_scale = scale;
     };
     PlayersManager(const PlayersManager &) = delete;
@@ -158,3 +202,6 @@ class PlayersManager {
 }  // namespace PM
 
 #endif
+
+
+
