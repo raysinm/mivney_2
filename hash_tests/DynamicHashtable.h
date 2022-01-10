@@ -37,14 +37,18 @@ class DynamicHashtable {
     int capacity;  //we want to keep: used_size = O(capacity)
 
     //PRIVATE METHODS
-    void Rehash() {
+    void Rehash(int new_capacity) {
         try{
         int old_cap = capacity;
-        capacity *= 2;
+        capacity = new_capacity;
+        used_size = 0;
 
         Cell** old_table = new Cell*[old_cap];
-        memcpy(old_table, this->table, sizeof(old_table));
+        //! doesnt work: memcpy(old_table, this->table, sizeof(this->table));
 
+        for(int i = 0; i< old_cap; i++){
+            old_table[i] = this->table[i];
+        }
         delete[] table;
         table = new Cell* [capacity] { nullptr };
 
@@ -102,7 +106,7 @@ class DynamicHashtable {
         int index = Hash(key);
 
         Cell* new_cell = new Cell(key, data);
-
+        //Print();
         if (table[index] == nullptr) {  //! remember to return to nullptr when deleting all players in chain
             table[index] = new_cell;
         } else {
@@ -110,10 +114,10 @@ class DynamicHashtable {
             new_cell->next = cell;
             table[index] = new_cell;
         }
-
+        //Print();
         used_size++;
         if (used_size == capacity) {
-            Rehash();  //TODO
+            Rehash(capacity*2);  
         }
         return SUCCESS;
     }
@@ -143,25 +147,36 @@ class DynamicHashtable {
         //table[index] should exist
         Cell* cell = table[index];
         Cell* prev_cell = table[index];
-        int chain_length = 0;
-        while (cell) {
+        //int chain_length = 0;
+        /* while (cell) {
             ++chain_length;
+            cell = cell->next;
+        } */
+        
+        cell = table[index];
+
+        while(cell){
 
             if (cell->key == key) {
-                prev_cell->next = cell->next;
+                if(cell == table[index]){
+                    table[index] = cell->next;
+                }
+                else{
+                    prev_cell->next = cell->next;
+                }
                 delete cell;
-                //not breaking to count number of cells in chain
+                break;
             }
 
             prev_cell = cell;
             cell = cell->next;
         }
 
-        if (chain_length <= 1) {
-            table[index] = nullptr;
-        }
         used_size--;
 
+        if(capacity > 10 && used_size == (capacity/4)){
+            Rehash(capacity/2);
+        }
         return SUCCESS;
     }
 
@@ -180,14 +195,27 @@ class DynamicHashtable {
     }
 
     void Print(){
+        std::cout << std::endl;
+        std::cout << "Used size: " << used_size << std::endl;
+        std::cout << "Capacity: " << capacity << std::endl;
+        
+        
         for(int i = 0; i < capacity; i++){
             Cell* cell = table[i];
-            while (cell){
+            int count = 0;
+            
+            std::cout << "row " << i << ": ";
 
-                std::cout << cell->data;
+            if(cell == nullptr){
+                std::cout << " is empty";
+            }
+            while (cell){
+                count++;
+                std::cout << " cell " << count << ": " << cell->data << "  -->  "; 
 
                 cell = cell->next;
             }
+            std::cout << std::endl;
         }
     }
 };

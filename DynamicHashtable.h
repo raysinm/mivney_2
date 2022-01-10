@@ -2,15 +2,28 @@
 
 #include <iostream>
 #include <memory>
+#include <cstring>
 
 #ifndef _DYNAMIC_HASHTABLE_H
 #define _DYNAMIC_HASHTABLE_H
 
 namespace DH {
 
+typedef enum{
+    SUCCESS,
+    NOT_FOUND,
+    ALREADY_EXIST
+}DH_RESULT;
+
 template <class Data>
 class DynamicHashtable {
+
+    class NotFound : public std::exception{};
+    class AlreadyExists : public std::exception{};
+
     class Cell {
+        friend DynamicHashtable;
+        
         int key;
         Data data;
         Cell* next;
@@ -25,14 +38,18 @@ class DynamicHashtable {
     int capacity;  //we want to keep: used_size = O(capacity)
 
     //PRIVATE METHODS
-    void Rehash() {
+    void Rehash(int new_capacity) {
         try{
         int old_cap = capacity;
-        capacity *= 2;
+        capacity = new_capacity;
+        used_size = 0;
 
-        Cell** old_table;
-        memcpy(old_table, this->table);
+        Cell** old_table = new Cell*[old_cap];
+        //! doesnt work: memcpy(old_table, this->table, sizeof(this->table));
 
+        for(int i = 0; i< old_cap; i++){
+            old_table[i] = this->table[i];
+        }
         delete[] table;
         table = new Cell* [capacity] { nullptr };
 
@@ -50,6 +67,11 @@ class DynamicHashtable {
         catch(std::bad_alloc &e){
             throw e;
         }
+    }
+    
+    int Hash(int key) {
+        int hash_key = key % capacity;
+        return hash_key;
     }
 
    public:
@@ -70,21 +92,22 @@ class DynamicHashtable {
         }
     }
 
-    DynamicHashtable& DynamicHashtable(const DynamicHashtable& other) = delete;
+    DynamicHashtable(const DynamicHashtable& other) = delete;
 
     ~DynamicHashtable() {
         delete[] table;
     }
 
-    int& Hash(int key) {
-        return (key)mod(capacity);
-    }
+
 
     void Insert(int key, Data data) {
+        if(Exists(key)){
+            throw AlreadyExists();
+        }
         int index = Hash(key);
 
         Cell* new_cell = new Cell(key, data);
-
+        //Print();
         if (table[index] == nullptr) {  //! remember to return to nullptr when deleting all players in chain
             table[index] = new_cell;
         } else {
@@ -92,14 +115,15 @@ class DynamicHashtable {
             new_cell->next = cell;
             table[index] = new_cell;
         }
-
+        //Print();
         used_size++;
         if (used_size == capacity) {
-            Rehash();  //TODO
+            Rehash(capacity*2);  
         }
+
     }
 
-    Data& Find(int key) {
+    Data& Find(int key) {              //*return this after big bug test to Data&
         int index = Hash(key);
 
         Cell* cell = table[index];
@@ -111,40 +135,88 @@ class DynamicHashtable {
             cell = cell->next;
         }
 
-        return nullptr;
+        throw NotFound(); //*return after big bug test
     }
 
     void Remove(int key) {
-        if (!Find(key)) {
-            return;
+        if(!Exists(key)){
+            throw NotFound();
         }
 
         int index = Hash(key);
         //table[index] should exist
         Cell* cell = table[index];
         Cell* prev_cell = table[index];
-        int chain_length = 0;
-        while (cell) {
+        //int chain_length = 0;
+        /* while (cell) {
             ++chain_length;
+            cell = cell->next;
+        } */
+        
+        cell = table[index];
+
+        while(cell){
 
             if (cell->key == key) {
-                prev_cell->next = cell->next;
+                if(cell == table[index]){
+                    table[index] = cell->next;
+                }
+                else{
+                    prev_cell->next = cell->next;
+                }
                 delete cell;
-                //not breaking to count number of cells in chain
+                break;
             }
 
             prev_cell = cell;
             cell = cell->next;
         }
 
-        if (chain_length <= 1) {
-            table[index] = nullptr;
-        }
         used_size--;
+
+        if(capacity > 10 && used_size == (capacity/4)){
+            Rehash(capacity/2);
+        }
+        return SUCCESS;
     }
 
     bool Exists(int key) {
-        return (Find(key != nullptr));
+        /* if(Find(key) == nullptr){
+            return false;
+        }
+        return true; */
+        try{         //*return this after big bug test
+            Find(key);
+            return true;
+        }
+        catch(NotFound& e){
+            return false;
+        }
+    }
+
+    void Print(){
+        std::cout << std::endl;
+        std::cout << "Used size: " << used_size << std::endl;
+        std::cout << "Capacity: " << capacity << std::endl;
+        
+        
+        for(int i = 0; i < capacity; i++){
+            Cell* cell = table[i];
+            int count = 0;
+            
+            std::cout << "row " << i << ": ";
+
+            if(cell == nullptr){
+                std::cout << " is empty";
+            }
+            while (cell){
+                count++;
+                std::cout << " cell " << count << ": " << cell->data << "  -->  "; 
+
+                cell = cell->next;
+            }
+            std::cout << std::endl;
+        }
     }
 };
 

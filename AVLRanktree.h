@@ -843,9 +843,7 @@ int AVLTree<KeyElem, Data, Rank>::MergeArray(typename AVLTree<KeyElem, Data, Ran
 }
 
 /*
-
 ! old version of MergeArray
-
 template <class KeyElem, class Data, class Rank>
 void AVLTree<KeyElem, Data, Rank>::MergeArray(typename AVLTree<KeyElem, Data, Rank>::TNode **arr1, const int arr1_size,
                                               typename AVLTree<KeyElem, Data, Rank>::TNode **arr2, const int arr2_size, typename AVLTree<KeyElem, Data, Rank>::TNode **merged_arr) {
@@ -862,7 +860,6 @@ void AVLTree<KeyElem, Data, Rank>::MergeArray(typename AVLTree<KeyElem, Data, Ra
         }
         //std::cout << merged_arr[index]->key << std::endl;
         index++;
-
         //did not include arr1[index1] == arr2[index2] because not possible
     }
     if (index1 < arr1_size) {
