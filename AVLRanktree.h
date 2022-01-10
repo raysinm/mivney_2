@@ -1006,33 +1006,53 @@ RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const
 }
 
 template <class KeyElem, class Data, class Rank>
-Rank &AVLTree<KeyElem, Data, Rank>::FindRank(const KeyElem &key) {
+Rank &AVLTree<KeyElem, Data, Rank>::FindRank(const KeyElem &key) { // ! assume key exists in tree
     TNode *current_node = root;
     Rank node_rank(root->rank);       // *we have to give it some value
+    
+    if(current_node->right_son){
+        node_rank -= current_node->right_son->rank;
+    }
+    
     while (current_node->key != key)  // ! what if root has the right key?
     {
         if (key < current_node->key) {
             current_node = current_node->left_son;
-        } else if (key > current_node->key) {
+            node_rank = current_node->rank;
+            if(current_node->right_son){
+                node_rank -= current_node->right_son->rank;
+            }
+        } 
+        else if (key > current_node->key) {
+            current_node = current_node->right_son;
             node_rank += current_node.rank;
-            node_rank -= current_node->right_son.rank;
+            if(current_node->right_son){
+                node_rank -= current_node->right_son->rank;
+            }
         }
     }
     return node_rank;
 }
 
 template <class KeyElem, class Data, class Rank>
-double &AVLTree<KeyElem, Data, Rank>::AvgHighRank(int m) {
-
+double &AVLTree<KeyElem, Data, Rank>::AvgHighRank(int m){
     TNode *current_node = root;
-    Rank node_rank(root->rank);       // *we have to give it some value
-    while (current_node->key != key)  // ! what if root has the right key?
-    {
-        if (key < current_node->key) {
-            current_node = current_node->left_son;
-        } else if (key > current_node->key) {
-            node_rank += current_node.rank;
-            node_rank -= current_node->right_son.rank;
+}
+
+template <class KeyElem, class Data, class Rank>
+double &AVLTree<KeyElem, Data, Rank>::AvgHighRankRec(int m, TNode *current_node) {
+    int extra;
+    Rank *current_rank(root->rank);
+    Rank *node_rank(root->rank);
+    current_rank -= current_node->left_son->rank;
+    node_rank -= current_node->left_son->rank;
+    node_rank -= current_node->right_son->rank;
+    if(current_rank < m){
+        return AvgHighRankRec(m, current_node->left_son);
+    }else{
+        extra = current_rank - m;
+        if(extra > node_rank){
+            return AvgHighRankRec(m, current_node->right_son);
         }
     }
     return node_rank;
