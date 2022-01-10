@@ -1049,43 +1049,55 @@ double AVLTree<KeyElem, Data, Rank>::AvgHighRank(int m, const AVLTree &multiTree
 
 template <class KeyElem, class Data, class Rank>
 double AVLTree<KeyElem, Data, Rank>::AvgHighRankRec(int m, TNode *current_node, Rank *node_rank, const AVLTree &multiTree) {
-    if(rank == m){
-        return AVLGet(current_node.key) / m;
+    if(rank == m){ //node has the exact num of players to "fill" m
+        TNode *multi_node = multiTree.AVLFind(current_node.key);
+        Rank multi_rank(multi_node.rank);
+        if(multi_node->left_son){
+            multi_rank -= multi_node->left_son.rank;
+        }
+        return multi_rank / m;
     }
-    else if (rank < m) {
+    else if (rank < m) { //not enough players to "fill" m
         if(!current_node->left_son)
-        {
+        { //no left son means lowest level, we dont have enough players in tree
             return -1;
         }
         current_node = current_node->left_son;
-        node_rank += current_node->rank;
+        node_rank += current_node.rank;
         if(current_node->left_son){
-            node_rank -= current_node->left_son->rank;
+            node_rank -= current_node->left_son.rank;
         }
         return AvgHighRankRec(m, current_node, node_rank, multiTree);
     } 
-    else{
-        int extra = node_rank - m;
-        Rank this_rank(current_node->rank);
+    else{ //more players in level or above than m
+        int extra = node_rank - m; //how many more than m
+        Rank this_rank(current_node.rank);
         if(current_node->right_son){
-            this_rank -= current_node->right_son->rank;
+            this_rank -= current_node->right_son.rank;
         }
         if(current_node->right_son){
             this_rank -= current_node->right_son->rank;
         }
-        if(extra > this_rank){
+        if(extra > this_rank){ //if extra is more than players in level, level cant be the one to "fill" m
             current_node = current_node->right_son;
-            node_rank = current_node->rank;
+            node_rank = current_node.rank;
             if(current_node->left_son){
-                node_rank -= current_node->left_son->rank;
+                node_rank -= current_node->left_son.rank;
             }
             return AvgHighRankRec(m, current_node, node_rank, multiTree);
         }
-        TNode *next_node = current_node.next;
+        //we found the node that "fills" m
+        // go to next node, get next node multi, add to extra in this level and devide by m to get avg
+        TNode *next_node = current_node.nextInOrder();
         if(!next_node){
             return current_node.key;
         }
-        return (AVLGet(next_node.key) + (extra * current_node.key)) / m;
+        TNode *multi_node = multiTree.AVLFind(next_node.key);
+        Rank multi_rank(multi_node.rank);
+        if(multi_node->left_son){
+            multi_rank -= multi_node->left_son.rank;
+        }
+        return multi_rank + (extra * current_node.key)) / m;
     }
 }
 
