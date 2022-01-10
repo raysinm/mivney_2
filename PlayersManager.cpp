@@ -216,6 +216,8 @@ StatusType PlayersManager::AverageHighestPlayerLevelByGroup(int GroupID, int m, 
         double level_avg = 0, total_level_avg = 0;
 
         return SUCCESS;
+
+        //TODO: use AvgHighRank(m, all_players_by_level_multi); - will give you avg calculated
     }
 }
 

@@ -141,7 +141,7 @@ class AVLTree {
     void IgnoreSonsRank(TNode *node);
     void AddSonsRank(TNode *node);
     Rank &FindRank(const KeyElem &key);
-    double AvgHighRank(int m);
+    double AvgHighRankRec(int m, TNode *current_node, Rank *node_rank, const AVLTree &multiTree);
 
    public:
     AVLTree() : root(nullptr), tree_size(0){};
@@ -257,6 +257,7 @@ class AVLTree {
     int size() const;
     KeyElem &AVLMin() const;
     RankStatus RankInRange(const KeyElem &lower, const KeyElem &higher, Rank &rank_in_range);
+    double AvgHighRank(int m, const AVLTree &multiTree);
 
     void printTree();
     void printTreeData();
@@ -1035,27 +1036,57 @@ Rank &AVLTree<KeyElem, Data, Rank>::FindRank(const KeyElem &key) { // ! assume k
 }
 
 template <class KeyElem, class Data, class Rank>
-double &AVLTree<KeyElem, Data, Rank>::AvgHighRank(int m){
+double AVLTree<KeyElem, Data, Rank>::AvgHighRank(int m, const AVLTree &multiTree){
     TNode *current_node = root;
+    Rank node_rank(root->rank);
+
+    if(current_node->right_son){
+        node_rank -= current_node->left_son->rank;
+    }
+
+    return AvgHighRankRec(m, current_node, node_rank)
 }
 
 template <class KeyElem, class Data, class Rank>
-double &AVLTree<KeyElem, Data, Rank>::AvgHighRankRec(int m, TNode *current_node) {
-    int extra;
-    Rank *current_rank(root->rank);
-    Rank *node_rank(root->rank);
-    current_rank -= current_node->left_son->rank;
-    node_rank -= current_node->left_son->rank;
-    node_rank -= current_node->right_son->rank;
-    if(current_rank < m){
-        return AvgHighRankRec(m, current_node->left_son);
-    }else{
-        extra = current_rank - m;
-        if(extra > node_rank){
-            return AvgHighRankRec(m, current_node->right_son);
-        }
+double AVLTree<KeyElem, Data, Rank>::AvgHighRankRec(int m, TNode *current_node, Rank *node_rank, const AVLTree &multiTree) {
+    if(rank == m){
+        return AVLGet(current_node.key) / m;
     }
-    return node_rank;
+    else if (rank < m) {
+        if(!current_node->left_son)
+        {
+            return -1;
+        }
+        current_node = current_node->left_son;
+        node_rank += current_node->rank;
+        if(current_node->left_son){
+            node_rank -= current_node->left_son->rank;
+        }
+        return AvgHighRankRec(m, current_node, node_rank, multiTree);
+    } 
+    else{
+        int extra = node_rank - m;
+        Rank this_rank(current_node->rank);
+        if(current_node->right_son){
+            this_rank -= current_node->right_son->rank;
+        }
+        if(current_node->right_son){
+            this_rank -= current_node->right_son->rank;
+        }
+        if(extra > this_rank){
+            current_node = current_node->right_son;
+            node_rank = current_node->rank;
+            if(current_node->left_son){
+                node_rank -= current_node->left_son->rank;
+            }
+            return AvgHighRankRec(m, current_node, node_rank, multiTree);
+        }
+        TNode *next_node = current_node.next;
+        if(!next_node){
+            return current_node.key;
+        }
+        return (AVLGet(next_node.key) + (extra * current_node.key)) / m;
+    }
 }
 
 }  // namespace AVLRank
