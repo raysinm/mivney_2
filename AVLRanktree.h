@@ -36,7 +36,7 @@ class AVLTree {
 
        public:
         // ! should rank be const? ---no, has to be updated constantly
-        TNode(const KeyElem &key, const Data &data, const Rank &rank) : key(key), data(data), rank(rank) BF(0), height(0), father(nullptr), left_son(nullptr), right_son(nullptr){};
+        TNode(const KeyElem &key, const Data &data, const Rank &rank) : key(key), data(data), rank(rank), BF(0), height(0), father(nullptr), left_son(nullptr), right_son(nullptr){};
 
         TNode(const TNode &) = default;
         ~TNode() = default;
@@ -140,8 +140,8 @@ class AVLTree {
     void AVLRemoveFromFathersRank(TNode *node, Rank rank);
     void IgnoreSonsRank(TNode *node);
     void AddSonsRank(TNode *node);
-    Rank &FindRank(const KeyElem &key);
-    double AvgHighRankRec(int m, TNode *current_node, Rank *node_rank, const AVLTree &multiTree);
+    Rank FindRank(const KeyElem &key);
+    double AvgHighRankRec(Rank m, TNode *current_node, Rank *node_rank, const AVLTree &multiTree);
 
    public:
     AVLTree() : root(nullptr), tree_size(0){};
@@ -257,7 +257,7 @@ class AVLTree {
     int size() const;
     KeyElem &AVLMin() const;
     RankStatus RankInRange(const KeyElem &lower, const KeyElem &higher, Rank &rank_in_range);
-    double AvgHighRank(int m, const AVLTree &multiTree);
+    double AvgHighRank(Rank m, const AVLTree &multiTree);
 
     void printTree();
     void printTreeData();
@@ -292,7 +292,7 @@ void AVLTree<KeyElem, Data, Rank>::AVLInsert(const KeyElem &key, const Data &dat
         }
 
         insert_node->father = insert_after_node;
-        AVLAddToFathersRank(insert_after_node);
+        AVLAddToFathersRank(insert_after_node, rank);
         AVLBalance(insert_node->father);
         tree_size++;
     } catch (std::bad_alloc &e) {
@@ -333,36 +333,49 @@ void AVLTree<KeyElem, Data, Rank>::updateRank(const KeyElem &key, const Rank &ra
 
 // done
 template <class KeyElem, class Data, class Rank>
-void AVLMerge(AVLTree<KeyElem, Data, Rank> &other_tree) {
+void AVLTree<KeyElem, Data, Rank>::AVLMerge(AVLTree<KeyElem, Data, Rank> &other_tree) {
     //allocating two arrays for merging
-    TNode **tree1_arr;
-    TNode **other_tree_arr;
-    TNode **merged_arr;
+    TNode **tree1_arr =nullptr;
+    TNode **other_tree_arr = nullptr;
+    TNode **merged_arr = nullptr;
     try {
-        tree1_arr = new TNode *[this->tree_size];
-        other_tree_arr = new TNode *[other_tree.tree_size];
-        merged_arr = new TNode *[this->tree_size + other_tree.tree_size];
+        if (this->tree_size == 0) {
+            other_tree_arr = new TNode *[other_tree.tree_size];
+            //merged_arr = new TNode *[this->tree_size + other_tree.tree_size];
+            int i2 = 0;
+            IgnoreSonsRank(other_tree.root);
+            InOrderOutputTNodes_rec(other_tree.root, other_tree_arr, i2, other_tree.tree_size);
+            other_tree.root = nullptr;
+            this->root = this->ArrayToAVLTree(other_tree_arr, 0, other_tree.tree_size - 1, nullptr);
+            this->tree_size = other_tree.tree_size;
 
-        int i1 = 0, i2 = 0;
+        } else {
+            tree1_arr = new TNode *[this->tree_size];
+            other_tree_arr = new TNode *[other_tree.tree_size];
+            merged_arr = new TNode *[this->tree_size + other_tree.tree_size];
 
-        IgnoreSonsRank(root);
-        IgnoreSonsRank(other_tree.root);
+            int i1 = 0, i2 = 0;
 
-        InOrderOutputTNodes_rec(this->root, tree1_arr, i1, this->tree_size);
-        InOrderOutputTNodes_rec(other_tree.root, other_tree_arr, i2, other_tree.tree_size);
+            IgnoreSonsRank(root);
+            IgnoreSonsRank(other_tree.root);
 
-        this->root = nullptr;
-        other_tree.root = nullptr;
-        int merged_tree_size = MergeArray(tree1_arr, this->tree_size, other_tree_arr, other_tree.tree_size, merged_arr);
+            InOrderOutputTNodes_rec(this->root, tree1_arr, i1, this->tree_size);
+            InOrderOutputTNodes_rec(other_tree.root, other_tree_arr, i2, other_tree.tree_size);
 
-        this->root = this->ArrayToAVLTree(merged_arr, 0, merged_tree_size, nullptr);
-        this->tree_size = merged_tree_size;
+            this->root = nullptr;
+            other_tree.root = nullptr;
+            int merged_tree_size = MergeArray(tree1_arr, this->tree_size, other_tree_arr, other_tree.tree_size, merged_arr);
 
+            this->root = this->ArrayToAVLTree(merged_arr, 0, merged_tree_size, nullptr);
+            this->tree_size = merged_tree_size;
+            delete[] merged_arr;
+            delete[] tree1_arr;
+        }
         AddSonsRank(root);
 
-        delete[] tree1_arr;
+        
         delete[] other_tree_arr;
-        delete[] merged_arr;
+
         tree1_arr = nullptr;
         other_tree_arr = nullptr;
         merged_arr = nullptr;
@@ -645,7 +658,7 @@ void AVLTree<KeyElem, Data, Rank>::AVLRemove_rec(TNode *node, const KeyElem &key
             node->rank -= node->left_son->rank;
             if (replacer->left_son) {
                 node->rank += replacer->left_son->rank;
-                replacer->rank -= replacer->left_son_rank;
+                replacer->rank -= replacer->left_son->rank;
             }
 
             if (node == this->root) {
@@ -960,7 +973,8 @@ RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const
     if (AVLExist(lower)) {
         lowerNode = AVLFind(lower);
     } else {
-        TNode *imagine_father = AVLFind_rec(lower);
+        TNode *imagine_father;
+        AVLFind_rec(root, lower, &imagine_father);
         if (lower > imagine_father->key)  //Rank lower_rank(scale);
         {
             lowerNode = imagine_father->nextInOrder();
@@ -970,7 +984,8 @@ RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const
     if (AVLExist(higher)) {
         higherNode = AVLFind(higher);
     } else {
-        TNode *imagine_father = AVLFind_rec(higher);
+        TNode *imagine_father;
+        AVLFind_rec(root, higher, &imagine_father);
         if (higher < imagine_father->key) {
             higherNode = imagine_father->prevInOrder();
         }
@@ -983,8 +998,8 @@ RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const
     /* FindRank(higher, higher_rank);
     FindRank(lower, lower_rank); */
 
-    Rank &lower_rank = FindRank(lowerNode->key);
-    Rank &higher_rank = FindRank(higherNode->key);
+    Rank lower_rank = FindRank(lowerNode->key);
+    Rank higher_rank = FindRank(higherNode->key);
 
     rank_in_range += higher_rank;
     rank_in_range -= lower_rank;
@@ -992,10 +1007,10 @@ RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const
     Rank lowerNode_rank = lower_rank;
 
     if (lowerNode->left_son) {
-        lowerNode_rank -= lowerNode->left_son.rank;
+        lowerNode_rank -= lowerNode->left_son->rank;
     }
     if (lowerNode->right_son) {
-        lowerNode_rank -= lowerNode->right_son.rank;
+        lowerNode_rank -= lowerNode->right_son->rank;
     }
 
     rank_in_range += lowerNode_rank;
@@ -1004,27 +1019,26 @@ RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const
 }
 
 template <class KeyElem, class Data, class Rank>
-Rank &AVLTree<KeyElem, Data, Rank>::FindRank(const KeyElem &key) { // ! assume key exists in tree
+Rank AVLTree<KeyElem, Data, Rank>::FindRank(const KeyElem &key) {  // ! assume key exists in tree
     TNode *current_node = root;
-    Rank node_rank(root->rank);       // *we have to give it some value
-    
-    if(current_node->right_son){
+    Rank node_rank(root->rank);  // *we have to give it some value
+
+    if (current_node->right_son) {
         node_rank -= current_node->right_son->rank;
     }
-    
+
     while (current_node->key != key)  // ! what if root has the right key?
     {
         if (key < current_node->key) {
             current_node = current_node->left_son;
             node_rank = current_node->rank;
-            if(current_node->right_son){
+            if (current_node->right_son) {
                 node_rank -= current_node->right_son->rank;
             }
-        } 
-        else if (key > current_node->key) {
+        } else if (key > current_node->key) {
             current_node = current_node->right_son;
-            node_rank += current_node.rank;
-            if(current_node->right_son){
+            node_rank += current_node->rank;
+            if (current_node->right_son) {
                 node_rank -= current_node->right_son->rank;
             }
         }
@@ -1033,68 +1047,68 @@ Rank &AVLTree<KeyElem, Data, Rank>::FindRank(const KeyElem &key) { // ! assume k
 }
 
 template <class KeyElem, class Data, class Rank>
-double AVLTree<KeyElem, Data, Rank>::AvgHighRank(int m, const AVLTree &multiTree){
+double AVLTree<KeyElem, Data, Rank>::AvgHighRank(Rank m, const AVLTree &multiTree) {
+    if(root == nullptr){
+        return 0;
+    }
     TNode *current_node = root;
     Rank node_rank(root->rank);
 
-    if(current_node->right_son){
+    if (current_node->left_son) {
         node_rank -= current_node->left_son->rank;
     }
 
-    return AvgHighRankRec(m, current_node, node_rank)
+    return AvgHighRankRec(m, current_node, &node_rank, multiTree);
 }
 
 template <class KeyElem, class Data, class Rank>
-double AVLTree<KeyElem, Data, Rank>::AvgHighRankRec(int m, TNode *current_node, Rank *node_rank, const AVLTree &multiTree) {
-    if(rank == m){ //node has the exact num of players to "fill" m
-        TNode *multi_node = multiTree.AVLFind(current_node.key);
-        Rank multi_rank(multi_node.rank);
-        if(multi_node->left_son){
-            multi_rank -= multi_node->left_son.rank;
+double AVLTree<KeyElem, Data, Rank>::AvgHighRankRec(Rank m, TNode *current_node, Rank *node_rank, const AVLTree &multiTree) {
+    if (*node_rank == m) {  //node has the exact num of players to "fill" m
+        TNode *multi_node = multiTree.AVLFind(current_node->key);
+        Rank multi_rank(multi_node->rank);
+        if (multi_node->left_son) {
+            multi_rank -= multi_node->left_son->rank;
         }
         return multi_rank / m;
-    }
-    else if (rank < m) { //not enough players to "fill" m
-        if(!current_node->left_son)
-        { //no left son means lowest level, we dont have enough players in tree
+    } else if (*node_rank < m) {        //not enough players to "fill" m
+        if (!current_node->left_son) {  //no left son means lowest level, we dont have enough players in tree
             return -1;
         }
         current_node = current_node->left_son;
-        node_rank += current_node.rank;
-        if(current_node->left_son){
-            node_rank -= current_node->left_son.rank;
+        node_rank += current_node->rank;
+        if (current_node->left_son) {
+            node_rank -= current_node->left_son->rank;
         }
         return AvgHighRankRec(m, current_node, node_rank, multiTree);
-    } 
-    else{ //more players in level or above than m
-        int extra = node_rank - m; //how many more than m
-        Rank this_rank(current_node.rank);
-        if(current_node->right_son){
-            this_rank -= current_node->right_son.rank;
-        }
-        if(current_node->right_son){
+    } else {                        //more players in level or above than m
+        Rank extra = *node_rank - m;  //how many more than m
+        Rank this_rank(current_node->rank);
+        if (current_node->right_son) {
             this_rank -= current_node->right_son->rank;
         }
-        if(extra > this_rank){ //if extra is more than players in level, level cant be the one to "fill" m
+        if (current_node->right_son) {
+            this_rank -= current_node->right_son->rank;
+        }
+        if (extra > this_rank) {  //if extra is more than players in level, level cant be the one to "fill" m
             current_node = current_node->right_son;
-            node_rank = current_node.rank;
-            if(current_node->left_son){
-                node_rank -= current_node->left_son.rank;
+            *node_rank = current_node->rank;
+            if (current_node->left_son) {
+                *node_rank -= current_node->left_son->rank;
             }
             return AvgHighRankRec(m, current_node, node_rank, multiTree);
         }
         //we found the node that "fills" m
         // go to next node, get next node multi, add to extra in this level and devide by m to get avg
-        TNode *next_node = current_node.nextInOrder();
-        if(!next_node){
-            return current_node.key;
+        TNode *next_node = current_node->nextInOrder();
+        if (!next_node) {
+            return current_node->key;
         }
-        TNode *multi_node = multiTree.AVLFind(next_node.key);
-        Rank multi_rank(multi_node.rank);
-        if(multi_node->left_son){
-            multi_rank -= multi_node->left_son.rank;
+        TNode *multi_node = multiTree.AVLFind(next_node->key);
+        Rank multi_rank(multi_node->rank);
+        if (multi_node->left_son) {
+            multi_rank -= multi_node->left_son->rank;
         }
-        return multi_rank + (extra * current_node.key)) / m;
+        return (multi_rank + (extra * current_node->key) / m);
     }
 }
 

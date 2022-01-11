@@ -25,7 +25,8 @@ class UnionFind {
         int group_num;
         GroupNode* father;  //points to father if exists
        public:
-        GroupNode(int group_num) : group_num(group_num), father(nullptr){};
+        GroupNode(): group_num(0), father(nullptr){};
+        explicit GroupNode(int group_num) : group_num(group_num), father(nullptr){};
     };
 
     class UnionGroup {
@@ -33,7 +34,15 @@ class UnionFind {
         Data data;  //data holds GroupData with AVL
         int size;   //holds num of groups
        public:
-        UnionGroup(Data data) : data(data), size(1){};
+        UnionGroup(): data(0),size(1){};
+        UnionGroup(const UnionGroup& other): data(other.data), size(other.size){};
+        /* UnionGroup& operator =(const UnionGroup& other){
+            size = other.size;
+            data = (other.data);
+        } */
+
+        explicit UnionGroup(int scale): data(scale), size(1){};
+        //explicit UnionGroup(Data data) : data(data), size(1){};
     };
 
     GroupNode* group_nodes;
@@ -43,14 +52,17 @@ class UnionFind {
     
 
    public:
-    UnionFind(int k) : num_of_groups(k) {
+    UnionFind(int k, int scale) : num_of_groups(k) {
         group_nodes = new GroupNode[k + 1];
         groups = new UnionGroup[k + 1];
 
         for (int i = 1; i <= k; i++) {
-            groups[i].data(Data());  // ! legit?
-            GroupNode group_node_i = new GroupNode(i);
-            group_nodes[i] = group_node_i;
+            group_nodes[i].group_num = i;
+            UnionGroup new_group(scale);
+            groups[i].data =new_group.data; 
+            
+           /*  GroupNode group_node_i = new GroupNode(i);
+            group_nodes[i] = group_node_i; */
         }
     };
 
@@ -65,8 +77,8 @@ class UnionFind {
 
 template <class Data>
 void UnionFind<Data>::Union(int group1, int group2) {
-    GroupNode* g1_node = group_nodes[group1];
-    GroupNode* g2_node = group_nodes[group2];
+    GroupNode* g1_node = &group_nodes[group1];
+    GroupNode* g2_node = &group_nodes[group2];
 
     while (g1_node->father) {
         g1_node = g1_node->father;
@@ -75,14 +87,14 @@ void UnionFind<Data>::Union(int group1, int group2) {
         g2_node = g1_node->father;
     }
 
-    if (g1_node.group_num == g2_node.group_num) {
-        return SUCCESS;
+    if (g1_node->group_num == g2_node->group_num) {
+        //return SUCCESS;
     }
 
-    UnionGroup* g1 = groups[g1_node.group_num];
-    UnionGroup* g2 = groups[g2_node.group_num];
+    UnionGroup* g1 = &groups[g1_node->group_num];
+    UnionGroup* g2 = &groups[g2_node->group_num];
 
-    if (g1.size > g2.size) {
+    if (g1->size > g2->size) {
         mergeIntoGroup(g1, g2);
         g2_node->father = g1_node->father;
     } else {
@@ -93,27 +105,28 @@ void UnionFind<Data>::Union(int group1, int group2) {
 
 template <class Data>
 void UnionFind<Data>::mergeIntoGroup(UnionGroup* g1, UnionGroup* g2) {
-    g1.size += g2.size;
-    g1.data += g2.data;
-    g2.size = 0;
+    g1->size += g2->size;
+    g1->data += g2->data;
+    g2->size = 0;
     // call g2.data destructor
 }
 
 template <class Data>
 Data& UnionFind<Data>::Find(int group) {  //* notice that Find returns reference to group data
-    GroupNode* node = group_nodes[group];
+    GroupNode* node = &group_nodes[group];
     GroupNode* next_node;
-    GroupNode* root = group_nodes[group];
+    GroupNode* root = &group_nodes[group];
     while (root->father != nullptr) {
         root = root->father;
     }
-    while (node->father != root) {
+    
+    while (node->father && node->father != root) {
         next_node = node->father;
         node->father = root;
         node = next_node;
     }
-    UnionGroup* group_cell = groups[root.group_num];
-    return group_cell.data;
+    UnionGroup* group_cell = &groups[root->group_num];
+    return group_cell->data;
 }
 }  // namespace UF
 

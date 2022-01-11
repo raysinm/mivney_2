@@ -61,14 +61,26 @@ StatusType IncreasePlayerIDLevel(void *DS, int PlayerID, int LevelIncrease) {
     if (DS == NULL || PlayerID <= 0 || LevelIncrease <= 0) {
         return INVALID_INPUT;
     }
+    try{
     return ((Manager *)DS)->IncreasePlayerIDLevel(PlayerID, LevelIncrease);
+    } catch (PM::Failure &e1) {
+        return FAILURE;
+    } catch (std::bad_alloc &e2) {
+        return ALLOCATION_ERROR;
+    }
 }
 
 StatusType ChangePlayerIDScore(void *DS, int PlayerID, int NewScore) {
     if (DS == NULL || PlayerID <= 0 || NewScore <= 0 || NewScore > ((Manager *)DS)->scale) {
         return INVALID_INPUT;
     }
-    return ((Manager *)DS)->ChangePlayerIDScore(PlayerID, NewScore);
+    try{
+        return ((Manager *)DS)->ChangePlayerIDScore(PlayerID, NewScore);
+    } catch (PM::Failure &e1) {
+        return FAILURE;
+    } catch (std::bad_alloc &e2) {
+        return ALLOCATION_ERROR;
+    }
 }
 
 StatusType GetPercentOfPlayersWithScoreInBounds(void *DS, int GroupID, int score, int lowerLevel, int higherLevel,
@@ -76,18 +88,31 @@ StatusType GetPercentOfPlayersWithScoreInBounds(void *DS, int GroupID, int score
     if (DS == NULL || players == NULL || GroupID <= 0 || GroupID > ((Manager *)DS)->k) {
         return INVALID_INPUT;
     }
-    return ((Manager *)DS)->GetPercentOfPlayersWithScoreInBounds(GroupID, score, lowerLevel, higherLevel, players);
+    try{
+        return ((Manager *)DS)->GetPercentOfPlayersWithScoreInBounds(GroupID, score, lowerLevel, higherLevel, players);
+    } catch (PM::Failure &e1) {
+        return FAILURE;
+    } catch (std::bad_alloc &e2) {
+        return ALLOCATION_ERROR;
+    }
 }
 
 StatusType AverageHighestPlayerLevelByGroup(void *DS, int GroupID, int m, double *level) {
     if (DS == NULL || level == NULL || GroupID <= 0 || GroupID > ((Manager *)DS)->k || m < 0) {
         return INVALID_INPUT;
     }
-    return ((Manager *)DS)->AverageHighestPlayerLevelByGroup(GroupID, m, level);
+    try{
+        return ((Manager *)DS)->AverageHighestPlayerLevelByGroup(GroupID, m, level);
+    } catch (PM::Failure &e1) {
+        return FAILURE;
+    } catch (std::bad_alloc &e2) {
+        return ALLOCATION_ERROR;
+    }
 }
 
 StatusType GetPlayersBound(void *DS, int GroupID, int score, int m,
                            int *LowerBoundPlayers, int *HigherBoundPlayers) {
+    return SUCCESS;
 }
 
 void Quit(void **DS) {

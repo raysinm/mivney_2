@@ -23,7 +23,10 @@ set(CPP_FILES_1_1 "./hash_tests/DynamicHashtable.h" "./hash_tests/HashTest/main.
 
 set(CPP_FILES_2 "./unionfind_tests/UnionFind.h" "./unionfind_tests/main.cpp")
 
+set(CPP_FILES_3 "./course_files/library2.h" "./PlayersManager.h" "./DynamicHashtable.h" "./UnionFind.h" "./course_files/main2.cpp" "./PlayersManager.cpp" "./library2.cpp")
+
 
 add_executable(hash_mini_test ${CPP_FILES_1})
 add_executable(hash_big_test ${CPP_FILES_1_1})
 add_executable(uf_test ${CPP_FILES_2})
+add_executable(pm_main ${CPP_FILES_3})

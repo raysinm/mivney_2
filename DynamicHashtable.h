@@ -177,7 +177,7 @@ class DynamicHashtable {
         if(capacity > 10 && used_size == (capacity/4)){
             Rehash(capacity/2);
         }
-        return SUCCESS;
+        //return SUCCESS;
     }
 
     bool Exists(int key) {

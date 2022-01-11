@@ -146,6 +146,7 @@ StatusType PlayersManager::ChangePlayerIDScore(int PlayerID, int NewScore) {
     ++(*all_score_array)[NewScore];
 
     player_data.score = NewScore;
+    return SUCCESS;
 }
 
 StatusType PlayersManager::GetPercentOfPlayersWithScoreInBounds(int GroupID, int score, int lowerLevel, int higherLevel, double *players) {
@@ -201,24 +202,28 @@ StatusType PlayersManager::AverageHighestPlayerLevelByGroup(int GroupID, int m, 
             throw Failure();
         }
 
-        int players_num = 0;
-        int levels_sum = 0;
+        *level = all_players_by_level_sums.AvgHighRank(m, all_players_by_level_multi);
+        /* int players_num = 0;
+        int levels_sum = 0; */
 
     } else {  //* group players
         GroupData &group = groups.Find(GroupID);
         if (m > group.group_size) {
             throw Failure();
         }
+    
 
-        //RankTreeInt &group_tree = group.group_levels_sums;
-
-        int players_num = 0, level_sum = 0, level_counter = 0;
-        double level_avg = 0, total_level_avg = 0;
-
+        RankTreeInt &group_tree_sums = group.group_levels_sums;
+        RankTreeInt &group_tree_multi = group.group_levels_multi;
+        
+        *level = group_tree_sums.AvgHighRank(m, group_tree_multi);
+    }
         return SUCCESS;
+        /* int players_num = 0, level_sum = 0, level_counter = 0;
+        double level_avg = 0, total_level_avg = 0; */
+
 
         //TODO: use AvgHighRank(m, all_players_by_level_multi); - will give you avg calculated
-    }
 }
 
     //  OTHER FUNCTIONS
