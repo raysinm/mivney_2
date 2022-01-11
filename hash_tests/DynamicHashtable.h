@@ -31,7 +31,7 @@ class DynamicHashtable {
         Cell(const int& key, const Data& data) : key(key), data(data), next(nullptr){};
 
     };
-
+    
     Cell** table;
     int used_size;
     int capacity;  //we want to keep: used_size = O(capacity)
@@ -40,8 +40,7 @@ class DynamicHashtable {
     void Rehash(int new_capacity) {
         try{
         int old_cap = capacity;
-        capacity = new_capacity;
-        used_size = 0;
+        
 
         Cell** old_table = new Cell*[old_cap];
         //! doesnt work: memcpy(old_table, this->table, sizeof(this->table));
@@ -49,7 +48,11 @@ class DynamicHashtable {
         for(int i = 0; i< old_cap; i++){
             old_table[i] = this->table[i];
         }
-        delete[] table;
+
+        deleteTable();
+
+        capacity = new_capacity;
+        used_size = 0;
         table = new Cell* [capacity] { nullptr };
 
         for (int i = 0; i < old_cap; i++) {
@@ -62,6 +65,8 @@ class DynamicHashtable {
         }
 
         delete[] old_table;
+
+
         }
         catch(std::bad_alloc &e){
             throw e;
@@ -71,6 +76,21 @@ class DynamicHashtable {
     int Hash(int key) {
         int hash_key = key % capacity;
         return hash_key;
+    }
+
+    void deleteTable(){
+        for(int i = 0; i<capacity; i++){
+            Cell* cell = table[i];
+            Cell* temp_cell = table[i];
+            
+            
+            while(cell){
+                temp_cell = cell->next;
+                delete cell;
+                cell =  temp_cell;
+            }
+        }
+        delete table;
     }
 
    public:
@@ -94,7 +114,7 @@ class DynamicHashtable {
     DynamicHashtable(const DynamicHashtable& other) = delete;
 
     ~DynamicHashtable() {
-        delete[] table;
+        deleteTable();
     }
 
 
@@ -167,6 +187,8 @@ class DynamicHashtable {
                 delete cell;
                 break;
             }
+
+            
 
             prev_cell = cell;
             cell = cell->next;
