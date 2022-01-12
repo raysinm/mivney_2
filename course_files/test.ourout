@@ -1,0 +1,29 @@
+Init done.
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+AddPlayer: INVALID_INPUT
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+ChangePlayerIDScore: SUCCESS
+
+
+└──────level: 2, rank: 0, 0, 1, 1, 0, 0, 
+        ├──────level: 3, rank: 0, 0, 0, 1, 0, 0, 
+
+
+
+0, 0, 1, 1, 0, 0, 
+
+
+└──────group id: (0) 
+        ├──────group id: (0) 
+
+
+GetPercentOfPlayersWithScoreInBounds: 50.00
+MergeGroups: SUCCESS
+RemovePlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 1.67
+Quit done.

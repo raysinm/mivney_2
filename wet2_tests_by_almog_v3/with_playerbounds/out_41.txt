@@ -1,0 +1,1108 @@
+Init done.
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+RemovePlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 0.00
+AddPlayer: INVALID_INPUT
+AddPlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+AddPlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 4.00
+IncreasePlayerIDLevel: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+GetPlayersBound: 1 1
+GetPlayersBound: 1 1
+AverageHighestPlayerLevelByGroup: 0.00
+GetPercentOfPlayersWithScoreInBounds: 100.00
+AddPlayer: FAILURE
+AddPlayer: SUCCESS
+MergeGroups: SUCCESS
+AddPlayer: SUCCESS
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: 4.17
+ChangePlayerIDScore: SUCCESS
+MergeGroups: INVALID_INPUT
+GetPercentOfPlayersWithScoreInBounds: 0.00
+RemovePlayer: SUCCESS
+MergeGroups: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+AddPlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: FAILURE
+IncreasePlayerIDLevel: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+AddPlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 0.00
+RemovePlayer: SUCCESS
+GetPlayersBound: 0 1
+AddPlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+AverageHighestPlayerLevelByGroup: 13.33
+MergeGroups: INVALID_INPUT
+ChangePlayerIDScore: SUCCESS
+AddPlayer: SUCCESS
+GetPlayersBound: 1 1
+AverageHighestPlayerLevelByGroup: 5.70
+ChangePlayerIDScore: SUCCESS
+AddPlayer: INVALID_INPUT
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+GetPlayersBound: INVALID_INPUT
+MergeGroups: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 11.11
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AddPlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: INVALID_INPUT
+ChangePlayerIDScore: SUCCESS
+AddPlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 100.00
+AddPlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+ChangePlayerIDScore: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 0.00
+RemovePlayer: SUCCESS
+MergeGroups: SUCCESS
+RemovePlayer: SUCCESS
+GetPlayersBound: INVALID_INPUT
+RemovePlayer: INVALID_INPUT
+AddPlayer: SUCCESS
+GetPlayersBound: 1 1
+GetPercentOfPlayersWithScoreInBounds: 100.00
+MergeGroups: SUCCESS
+RemovePlayer: SUCCESS
+GetPlayersBound: 1 1
+AddPlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+RemovePlayer: SUCCESS
+RemovePlayer: SUCCESS
+MergeGroups: SUCCESS
+MergeGroups: INVALID_INPUT
+ChangePlayerIDScore: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: FAILURE
+AverageHighestPlayerLevelByGroup: 3.00
+RemovePlayer: SUCCESS
+RemovePlayer: FAILURE
+GetPlayersBound: 1 1
+GetPercentOfPlayersWithScoreInBounds: 0.00
+AverageHighestPlayerLevelByGroup: 2.00
+GetPercentOfPlayersWithScoreInBounds: 100.00
+AddPlayer: INVALID_INPUT
+IncreasePlayerIDLevel: SUCCESS
+IncreasePlayerIDLevel: INVALID_INPUT
+AddPlayer: SUCCESS
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: 3.33
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: 11.00
+GetPercentOfPlayersWithScoreInBounds: 0.00
+IncreasePlayerIDLevel: SUCCESS
+AddPlayer: SUCCESS
+GetPlayersBound: 0 1
+RemovePlayer: SUCCESS
+RemovePlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 16.00
+AverageHighestPlayerLevelByGroup: 3.00
+RemovePlayer: SUCCESS
+GetPlayersBound: 1 1
+AddPlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 50.00
+MergeGroups: SUCCESS
+GetPlayersBound: 1 1
+ChangePlayerIDScore: SUCCESS
+MergeGroups: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AddPlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AverageHighestPlayerLevelByGroup: 11.00
+MergeGroups: SUCCESS
+AddPlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 4.11
+AddPlayer: SUCCESS
+RemovePlayer: FAILURE
+MergeGroups: SUCCESS
+GetPlayersBound: 0 0
+MergeGroups: SUCCESS
+ChangePlayerIDScore: SUCCESS
+MergeGroups: INVALID_INPUT
+GetPlayersBound: 1 1
+AddPlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 3.70
+IncreasePlayerIDLevel: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: FAILURE
+MergeGroups: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+GetPlayersBound: 0 1
+IncreasePlayerIDLevel: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: INVALID_INPUT
+AddPlayer: SUCCESS
+RemovePlayer: SUCCESS
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: FAILURE
+MergeGroups: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 7.69
+AverageHighestPlayerLevelByGroup: FAILURE
+ChangePlayerIDScore: SUCCESS
+ChangePlayerIDScore: SUCCESS
+RemovePlayer: SUCCESS
+GetPlayersBound: 0 0
+GetPlayersBound: 0 0
+IncreasePlayerIDLevel: SUCCESS
+AverageHighestPlayerLevelByGroup: 0.00
+RemovePlayer: SUCCESS
+MergeGroups: SUCCESS
+ChangePlayerIDScore: SUCCESS
+MergeGroups: SUCCESS
+RemovePlayer: FAILURE
+RemovePlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: 13.00
+ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 0 0
+ChangePlayerIDScore: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+GetPlayersBound: 1 1
+AverageHighestPlayerLevelByGroup: 5.50
+GetPercentOfPlayersWithScoreInBounds: 0.00
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 10.00
+RemovePlayer: SUCCESS
+AddPlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 33.33
+ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 0 0
+RemovePlayer: SUCCESS
+AddPlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 8.60
+GetPercentOfPlayersWithScoreInBounds: 16.67
+MergeGroups: INVALID_INPUT
+GetPlayersBound: 0 0
+ChangePlayerIDScore: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 50.00
+GetPercentOfPlayersWithScoreInBounds: 11.11
+AverageHighestPlayerLevelByGroup: 4.00
+MergeGroups: SUCCESS
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+MergeGroups: SUCCESS
+AddPlayer: SUCCESS
+GetPlayersBound: 1 1
+RemovePlayer: INVALID_INPUT
+GetPlayersBound: 0 0
+AverageHighestPlayerLevelByGroup: 7.83
+AddPlayer: SUCCESS
+GetPlayersBound: INVALID_INPUT
+GetPercentOfPlayersWithScoreInBounds: 100.00
+MergeGroups: INVALID_INPUT
+GetPlayersBound: 1 1
+GetPlayersBound: 1 1
+GetPlayersBound: 1 1
+GetPlayersBound: FAILURE
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: 4.00
+RemovePlayer: SUCCESS
+MergeGroups: SUCCESS
+AddPlayer: SUCCESS
+GetPlayersBound: FAILURE
+MergeGroups: INVALID_INPUT
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: FAILURE
+ChangePlayerIDScore: SUCCESS
+RemovePlayer: INVALID_INPUT
+ChangePlayerIDScore: SUCCESS
+AverageHighestPlayerLevelByGroup: INVALID_INPUT
+GetPercentOfPlayersWithScoreInBounds: FAILURE
+AverageHighestPlayerLevelByGroup: 6.50
+AverageHighestPlayerLevelByGroup: FAILURE
+MergeGroups: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AverageHighestPlayerLevelByGroup: 0.00
+MergeGroups: SUCCESS
+AddPlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 0.00
+GetPlayersBound: 0 0
+MergeGroups: INVALID_INPUT
+AddPlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AddPlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+RemovePlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: INVALID_INPUT
+IncreasePlayerIDLevel: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+AddPlayer: SUCCESS
+RemovePlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 100.00
+GetPercentOfPlayersWithScoreInBounds: 0.00
+IncreasePlayerIDLevel: FAILURE
+AddPlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 100.00
+MergeGroups: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+AverageHighestPlayerLevelByGroup: 10.25
+ChangePlayerIDScore: SUCCESS
+ChangePlayerIDScore: SUCCESS
+MergeGroups: SUCCESS
+AddPlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 8.33
+AddPlayer: SUCCESS
+GetPlayersBound: 0 1
+IncreasePlayerIDLevel: SUCCESS
+AverageHighestPlayerLevelByGroup: 7.44
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+IncreasePlayerIDLevel: FAILURE
+AverageHighestPlayerLevelByGroup: 7.00
+GetPlayersBound: 1 1
+AddPlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AddPlayer: SUCCESS
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: 13.00
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+RemovePlayer: INVALID_INPUT
+RemovePlayer: SUCCESS
+MergeGroups: SUCCESS
+ChangePlayerIDScore: SUCCESS
+IncreasePlayerIDLevel: FAILURE
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: 8.33
+GetPercentOfPlayersWithScoreInBounds: 0.00
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: INVALID_INPUT
+ChangePlayerIDScore: SUCCESS
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: 8.00
+GetPlayersBound: 1 1
+RemovePlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 19.00
+ChangePlayerIDScore: SUCCESS
+AddPlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 1 1
+IncreasePlayerIDLevel: SUCCESS
+AverageHighestPlayerLevelByGroup: 19.00
+AddPlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: FAILURE
+GetPlayersBound: 1 1
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+RemovePlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+AverageHighestPlayerLevelByGroup: 16.50
+IncreasePlayerIDLevel: SUCCESS
+MergeGroups: SUCCESS
+GetPlayersBound: 0 0
+IncreasePlayerIDLevel: SUCCESS
+GetPlayersBound: 0 0
+AddPlayer: INVALID_INPUT
+GetPercentOfPlayersWithScoreInBounds: 50.00
+RemovePlayer: SUCCESS
+RemovePlayer: SUCCESS
+RemovePlayer: SUCCESS
+AddPlayer: SUCCESS
+MergeGroups: SUCCESS
+GetPlayersBound: 2 2
+GetPercentOfPlayersWithScoreInBounds: 0.00
+AddPlayer: SUCCESS
+GetPlayersBound: 0 0
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 33.33
+IncreasePlayerIDLevel: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 50.00
+AddPlayer: SUCCESS
+RemovePlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+ChangePlayerIDScore: FAILURE
+MergeGroups: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: INVALID_INPUT
+AverageHighestPlayerLevelByGroup: 0.00
+AddPlayer: SUCCESS
+GetPlayersBound: INVALID_INPUT
+GetPlayersBound: 0 0
+GetPercentOfPlayersWithScoreInBounds: 0.00
+RemovePlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+ChangePlayerIDScore: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 7.69
+AverageHighestPlayerLevelByGroup: 5.00
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AddPlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AverageHighestPlayerLevelByGroup: INVALID_INPUT
+AddPlayer: SUCCESS
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AddPlayer: SUCCESS
+MergeGroups: SUCCESS
+RemovePlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 6.25
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+GetPlayersBound: 0 0
+GetPlayersBound: 0 1
+IncreasePlayerIDLevel: FAILURE
+IncreasePlayerIDLevel: SUCCESS
+AverageHighestPlayerLevelByGroup: 3.42
+AddPlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 33.33
+AverageHighestPlayerLevelByGroup: 5.00
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: FAILURE
+GetPlayersBound: 1 1
+GetPercentOfPlayersWithScoreInBounds: 4.00
+GetPlayersBound: FAILURE
+GetPlayersBound: 0 1
+GetPercentOfPlayersWithScoreInBounds: 4.76
+GetPercentOfPlayersWithScoreInBounds: FAILURE
+AddPlayer: SUCCESS
+RemovePlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 6.31
+GetPercentOfPlayersWithScoreInBounds: INVALID_INPUT
+RemovePlayer: INVALID_INPUT
+AddPlayer: SUCCESS
+MergeGroups: SUCCESS
+RemovePlayer: FAILURE
+RemovePlayer: SUCCESS
+GetPlayersBound: 0 1
+IncreasePlayerIDLevel: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 0.00
+MergeGroups: SUCCESS
+MergeGroups: SUCCESS
+AddPlayer: FAILURE
+MergeGroups: SUCCESS
+RemovePlayer: SUCCESS
+GetPlayersBound: 0 2
+ChangePlayerIDScore: SUCCESS
+ChangePlayerIDScore: SUCCESS
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: 5.29
+AddPlayer: FAILURE
+MergeGroups: SUCCESS
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+AverageHighestPlayerLevelByGroup: 3.48
+GetPlayersBound: 1 1
+AddPlayer: INVALID_INPUT
+MergeGroups: SUCCESS
+RemovePlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: INVALID_INPUT
+MergeGroups: SUCCESS
+GetPlayersBound: 1 1
+MergeGroups: SUCCESS
+AddPlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+ChangePlayerIDScore: SUCCESS
+MergeGroups: SUCCESS
+RemovePlayer: INVALID_INPUT
+AverageHighestPlayerLevelByGroup: INVALID_INPUT
+ChangePlayerIDScore: SUCCESS
+MergeGroups: SUCCESS
+GetPlayersBound: 1 1
+ChangePlayerIDScore: SUCCESS
+AddPlayer: INVALID_INPUT
+RemovePlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 33.33
+AddPlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AddPlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 9.09
+GetPlayersBound: 0 0
+AverageHighestPlayerLevelByGroup: FAILURE
+GetPercentOfPlayersWithScoreInBounds: 5.26
+IncreasePlayerIDLevel: SUCCESS
+MergeGroups: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 11.76
+IncreasePlayerIDLevel: INVALID_INPUT
+GetPercentOfPlayersWithScoreInBounds: 4.00
+AverageHighestPlayerLevelByGroup: 10.50
+ChangePlayerIDScore: SUCCESS
+RemovePlayer: SUCCESS
+GetPlayersBound: 0 0
+IncreasePlayerIDLevel: SUCCESS
+GetPlayersBound: 1 1
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 1 1
+GetPlayersBound: 0 2
+AverageHighestPlayerLevelByGroup: 5.88
+AverageHighestPlayerLevelByGroup: 4.70
+GetPercentOfPlayersWithScoreInBounds: 12.50
+MergeGroups: INVALID_INPUT
+GetPercentOfPlayersWithScoreInBounds: 0.00
+GetPlayersBound: 0 0
+RemovePlayer: SUCCESS
+AddPlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 4.27
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AverageHighestPlayerLevelByGroup: 17.00
+GetPlayersBound: 0 0
+GetPlayersBound: 1 1
+MergeGroups: SUCCESS
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: 3.92
+MergeGroups: SUCCESS
+GetPlayersBound: 0 0
+GetPlayersBound: 1 1
+GetPlayersBound: 0 0
+AverageHighestPlayerLevelByGroup: FAILURE
+AverageHighestPlayerLevelByGroup: 3.00
+IncreasePlayerIDLevel: SUCCESS
+RemovePlayer: SUCCESS
+MergeGroups: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 0.00
+IncreasePlayerIDLevel: SUCCESS
+GetPlayersBound: 0 1
+GetPercentOfPlayersWithScoreInBounds: 16.67
+GetPercentOfPlayersWithScoreInBounds: 20.00
+GetPercentOfPlayersWithScoreInBounds: 0.00
+GetPercentOfPlayersWithScoreInBounds: 0.00
+AverageHighestPlayerLevelByGroup: FAILURE
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: FAILURE
+GetPercentOfPlayersWithScoreInBounds: 50.00
+AddPlayer: INVALID_INPUT
+IncreasePlayerIDLevel: FAILURE
+MergeGroups: SUCCESS
+MergeGroups: SUCCESS
+ChangePlayerIDScore: FAILURE
+AddPlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: FAILURE
+GetPlayersBound: 0 1
+AddPlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+GetPlayersBound: INVALID_INPUT
+GetPlayersBound: 0 1
+IncreasePlayerIDLevel: SUCCESS
+MergeGroups: INVALID_INPUT
+AverageHighestPlayerLevelByGroup: 19.00
+GetPlayersBound: 1 1
+RemovePlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 9.12
+AddPlayer: FAILURE
+IncreasePlayerIDLevel: INVALID_INPUT
+AverageHighestPlayerLevelByGroup: 6.77
+RemovePlayer: SUCCESS
+GetPlayersBound: 0 1
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+RemovePlayer: SUCCESS
+AddPlayer: SUCCESS
+RemovePlayer: SUCCESS
+AddPlayer: FAILURE
+AddPlayer: SUCCESS
+RemovePlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 0.00
+GetPercentOfPlayersWithScoreInBounds: 5.88
+MergeGroups: SUCCESS
+ChangePlayerIDScore: SUCCESS
+MergeGroups: SUCCESS
+AddPlayer: SUCCESS
+GetPlayersBound: 0 0
+MergeGroups: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+IncreasePlayerIDLevel: INVALID_INPUT
+IncreasePlayerIDLevel: FAILURE
+GetPercentOfPlayersWithScoreInBounds: 7.69
+AverageHighestPlayerLevelByGroup: 2.39
+MergeGroups: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+AddPlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+RemovePlayer: SUCCESS
+MergeGroups: SUCCESS
+ChangePlayerIDScore: SUCCESS
+GetPlayersBound: INVALID_INPUT
+ChangePlayerIDScore: SUCCESS
+ChangePlayerIDScore: INVALID_INPUT
+GetPlayersBound: FAILURE
+ChangePlayerIDScore: SUCCESS
+AverageHighestPlayerLevelByGroup: 2.42
+MergeGroups: SUCCESS
+ChangePlayerIDScore: FAILURE
+ChangePlayerIDScore: SUCCESS
+AddPlayer: INVALID_INPUT
+ChangePlayerIDScore: SUCCESS
+RemovePlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+AddPlayer: INVALID_INPUT
+GetPercentOfPlayersWithScoreInBounds: FAILURE
+RemovePlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: FAILURE
+GetPercentOfPlayersWithScoreInBounds: 8.33
+IncreasePlayerIDLevel: SUCCESS
+AddPlayer: INVALID_INPUT
+IncreasePlayerIDLevel: SUCCESS
+AverageHighestPlayerLevelByGroup: 5.70
+MergeGroups: SUCCESS
+MergeGroups: SUCCESS
+ChangePlayerIDScore: INVALID_INPUT
+AverageHighestPlayerLevelByGroup: 3.00
+ChangePlayerIDScore: SUCCESS
+GetPlayersBound: FAILURE
+MergeGroups: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 0.00
+RemovePlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 3.20
+AddPlayer: SUCCESS
+MergeGroups: INVALID_INPUT
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: FAILURE
+GetPlayersBound: 0 0
+AddPlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AverageHighestPlayerLevelByGroup: 2.71
+ChangePlayerIDScore: SUCCESS
+ChangePlayerIDScore: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 0.00
+GetPlayersBound: 1 1
+AddPlayer: SUCCESS
+RemovePlayer: SUCCESS
+GetPlayersBound: INVALID_INPUT
+ChangePlayerIDScore: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AverageHighestPlayerLevelByGroup: INVALID_INPUT
+IncreasePlayerIDLevel: SUCCESS
+AddPlayer: INVALID_INPUT
+GetPlayersBound: 1 1
+ChangePlayerIDScore: SUCCESS
+ChangePlayerIDScore: SUCCESS
+ChangePlayerIDScore: SUCCESS
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+MergeGroups: SUCCESS
+AddPlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 0 0
+RemovePlayer: SUCCESS
+RemovePlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 6.00
+AverageHighestPlayerLevelByGroup: FAILURE
+MergeGroups: INVALID_INPUT
+AddPlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: INVALID_INPUT
+AddPlayer: SUCCESS
+RemovePlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 50.00
+AverageHighestPlayerLevelByGroup: 2.24
+ChangePlayerIDScore: FAILURE
+MergeGroups: SUCCESS
+ChangePlayerIDScore: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 50.00
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 5.17
+RemovePlayer: SUCCESS
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+GetPlayersBound: 0 1
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AverageHighestPlayerLevelByGroup: INVALID_INPUT
+AverageHighestPlayerLevelByGroup: INVALID_INPUT
+AverageHighestPlayerLevelByGroup: 2.08
+IncreasePlayerIDLevel: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 4.17
+AddPlayer: SUCCESS
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: 4.46
+ChangePlayerIDScore: SUCCESS
+RemovePlayer: SUCCESS
+RemovePlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+RemovePlayer: FAILURE
+IncreasePlayerIDLevel: SUCCESS
+AverageHighestPlayerLevelByGroup: 5.50
+MergeGroups: INVALID_INPUT
+IncreasePlayerIDLevel: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 5.26
+MergeGroups: SUCCESS
+GetPlayersBound: 0 0
+GetPlayersBound: 0 0
+ChangePlayerIDScore: SUCCESS
+AddPlayer: FAILURE
+GetPlayersBound: 1 1
+GetPlayersBound: 0 0
+GetPlayersBound: 0 0
+AverageHighestPlayerLevelByGroup: 14.00
+GetPlayersBound: 0 0
+AddPlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 0.00
+AverageHighestPlayerLevelByGroup: 11.67
+IncreasePlayerIDLevel: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 0.00
+GetPlayersBound: 0 0
+GetPercentOfPlayersWithScoreInBounds: 0.00
+AverageHighestPlayerLevelByGroup: 10.50
+RemovePlayer: INVALID_INPUT
+RemovePlayer: SUCCESS
+MergeGroups: SUCCESS
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+RemovePlayer: SUCCESS
+AddPlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AverageHighestPlayerLevelByGroup: 5.25
+IncreasePlayerIDLevel: FAILURE
+IncreasePlayerIDLevel: SUCCESS
+GetPlayersBound: 0 1
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: INVALID_INPUT
+GetPercentOfPlayersWithScoreInBounds: 5.00
+AddPlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 0.00
+GetPlayersBound: 1 1
+AddPlayer: SUCCESS
+MergeGroups: SUCCESS
+RemovePlayer: INVALID_INPUT
+MergeGroups: SUCCESS
+GetPlayersBound: FAILURE
+RemovePlayer: SUCCESS
+GetPlayersBound: 0 0
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: INVALID_INPUT
+GetPercentOfPlayersWithScoreInBounds: 0.00
+AverageHighestPlayerLevelByGroup: 5.30
+IncreasePlayerIDLevel: SUCCESS
+AverageHighestPlayerLevelByGroup: 8.33
+AverageHighestPlayerLevelByGroup: INVALID_INPUT
+MergeGroups: INVALID_INPUT
+GetPercentOfPlayersWithScoreInBounds: FAILURE
+AverageHighestPlayerLevelByGroup: 4.54
+RemovePlayer: INVALID_INPUT
+GetPlayersBound: 0 0
+AddPlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+ChangePlayerIDScore: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 0.00
+ChangePlayerIDScore: FAILURE
+MergeGroups: SUCCESS
+AddPlayer: SUCCESS
+MergeGroups: INVALID_INPUT
+GetPlayersBound: INVALID_INPUT
+GetPlayersBound: 1 1
+RemovePlayer: SUCCESS
+GetPlayersBound: 1 1
+GetPercentOfPlayersWithScoreInBounds: 12.50
+GetPercentOfPlayersWithScoreInBounds: 0.00
+AddPlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 9.00
+IncreasePlayerIDLevel: SUCCESS
+RemovePlayer: SUCCESS
+AddPlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 0.00
+ChangePlayerIDScore: SUCCESS
+AverageHighestPlayerLevelByGroup: 5.50
+RemovePlayer: SUCCESS
+AddPlayer: SUCCESS
+GetPlayersBound: 1 1
+AddPlayer: SUCCESS
+RemovePlayer: SUCCESS
+RemovePlayer: FAILURE
+GetPlayersBound: 0 1
+ChangePlayerIDScore: FAILURE
+AddPlayer: FAILURE
+MergeGroups: INVALID_INPUT
+ChangePlayerIDScore: SUCCESS
+AverageHighestPlayerLevelByGroup: 2.28
+MergeGroups: SUCCESS
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: 3.56
+IncreasePlayerIDLevel: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 0.00
+MergeGroups: SUCCESS
+MergeGroups: SUCCESS
+ChangePlayerIDScore: FAILURE
+ChangePlayerIDScore: SUCCESS
+IncreasePlayerIDLevel: FAILURE
+MergeGroups: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: FAILURE
+AverageHighestPlayerLevelByGroup: 2.86
+IncreasePlayerIDLevel: SUCCESS
+MergeGroups: SUCCESS
+GetPlayersBound: 0 0
+ChangePlayerIDScore: FAILURE
+GetPlayersBound: INVALID_INPUT
+RemovePlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+RemovePlayer: SUCCESS
+RemovePlayer: SUCCESS
+IncreasePlayerIDLevel: FAILURE
+GetPercentOfPlayersWithScoreInBounds: 11.11
+RemovePlayer: SUCCESS
+MergeGroups: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 0.00
+MergeGroups: SUCCESS
+GetPlayersBound: FAILURE
+AverageHighestPlayerLevelByGroup: 5.90
+AddPlayer: SUCCESS
+RemovePlayer: INVALID_INPUT
+AddPlayer: INVALID_INPUT
+RemovePlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 7.29
+AddPlayer: SUCCESS
+ChangePlayerIDScore: INVALID_INPUT
+GetPercentOfPlayersWithScoreInBounds: 16.67
+GetPercentOfPlayersWithScoreInBounds: 0.00
+AddPlayer: SUCCESS
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: 7.29
+AddPlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+MergeGroups: SUCCESS
+MergeGroups: SUCCESS
+MergeGroups: SUCCESS
+GetPlayersBound: INVALID_INPUT
+GetPlayersBound: 1 1
+MergeGroups: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 9.09
+GetPercentOfPlayersWithScoreInBounds: 9.09
+AverageHighestPlayerLevelByGroup: 5.08
+GetPlayersBound: 0 1
+AverageHighestPlayerLevelByGroup: 5.08
+GetPlayersBound: 0 0
+AddPlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 0.00
+AddPlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 0.00
+GetPercentOfPlayersWithScoreInBounds: 33.33
+GetPercentOfPlayersWithScoreInBounds: 0.00
+AverageHighestPlayerLevelByGroup: 7.33
+AverageHighestPlayerLevelByGroup: 7.33
+AverageHighestPlayerLevelByGroup: 4.71
+AverageHighestPlayerLevelByGroup: 3.47
+IncreasePlayerIDLevel: SUCCESS
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AddPlayer: SUCCESS
+GetPlayersBound: 1 1
+AddPlayer: SUCCESS
+RemovePlayer: INVALID_INPUT
+AverageHighestPlayerLevelByGroup: 5.69
+AddPlayer: SUCCESS
+GetPlayersBound: 0 0
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+MergeGroups: INVALID_INPUT
+IncreasePlayerIDLevel: FAILURE
+AddPlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+MergeGroups: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AddPlayer: SUCCESS
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AddPlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 5.77
+GetPlayersBound: 0 1
+AddPlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AddPlayer: SUCCESS
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: 3.95
+RemovePlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+RemovePlayer: SUCCESS
+GetPlayersBound: 0 0
+GetPercentOfPlayersWithScoreInBounds: 5.26
+RemovePlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 3.88
+RemovePlayer: SUCCESS
+IncreasePlayerIDLevel: INVALID_INPUT
+GetPlayersBound: 1 2
+RemovePlayer: FAILURE
+GetPercentOfPlayersWithScoreInBounds: 0.00
+RemovePlayer: SUCCESS
+RemovePlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+MergeGroups: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 0 1
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 1 1
+ChangePlayerIDScore: SUCCESS
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+RemovePlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 6.00
+IncreasePlayerIDLevel: SUCCESS
+RemovePlayer: SUCCESS
+MergeGroups: SUCCESS
+RemovePlayer: SUCCESS
+AddPlayer: SUCCESS
+GetPlayersBound: 1 1
+MergeGroups: SUCCESS
+GetPlayersBound: 0 0
+GetPercentOfPlayersWithScoreInBounds: INVALID_INPUT
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+MergeGroups: SUCCESS
+GetPlayersBound: 0 0
+IncreasePlayerIDLevel: SUCCESS
+RemovePlayer: FAILURE
+AddPlayer: SUCCESS
+RemovePlayer: SUCCESS
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: 4.32
+AverageHighestPlayerLevelByGroup: INVALID_INPUT
+MergeGroups: INVALID_INPUT
+AverageHighestPlayerLevelByGroup: 4.56
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 0.00
+GetPercentOfPlayersWithScoreInBounds: FAILURE
+GetPercentOfPlayersWithScoreInBounds: 0.00
+GetPlayersBound: 0 1
+AddPlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 11.11
+AverageHighestPlayerLevelByGroup: FAILURE
+GetPlayersBound: 1 1
+GetPercentOfPlayersWithScoreInBounds: 25.00
+IncreasePlayerIDLevel: SUCCESS
+ChangePlayerIDScore: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 14.29
+AddPlayer: INVALID_INPUT
+GetPercentOfPlayersWithScoreInBounds: 0.00
+ChangePlayerIDScore: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AddPlayer: SUCCESS
+MergeGroups: SUCCESS
+RemovePlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 50.00
+GetPlayersBound: 0 1
+RemovePlayer: SUCCESS
+GetPlayersBound: 0 1
+AverageHighestPlayerLevelByGroup: 8.20
+GetPlayersBound: 1 1
+AverageHighestPlayerLevelByGroup: 4.21
+RemovePlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+MergeGroups: SUCCESS
+RemovePlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+AverageHighestPlayerLevelByGroup: FAILURE
+IncreasePlayerIDLevel: FAILURE
+ChangePlayerIDScore: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 16.67
+GetPlayersBound: 1 1
+GetPercentOfPlayersWithScoreInBounds: 0.00
+AverageHighestPlayerLevelByGroup: 10.83
+MergeGroups: SUCCESS
+GetPlayersBound: 2 2
+RemovePlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 12.75
+MergeGroups: INVALID_INPUT
+AverageHighestPlayerLevelByGroup: 9.33
+ChangePlayerIDScore: SUCCESS
+AddPlayer: INVALID_INPUT
+RemovePlayer: INVALID_INPUT
+MergeGroups: INVALID_INPUT
+ChangePlayerIDScore: INVALID_INPUT
+GetPercentOfPlayersWithScoreInBounds: 33.33
+MergeGroups: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 0.00
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 100.00
+AddPlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 6.93
+GetPlayersBound: 0 1
+GetPercentOfPlayersWithScoreInBounds: 0.00
+ChangePlayerIDScore: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: FAILURE
+GetPlayersBound: 1 1
+AverageHighestPlayerLevelByGroup: 5.11
+RemovePlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: 4.18
+AverageHighestPlayerLevelByGroup: INVALID_INPUT
+GetPercentOfPlayersWithScoreInBounds: 5.88
+GetPlayersBound: FAILURE
+IncreasePlayerIDLevel: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 0.00
+GetPlayersBound: 1 1
+GetPlayersBound: 0 1
+AverageHighestPlayerLevelByGroup: 6.20
+RemovePlayer: SUCCESS
+RemovePlayer: SUCCESS
+RemovePlayer: SUCCESS
+RemovePlayer: SUCCESS
+AddPlayer: SUCCESS
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: FAILURE
+GetPlayersBound: 0 1
+ChangePlayerIDScore: SUCCESS
+ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 0 0
+IncreasePlayerIDLevel: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AverageHighestPlayerLevelByGroup: 4.48
+IncreasePlayerIDLevel: INVALID_INPUT
+AverageHighestPlayerLevelByGroup: FAILURE
+ChangePlayerIDScore: SUCCESS
+AverageHighestPlayerLevelByGroup: 7.23
+AddPlayer: SUCCESS
+MergeGroups: INVALID_INPUT
+ChangePlayerIDScore: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+AddPlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+MergeGroups: SUCCESS
+GetPlayersBound: 1 1
+MergeGroups: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: FAILURE
+ChangePlayerIDScore: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 0.00
+AddPlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 5.11
+IncreasePlayerIDLevel: SUCCESS
+GetPlayersBound: 0 1
+GetPercentOfPlayersWithScoreInBounds: 25.00
+GetPercentOfPlayersWithScoreInBounds: 0.00
+AverageHighestPlayerLevelByGroup: 4.43
+IncreasePlayerIDLevel: FAILURE
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: 4.86
+AverageHighestPlayerLevelByGroup: INVALID_INPUT
+MergeGroups: SUCCESS
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: 4.64
+ChangePlayerIDScore: SUCCESS
+GetPlayersBound: FAILURE
+RemovePlayer: SUCCESS
+GetPlayersBound: 1 1
+AddPlayer: SUCCESS
+GetPlayersBound: 0 1
+GetPlayersBound: 0 1
+AddPlayer: FAILURE
+RemovePlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: INVALID_INPUT
+ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 0 0
+AddPlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 0.00
+AddPlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 3.88
+ChangePlayerIDScore: SUCCESS
+AddPlayer: SUCCESS
+RemovePlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 4.35
+RemovePlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+AddPlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AddPlayer: SUCCESS
+IncreasePlayerIDLevel: INVALID_INPUT
+ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 0 1
+GetPercentOfPlayersWithScoreInBounds: 6.67
+ChangePlayerIDScore: SUCCESS
+MergeGroups: SUCCESS
+MergeGroups: SUCCESS
+AddPlayer: SUCCESS
+MergeGroups: SUCCESS
+RemovePlayer: FAILURE
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: 5.87
+GetPercentOfPlayersWithScoreInBounds: 4.35
+AddPlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 3.67
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AddPlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+ChangePlayerIDScore: INVALID_INPUT
+RemovePlayer: SUCCESS
+MergeGroups: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 50.00
+GetPlayersBound: 1 1
+MergeGroups: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: INVALID_INPUT
+RemovePlayer: SUCCESS
+IncreasePlayerIDLevel: SUCCESS
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 5.56
+GetPercentOfPlayersWithScoreInBounds: 16.67
+MergeGroups: SUCCESS
+ChangePlayerIDScore: SUCCESS
+MergeGroups: SUCCESS
+RemovePlayer: FAILURE
+GetPlayersBound: 0 0
+GetPlayersBound: 1 1
+MergeGroups: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: FAILURE
+AddPlayer: SUCCESS
+GetPlayersBound: 0 1
+IncreasePlayerIDLevel: FAILURE
+GetPercentOfPlayersWithScoreInBounds: INVALID_INPUT
+AverageHighestPlayerLevelByGroup: 13.33
+GetPercentOfPlayersWithScoreInBounds: 4.00
+AverageHighestPlayerLevelByGroup: 12.25
+RemovePlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 7.00
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+GetPercentOfPlayersWithScoreInBounds: 0.00
+MergeGroups: SUCCESS
+AverageHighestPlayerLevelByGroup: 3.04
+AverageHighestPlayerLevelByGroup: 2.69
+AddPlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AverageHighestPlayerLevelByGroup: 3.50
+GetPlayersBound: 1 2
+MergeGroups: SUCCESS
+AddPlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+RemovePlayer: FAILURE
+MergeGroups: SUCCESS
+GetPlayersBound: INVALID_INPUT
+RemovePlayer: FAILURE
+AddPlayer: FAILURE
+AddPlayer: SUCCESS
+AverageHighestPlayerLevelByGroup: 3.68
+GetPlayersBound: 0 0
+AddPlayer: SUCCESS
+AddPlayer: SUCCESS
+MergeGroups: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AverageHighestPlayerLevelByGroup: 2.26
+RemovePlayer: SUCCESS
+ChangePlayerIDScore: SUCCESS
+ChangePlayerIDScore: SUCCESS
+AverageHighestPlayerLevelByGroup: FAILURE
+Quit done.

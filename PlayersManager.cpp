@@ -41,16 +41,16 @@ StatusType PlayersManager::RemovePlayer(int PlayerID) {
     if (player_data->level != 0) {
 
         modifyRankTreesByPlayerScores(&group.group_levels_scores, player_data->level, player_data->score, scale, PLAYER_REMOVE);
-        modifyRankTreesSumsMultis(&group.group_levels_sums, player_data->level, player_data->score, scale, PLAYER_REMOVE);
-        modifyRankTreesSumsMultis(&group.group_levels_multi, player_data->level, player_data->score, scale, PLAYER_REMOVE);
+        modifyRankTreesSums(&group.group_levels_sums, player_data->level, player_data->score, scale, PLAYER_REMOVE);
+        modifyRankTreesMulti(&group.group_levels_multi, player_data->level, player_data->score, scale, PLAYER_REMOVE);
         /* group.group_levels_sums.AVLGetRank(player_data->level) -= 1;
         group.group_levels_multi.AVLGetRank(player_data->level) -= player_data->level; */
 
         //ModifyTreesIfLevelEmpty(player_data->level, &group);
 
         modifyRankTreesByPlayerScores(&all_players_by_level, player_data->level, player_data->score, scale, PLAYER_REMOVE);
-        modifyRankTreesSumsMultis(&all_players_by_level_sums, player_data->level, player_data->score, scale, PLAYER_REMOVE);
-        modifyRankTreesSumsMultis(&all_players_by_level_multi, player_data->level, player_data->score, scale, PLAYER_REMOVE);
+        modifyRankTreesSums(&all_players_by_level_sums, player_data->level, player_data->score, scale, PLAYER_REMOVE);
+        modifyRankTreesMulti(&all_players_by_level_multi, player_data->level, player_data->score, scale, PLAYER_REMOVE);
         
         /* all_players_by_level_sums.AVLGetRank(player_data->level) -= 1;
         all_players_by_level_sums.AVLGetRank(player_data->level) -= player_data->level;
@@ -85,8 +85,8 @@ StatusType PlayersManager::IncreasePlayerIDLevel(int PlayerID, int LevelIncrease
         --group.group_level_0[player_data.score];
     } else {
         modifyRankTreesByPlayerScores(&group.group_levels_scores, player_data.level, player_data.score, scale, PLAYER_REMOVE);
-        modifyRankTreesSumsMultis(&group.group_levels_sums, player_data.level, player_data.score, scale, PLAYER_REMOVE);
-        modifyRankTreesSumsMultis(&group.group_levels_multi, player_data.level, player_data.score, scale, PLAYER_REMOVE);
+        modifyRankTreesSums(&group.group_levels_sums, player_data.level, player_data.score, scale, PLAYER_REMOVE);
+        modifyRankTreesMulti(&group.group_levels_multi, player_data.level, player_data.score, scale, PLAYER_REMOVE);
 
         /* group.group_levels_sums.AVLGetRank(player_data.level) -= 1;
         group.group_levels_multi.AVLGetRank(player_data.level) -= player_data.level;
@@ -94,21 +94,21 @@ StatusType PlayersManager::IncreasePlayerIDLevel(int PlayerID, int LevelIncrease
         ModifyTreesIfLevelEmpty(player_data.level, &group); */
 
         modifyRankTreesByPlayerScores(&all_players_by_level, player_data.level, player_data.score, scale, PLAYER_REMOVE);
-        modifyRankTreesSumsMultis(&all_players_by_level_sums, player_data.level, player_data.score, scale, PLAYER_REMOVE);
-        modifyRankTreesSumsMultis(&all_players_by_level_multi, player_data.level, player_data.score, scale, PLAYER_REMOVE);
+        modifyRankTreesSums(&all_players_by_level_sums, player_data.level, player_data.score, scale, PLAYER_REMOVE);
+        modifyRankTreesMulti(&all_players_by_level_multi, player_data.level, player_data.score, scale, PLAYER_REMOVE);
 
         //ModifyTreesIfLevelEmpty(player_data.level, nullptr);
     }
     //*group players ScoreArray update
 
     modifyRankTreesByPlayerScores(&group.group_levels_scores, new_level, player_data.score, scale, PLAYER_ADD);
-    modifyRankTreesSumsMultis(&group.group_levels_sums, new_level, player_data.score, scale, PLAYER_ADD);
-    modifyRankTreesSumsMultis(&group.group_levels_multi, new_level, player_data.score, scale, PLAYER_ADD);
+    modifyRankTreesSums(&group.group_levels_sums, new_level, player_data.score, scale, PLAYER_ADD);
+    modifyRankTreesMulti(&group.group_levels_multi, new_level, player_data.score, scale, PLAYER_ADD);
     //*all players ScoreArray update
 
     modifyRankTreesByPlayerScores(&all_players_by_level, new_level, player_data.score, scale, PLAYER_ADD);
-    modifyRankTreesSumsMultis(&all_players_by_level_sums, new_level, player_data.score, scale, PLAYER_ADD);
-    modifyRankTreesSumsMultis(&all_players_by_level_multi, new_level, player_data.score, scale, PLAYER_ADD);
+    modifyRankTreesSums(&all_players_by_level_sums, new_level, player_data.score, scale, PLAYER_ADD);
+    modifyRankTreesMulti(&all_players_by_level_multi, new_level, player_data.score, scale, PLAYER_ADD);
 
 
     //! notice that modifylevels() also removes the level nodes in the tree in case there are no more players left
@@ -186,6 +186,8 @@ StatusType PlayersManager::GetPercentOfPlayersWithScoreInBounds(int GroupID, int
         }
 
     } else {
+        //scores_in_range.Print();
+        //tree->printTreeData();
         players_in_score = scores_in_range[score];
         total_players_in_range = scores_in_range.MembersAmount();
     }
@@ -247,9 +249,15 @@ StatusType PlayersManager::AverageHighestPlayerLevelByGroup(int GroupID, int m, 
         } else {
             tree->updateRank(level, player_score_as_array);
         }
+
+        int &players_in_level = tree->AVLGet(level);
+        players_in_level += change_to_level;
+        if (level != 0 && players_in_level == 0) {
+            tree->AVLRemove(level);
+        }
     }
     
-    void modifyRankTreesSumsMultis(RankTreeInt * tree, int level, int score, int scale, const PlayerAction &action) {
+    void modifyRankTreesSums(RankTreeInt * tree, int level, int score, int scale, const PlayerAction &action) {
         int change_to_level;
 
         if (action == PLAYER_ADD) {
@@ -272,6 +280,31 @@ StatusType PlayersManager::AverageHighestPlayerLevelByGroup(int GroupID, int m, 
         }
 
     }
+
+    void modifyRankTreesMulti(RankTreeInt * tree, int level, int score, int scale, const PlayerAction &action) {
+        int change_to_level;
+
+        if (action == PLAYER_ADD) {
+            //*for updating data:
+            change_to_level = 1;
+        } else if (action == PLAYER_REMOVE) {
+            change_to_level = -1;
+        }
+
+        if (!(tree->AVLExist(level)) && action == PLAYER_ADD) {  //*if level doesnt exist in tree, we add it
+            tree->AVLInsert(level, 0, level);
+        } else {
+            tree->updateRank(level, level);
+        }
+
+        int &players_in_level = tree->AVLGet(level);
+        players_in_level += change_to_level;
+        if (level != 0 && players_in_level == 0) {
+            tree->AVLRemove(level);
+        }
+
+    }
+
     /* 
     void ModifyTreesIfLevelEmpty(int level, int change, GroupData* group) {
 

@@ -133,8 +133,10 @@ class AVLTree {
                    AVLTree<KeyElem, Data, Rank>::TNode **merged_arr);
     TNode *AVLGetFirst() const;
     TNode *AVLGetLast() const;
-    void printTree_rec(const std::string &prefix, const TNode *node, bool isLeft);
-    void printTreeData_rec(const std::string &prefix, const TNode *node, bool isLeft);
+    void printTree_rec(const std::string &prefix, const TNode *node, bool isLeft) const;
+    void printTreeData_rec(const std::string &prefix, const TNode *node, bool isLeft) const;
+    void printTreeRank_rec(const std::string &prefix, const TNode *node, bool isLeft) const;
+    
     void AVLDestroy_rec(TNode *) const;
     void AVLAddToFathersRank(TNode *node, Rank rank);
     void AVLRemoveFromFathersRank(TNode *node, Rank rank);
@@ -259,8 +261,9 @@ class AVLTree {
     RankStatus RankInRange(const KeyElem &lower, const KeyElem &higher, Rank &rank_in_range);
     double AvgHighRank(Rank m, const AVLTree &multiTree);
 
-    void printTree();
-    void printTreeData();
+    void printTree() const;
+    void printTreeData() const;
+    void printTreeRank() const;
 };
 
 //___________***___PUBLIC FUNCTIONS IMPLEMENTATION___***___________//
@@ -366,7 +369,7 @@ void AVLTree<KeyElem, Data, Rank>::AVLMerge(AVLTree<KeyElem, Data, Rank> &other_
             other_tree.root = nullptr;
             int merged_tree_size = MergeArray(tree1_arr, this->tree_size, other_tree_arr, other_tree.tree_size, merged_arr);
 
-            this->root = this->ArrayToAVLTree(merged_arr, 0, merged_tree_size, nullptr);
+            this->root = this->ArrayToAVLTree(merged_arr, 0, merged_tree_size - 1, nullptr);
             this->tree_size = merged_tree_size;
             delete[] merged_arr;
             delete[] tree1_arr;
@@ -412,7 +415,7 @@ KeyElem &AVLTree<KeyElem, Data, Rank>::AVLMin() const {
 }
 
 template <class KeyElem, class Data, class Rank>
-void AVLTree<KeyElem, Data, Rank>::printTree() {
+void AVLTree<KeyElem, Data, Rank>::printTree() const{
     std::cout << "\n"
               << std::endl;
     this->printTree_rec("", this->root, false);
@@ -421,10 +424,19 @@ void AVLTree<KeyElem, Data, Rank>::printTree() {
 }
 
 template <class KeyElem, class Data, class Rank>
-void AVLTree<KeyElem, Data, Rank>::printTreeData() {
+void AVLTree<KeyElem, Data, Rank>::printTreeData() const{
     std::cout << "\n"
               << std::endl;
     this->printTreeData_rec("", this->root, false);
+    std::cout << "\n"
+              << std::endl;
+}
+
+template <class KeyElem, class Data, class Rank>
+void AVLTree<KeyElem, Data, Rank>::printTreeRank() const{
+    std::cout << "\n"
+              << std::endl;
+    this->printTreeRank_rec("", this->root, false);
     std::cout << "\n"
               << std::endl;
 }
@@ -914,7 +926,7 @@ typename AVLTree<KeyElem, Data, Rank>::TNode *AVLTree<KeyElem, Data, Rank>::AVLG
 }
 
 template <class KeyElem, class Data, class Rank>
-void AVLTree<KeyElem, Data, Rank>::printTree_rec(const std::string &prefix, const AVLTree<KeyElem, Data, Rank>::TNode *node, bool isLeft) {
+void AVLTree<KeyElem, Data, Rank>::printTree_rec(const std::string &prefix, const AVLTree<KeyElem, Data, Rank>::TNode *node, bool isLeft) const {
     if (node != nullptr) {
         std::cout << prefix;
 
@@ -930,17 +942,32 @@ void AVLTree<KeyElem, Data, Rank>::printTree_rec(const std::string &prefix, cons
 }
 
 template <class KeyElem, class Data, class Rank>
-void AVLTree<KeyElem, Data, Rank>::printTreeData_rec(const std::string &prefix, const AVLTree<KeyElem, Data, Rank>::TNode *node, bool isLeft) {
+void AVLTree<KeyElem, Data, Rank>::printTreeData_rec(const std::string &prefix, const AVLTree<KeyElem, Data, Rank>::TNode *node, bool isLeft) const {
     if (node != nullptr) {
         std::cout << prefix;
 
         std::cout << (isLeft ? "├──────" : "└──────");
         //         print the value of the node
-        std::cout << "group id: " << node->data << ") " << std::endl;
+        std::cout << "group id: (" << node->data << ") " << std::endl;
 
         //         enter the next tree level - left and right branch
         printTreeData_rec(prefix + (isLeft ? "│       " : "        "), node->right_son, true);
         printTreeData_rec(prefix + (isLeft ? "│       " : "        "), node->left_son, false);
+    }
+}
+
+template <class KeyElem, class Data, class Rank>
+void AVLTree<KeyElem, Data, Rank>::printTreeRank_rec(const std::string &prefix, const AVLTree<KeyElem, Data, Rank>::TNode *node, bool isLeft) const {
+    if (node != nullptr) {
+        std::cout << prefix;
+
+        std::cout << (isLeft ? "├──────" : "└──────");
+        //         print the value of the node
+        std::cout << "level: " << node->key << ", rank: " << node->rank  << std::endl;
+
+        //         enter the next tree level - left and right branch
+        printTreeRank_rec(prefix + (isLeft ? "│       " : "        "), node->right_son, true);
+        printTreeRank_rec(prefix + (isLeft ? "│       " : "        "), node->left_son, false);
     }
 }
 
@@ -966,6 +993,11 @@ template <class KeyElem, class Data, class Rank>
 RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const KeyElem &higher, Rank &rank_in_range) {
     TNode *lowerNode;
     TNode *higherNode;
+
+    if (this->root == nullptr){
+        return RANK_OUT_OF_RANGE;
+    }
+    //printTreeRank();
     //Rank rank_in_range(scale);
     /*     Rank higher_rank(scale);
     Rank lower_rank(scale);
@@ -978,6 +1010,8 @@ RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const
         if (lower > imagine_father->key)  //Rank lower_rank(scale);
         {
             lowerNode = imagine_father->nextInOrder();
+        }else{
+            lowerNode = imagine_father;
         }
     }
 
@@ -988,6 +1022,9 @@ RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const
         AVLFind_rec(root, higher, &imagine_father);
         if (higher < imagine_father->key) {
             higherNode = imagine_father->prevInOrder();
+        }
+        else{
+            higherNode = imagine_father;
         }
     }
 
@@ -1004,7 +1041,7 @@ RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const
     rank_in_range += higher_rank;
     rank_in_range -= lower_rank;
 
-    Rank lowerNode_rank = lower_rank;
+    Rank lowerNode_rank = lowerNode->rank;
 
     if (lowerNode->left_son) {
         lowerNode_rank -= lowerNode->left_son->rank;
@@ -1069,10 +1106,16 @@ double AVLTree<KeyElem, Data, Rank>::AvgHighRankRec(Rank m, TNode *current_node,
         if (multi_node->left_son) {
             multi_rank -= multi_node->left_son->rank;
         }
-        return multi_rank / m;
+        //multiTree.printTreeRank();
+        return double(multi_rank) / double(m);
     } else if (*node_rank < m) {        //not enough players to "fill" m
         if (!current_node->left_son) {  //no left son means lowest level, we dont have enough players in tree
-            return -1;
+            TNode *multi_node = multiTree.AVLFind(current_node->key);
+            Rank multi_rank(multi_node->rank);
+            if (multi_node->left_son) {
+                multi_rank -= multi_node->left_son->rank;
+            }
+            return double(multi_rank) / double(m);
         }
         current_node = current_node->left_son;
         node_rank += current_node->rank;
@@ -1101,14 +1144,14 @@ double AVLTree<KeyElem, Data, Rank>::AvgHighRankRec(Rank m, TNode *current_node,
         // go to next node, get next node multi, add to extra in this level and devide by m to get avg
         TNode *next_node = current_node->nextInOrder();
         if (!next_node) {
-            return current_node->key;
+            return double(current_node->key);
         }
         TNode *multi_node = multiTree.AVLFind(next_node->key);
         Rank multi_rank(multi_node->rank);
         if (multi_node->left_son) {
             multi_rank -= multi_node->left_son->rank;
         }
-        return (multi_rank + (extra * current_node->key) / m);
+        return double((double(multi_rank) + double((double(extra) * double(current_node->key))) / double(m)));
     }
 }
 

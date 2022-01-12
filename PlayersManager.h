@@ -79,13 +79,29 @@ class ScoreArray {
         return true;
     }
 
+    friend std::ostream& operator<<(std::ostream& os, const ScoreArray& array){
+        for(int i = 1; i< array.size; i++){
+            os << array.scores[i] << ", "; 
+        }
+        return os;
+    }
+
     int MembersAmount(){
-        int total;
-        for(int i = 0; i < size; i++){
+        int total = 0;
+        for(int i = 1; i < size; i++){
             total += scores[i];
         }
         return total;
     }
+    void Print(){
+        std::cout << std::endl;
+        for(int i = 1; i< size; i++){
+            std::cout << scores[i] << ", "; 
+        }
+        std::cout << std::endl;
+    }
+
+
 };
 /* 
 class EverythingRank{
@@ -189,7 +205,8 @@ class PlayersManager {
 
     //friend void modifyRankTrees(RankTreeInt *tree, int level, int score, const PlayerAction &action);
     friend void modifyRankTreesByPlayerScores(RankTreeScoreArray *tree, int level, int score, int scale, const PlayerAction &action);
-    friend void modifyRankTreesSumsMultis(RankTreeInt * tree, int level, int score, int scale, const PlayerAction &action);
+    friend void modifyRankTreesSums(RankTreeInt * tree, int level, int score, int scale, const PlayerAction &action);
+    friend void modifyRankTreesMulti(RankTreeInt * tree, int level, int score, int scale, const PlayerAction &action);
     //void ModifyTreesIfLevelEmpty(int level, GroupData* group);
    public:
     const int k;
@@ -213,7 +230,8 @@ class PlayersManager {
 };
 
 void modifyRankTreesByPlayerScores(RankTreeScoreArray *tree, int level, int score, int scale, const PlayerAction &action);
-void modifyRankTreesSumsMultis(RankTreeInt * tree, int level, int score, int scale, const PlayerAction &action);
+void modifyRankTreesSums(RankTreeInt * tree, int level, int score, int scale, const PlayerAction &action);
+void modifyRankTreesMulti(RankTreeInt * tree, int level, int score, int scale, const PlayerAction &action);
 
 }  // namespace PM
 

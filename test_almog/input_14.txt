@@ -1,0 +1,1218 @@
+Init 77 143
+AddPlayer 870043367 6 87
+AddPlayer 1437932192 34 24
+AddPlayer 767437261 14 107
+AddPlayer 1439609884 73 -4
+AddPlayer 1104394108 30 3
+AddPlayer 926479353 34 90
+AddPlayer 820984929 19 3
+RemovePlayer 1437932192
+IncreasePlayerIDLevel 1070242126 7
+RemovePlayer 1104394108
+AddPlayer 367936583 70 2022885736
+AddPlayer 2029337395 38 53
+AddPlayer 1698361434 70 116
+AddPlayer 1252038243 19 102
+AddPlayer 926479353 1 40
+AddPlayer 904195336 75 12
+AddPlayer 1325439438 58 20
+AddPlayer 1325439438 3 49
+IncreasePlayerIDLevel 1252038243 8
+ChangePlayerIDScore -10 76
+AddPlayer 700408844 9 30
+AddPlayer 1447990871 31 79
+MergeGroups 44 39
+ChangePlayerIDScore 1447990871 78
+RemovePlayer 1325439438
+AddPlayer 352652418 52 -6
+AddPlayer 155256237 50 2
+AddPlayer 671285744 70 4
+AddPlayer 1532685399 72 27
+AddPlayer 1978927558 49 778228630
+AverageHighestPlayerLevelByGroup 0 6
+GetPercentOfPlayersWithScoreInBounds 0 48 0 0
+AddPlayer 1966912216 65 20
+AddPlayer 2029337395 73 100
+GetPercentOfPlayersWithScoreInBounds 0 116 0 0
+AddPlayer 1359809782 45 42
+AddPlayer 1931638056 67 76
+AddPlayer 2081544629 3 81
+GetPercentOfPlayersWithScoreInBounds 0 90 0 0
+AddPlayer 51358034 58 84
+MergeGroups 67 37
+RemovePlayer 870043367
+AddPlayer 1424589632 24 77
+AddPlayer 1476179023 67 121
+RemovePlayer 0
+MergeGroups 69 1
+RemovePlayer 926479353
+AddPlayer 1919078290 49 45
+MergeGroups 789417097 17
+ChangePlayerIDScore 820984929 92
+RemovePlayer 1252038243
+GetPercentOfPlayersWithScoreInBounds 0 4 0 0
+AddPlayer 1359809782 66 34
+ChangePlayerIDScore 1966912216 26
+RemovePlayer 51358034
+AddPlayer 990891546 77 22
+IncreasePlayerIDLevel 155256237 9
+MergeGroups 62 62
+RemovePlayer 700408844
+GetPercentOfPlayersWithScoreInBounds 0 12 0 0
+GetPercentOfPlayersWithScoreInBounds 0 22 0 0
+GetPercentOfPlayersWithScoreInBounds 19 47 0 0
+IncreasePlayerIDLevel 1359809782 2
+AverageHighestPlayerLevelByGroup 70 1
+AddPlayer 1247702313 30 143
+AddPlayer 150599013 5 57
+AddPlayer 671285744 61 18
+AddPlayer 565975577 36 32
+AddPlayer 1274526718 23 -2
+GetPercentOfPlayersWithScoreInBounds 45 42 2 2
+MergeGroups 39 68
+IncreasePlayerIDLevel 904195336 1
+RemovePlayer 767437261
+GetPercentOfPlayersWithScoreInBounds 0 76 0 0
+RemovePlayer 565975577
+ChangePlayerIDScore 655725452 119
+AddPlayer 718248602 32 8
+RemovePlayer 671285744
+MergeGroups 18 74
+ChangePlayerIDScore 718248602 40
+GetPercentOfPlayersWithScoreInBounds 49 68 0 0
+AddPlayer 1277266638 52 83
+AverageHighestPlayerLevelByGroup 54 -7
+AddPlayer 977714810 7 81
+ChangePlayerIDScore 1966912216 84
+AverageHighestPlayerLevelByGroup 75 1
+GetPercentOfPlayersWithScoreInBounds 70 8 0 0
+RemovePlayer 718248602
+AddPlayer 343857548 4 24
+ChangePlayerIDScore 0 116
+ChangePlayerIDScore 1359809782 62
+MergeGroups 45 34
+GetPercentOfPlayersWithScoreInBounds 4 38 0 0
+GetPercentOfPlayersWithScoreInBounds 0 62 2 2
+MergeGroups 22 1
+AverageHighestPlayerLevelByGroup 0 7
+AverageHighestPlayerLevelByGroup 0 17
+MergeGroups 25 49
+AverageHighestPlayerLevelByGroup 0 16
+AverageHighestPlayerLevelByGroup 0 20
+GetPercentOfPlayersWithScoreInBounds 65 84 0 0
+IncreasePlayerIDLevel 1476179023 3
+GetPercentOfPlayersWithScoreInBounds 30 18 0 0
+AverageHighestPlayerLevelByGroup 30 1
+AddPlayer 2091289664 23 8
+ChangePlayerIDScore 1277266638 23
+AddPlayer 485031919 32 131
+AverageHighestPlayerLevelByGroup 18 0
+MergeGroups 29 58
+ChangePlayerIDScore 904195336 93
+IncreasePlayerIDLevel 1919078290 9
+MergeGroups 73 75
+ChangePlayerIDScore 2091289664 0
+AddPlayer 631330412 30 90
+GetPercentOfPlayersWithScoreInBounds 77 22 0 0
+AddPlayer 534333929 18 125
+AverageHighestPlayerLevelByGroup 0 8
+RemovePlayer 2081544629
+AddPlayer 343857548 76 98
+MergeGroups 6 34
+GetPercentOfPlayersWithScoreInBounds 0 54 0 0
+IncreasePlayerIDLevel 1424589632 4
+MergeGroups -10 23
+IncreasePlayerIDLevel 1476179023 3
+AverageHighestPlayerLevelByGroup 73 1
+ChangePlayerIDScore 801902349 76
+AverageHighestPlayerLevelByGroup 0 3
+AddPlayer 2062895972 77 53
+AverageHighestPlayerLevelByGroup -11 1
+IncreasePlayerIDLevel 534333929 8
+AddPlayer 692722494 69 96
+AverageHighestPlayerLevelByGroup 18 859
+AddPlayer 12086149 20 4
+RemovePlayer 1167077479
+AddPlayer 1397261456 9 90
+ChangePlayerIDScore 485031919 131
+AverageHighestPlayerLevelByGroup -5 1
+GetPercentOfPlayersWithScoreInBounds 0 77 1 6
+IncreasePlayerIDLevel -5 2
+RemovePlayer 1931638056
+ChangePlayerIDScore 1247702313 76
+ChangePlayerIDScore 150599013 135
+RemovePlayer -6
+MergeGroups 27 41
+IncreasePlayerIDLevel 2062895972 3
+GetPercentOfPlayersWithScoreInBounds 0 5 0 0
+ChangePlayerIDScore 977714810 61
+AverageHighestPlayerLevelByGroup 74 1
+ChangePlayerIDScore 1397261456 25
+GetPercentOfPlayersWithScoreInBounds 37 111 6 6
+GetPercentOfPlayersWithScoreInBounds 25 116 9 9
+AverageHighestPlayerLevelByGroup 37 1
+AverageHighestPlayerLevelByGroup 30 2
+RemovePlayer 1277266638
+GetPercentOfPlayersWithScoreInBounds 0 78 0 0
+MergeGroups 1538732313 29
+GetPercentOfPlayersWithScoreInBounds 37 20 6 6
+IncreasePlayerIDLevel 343857548 4
+AverageHighestPlayerLevelByGroup 0 19
+MergeGroups 5 71
+AddPlayer 1919736294 25 2
+AverageHighestPlayerLevelByGroup 0 8
+IncreasePlayerIDLevel 1919736294 3
+GetPercentOfPlayersWithScoreInBounds 0 125 8 4
+RemovePlayer 576756472
+GetPercentOfPlayersWithScoreInBounds 63 1184563346 1 0
+GetPercentOfPlayersWithScoreInBounds 77 1 3 3
+AverageHighestPlayerLevelByGroup 25 1
+GetPercentOfPlayersWithScoreInBounds 0 27 0 0
+ChangePlayerIDScore 1359809782 26
+ChangePlayerIDScore 343857548 96
+IncreasePlayerIDLevel -10 5
+GetPercentOfPlayersWithScoreInBounds 0 127 0 0
+RemovePlayer 150599013
+RemovePlayer 820984929
+RemovePlayer 904195336
+GetPercentOfPlayersWithScoreInBounds 20 43 0 0
+ChangePlayerIDScore 1476179023 86
+AverageHighestPlayerLevelByGroup 0 9970
+RemovePlayer 1698361434
+RemovePlayer 1981692763
+IncreasePlayerIDLevel 1476179023 2
+AddPlayer 1424589632 41 102
+AddPlayer 2000950661 67 33
+RemovePlayer 2000950661
+IncreasePlayerIDLevel 1919736294 5
+AverageHighestPlayerLevelByGroup 0 11
+MergeGroups 33 46
+ChangePlayerIDScore 1966912216 121
+IncreasePlayerIDLevel 1655478242 6
+GetPercentOfPlayersWithScoreInBounds 34 26 2 2
+MergeGroups 57 71
+RemovePlayer 1476179023
+ChangePlayerIDScore 1424589632 78
+ChangePlayerIDScore 362096521 114
+ChangePlayerIDScore 2029337395 77
+RemovePlayer 990891546
+IncreasePlayerIDLevel 1919736294 5
+ChangePlayerIDScore 1424589632 103
+AverageHighestPlayerLevelByGroup 38 1
+AverageHighestPlayerLevelByGroup 0 20
+AverageHighestPlayerLevelByGroup 65 1
+GetPercentOfPlayersWithScoreInBounds 22 96 0 0
+ChangePlayerIDScore 1532685399 141
+ChangePlayerIDScore 1247702313 28
+MergeGroups 27 64
+MergeGroups 0 63
+IncreasePlayerIDLevel 692722494 7
+ChangePlayerIDScore 631330412 18
+MergeGroups 49 17
+AverageHighestPlayerLevelByGroup 0 10
+AddPlayer 2133039490 25 73
+AverageHighestPlayerLevelByGroup 72 1
+IncreasePlayerIDLevel 1919736294 2
+IncreasePlayerIDLevel 1424589632 3
+ChangePlayerIDScore 2091289664 50
+AddPlayer 1469635074 63 135
+MergeGroups 801501087 11
+IncreasePlayerIDLevel 1919078290 4
+GetPercentOfPlayersWithScoreInBounds 72 141 0 0
+GetPercentOfPlayersWithScoreInBounds 7 61 0 0
+RemovePlayer 1247702313
+GetPercentOfPlayersWithScoreInBounds 0 45 13 13
+RemovePlayer 1469635074
+AverageHighestPlayerLevelByGroup 0 7
+ChangePlayerIDScore 2133039490 76
+ChangePlayerIDScore 2091289664 56
+ChangePlayerIDScore 534333929 96
+AddPlayer 1664867063 6 79
+MergeGroups 1 33
+RemovePlayer 2062895972
+AddPlayer 223323026 15 70
+ChangePlayerIDScore 1919736294 82
+RemovePlayer 1532685399
+MergeGroups 73 18
+RemovePlayer 1447990871
+AddPlayer 798394753 60 92
+RemovePlayer 534333929
+MergeGroups 16 19
+RemovePlayer 343857548
+RemovePlayer 2133039490
+AddPlayer 674067385 48 98
+AddPlayer 1005549149 38 0
+AddPlayer 1803403466 30 83
+RemovePlayer 1424589632
+ChangePlayerIDScore 1919736294 105
+RemovePlayer 12086149
+GetPercentOfPlayersWithScoreInBounds 0 83 0 0
+MergeGroups 14 34
+ChangePlayerIDScore 692722494 51
+ChangePlayerIDScore 1919078290 136
+MergeGroups 56 11
+AddPlayer 1720904611 -10 15
+RemovePlayer 1803403466
+IncreasePlayerIDLevel 1452788125 3
+MergeGroups 24 16
+RemovePlayer 1359809782
+GetPercentOfPlayersWithScoreInBounds 15 70 0 0
+AverageHighestPlayerLevelByGroup 0 14
+ChangePlayerIDScore 692722494 139
+RemovePlayer 674067385
+AddPlayer 1758688133 72 137
+MergeGroups 63 48
+GetPercentOfPlayersWithScoreInBounds 65 121 0 0
+ChangePlayerIDScore 2122396784 54
+GetPercentOfPlayersWithScoreInBounds 9 25 0 0
+GetPercentOfPlayersWithScoreInBounds 0 46 0 0
+AddPlayer 1176922781 72 22
+RemovePlayer 223323026
+GetPercentOfPlayersWithScoreInBounds 60 92 0 0
+AddPlayer 2108457136 33 42
+AddPlayer 2090878336 77 61
+AverageHighestPlayerLevelByGroup 45 1
+AverageHighestPlayerLevelByGroup 22 1
+GetPercentOfPlayersWithScoreInBounds 1760888224 142 0 0
+ChangePlayerIDScore 1919078290 25
+IncreasePlayerIDLevel 1919736294 2
+IncreasePlayerIDLevel 1397261456 -7
+IncreasePlayerIDLevel 485031919 7
+AddPlayer -6 56 93
+ChangePlayerIDScore 2090878336 140
+MergeGroups 56 40
+MergeGroups 41 1
+IncreasePlayerIDLevel 1664867063 9
+AddPlayer 1524065720 33 39
+RemovePlayer 1664867063
+AddPlayer 1891622212 56 74
+MergeGroups 48 43
+MergeGroups 49 56
+AddPlayer 1676732589 8 102
+GetPercentOfPlayersWithScoreInBounds 38 125 0 0
+AverageHighestPlayerLevelByGroup 23 1
+AddPlayer 91043149 65 109
+IncreasePlayerIDLevel 1176922781 8
+GetPercentOfPlayersWithScoreInBounds 60 118 0 0
+GetPercentOfPlayersWithScoreInBounds 0 59 17 13
+MergeGroups 41 23
+IncreasePlayerIDLevel -2 3
+ChangePlayerIDScore 1966912216 127
+IncreasePlayerIDLevel 127741109 3
+RemovePlayer -4
+AddPlayer 155256237 18 28
+AverageHighestPlayerLevelByGroup 0 14
+ChangePlayerIDScore 485031919 88
+MergeGroups 75 39
+GetPercentOfPlayersWithScoreInBounds 0 74 0 8
+MergeGroups 36 21
+AddPlayer 1984436989 8 32
+AverageHighestPlayerLevelByGroup 41 2
+IncreasePlayerIDLevel -7 1
+GetPercentOfPlayersWithScoreInBounds 0 35 0 13
+AddPlayer 631330412 26 123
+MergeGroups 21 39
+ChangePlayerIDScore 692722494 26
+RemovePlayer 1889992851
+ChangePlayerIDScore 1919078290 20
+MergeGroups 74 7
+ChangePlayerIDScore 1919078290 53
+IncreasePlayerIDLevel 2029337395 6
+GetPercentOfPlayersWithScoreInBounds 0 107 0 9
+AddPlayer 1366575209 9 77
+GetPercentOfPlayersWithScoreInBounds 0 12 0 0
+RemovePlayer 1524065720
+ChangePlayerIDScore 1366575209 48
+IncreasePlayerIDLevel 631330412 2
+ChangePlayerIDScore 1397261456 58
+AverageHighestPlayerLevelByGroup 0 4
+MergeGroups 74 18
+IncreasePlayerIDLevel 1397261456 9
+MergeGroups 30 74
+AverageHighestPlayerLevelByGroup 28 0
+MergeGroups 56 21
+IncreasePlayerIDLevel 1919078290 7
+RemovePlayer 985339771
+GetPercentOfPlayersWithScoreInBounds 0 53 20 20
+ChangePlayerIDScore 186291593 54
+RemovePlayer 1966912216
+RemovePlayer 2091289664
+RemovePlayer 748020086
+ChangePlayerIDScore 2090878336 111
+ChangePlayerIDScore 798394753 136
+AddPlayer 453359702 13 78
+MergeGroups 5 14
+IncreasePlayerIDLevel 692722494 -7
+GetPercentOfPlayersWithScoreInBounds 9 93 0 0
+MergeGroups 44 1666670112
+IncreasePlayerIDLevel 1919078290 5
+RemovePlayer 1742316844
+AddPlayer 388953046 57 101
+RemovePlayer 91043149
+GetPercentOfPlayersWithScoreInBounds 36 -8 1 0
+AverageHighestPlayerLevelByGroup 0 7
+AverageHighestPlayerLevelByGroup 11 5645
+GetPercentOfPlayersWithScoreInBounds 0 59 6 9
+MergeGroups 1 39
+AddPlayer 1366575209 38 79
+IncreasePlayerIDLevel 1176922781 3
+ChangePlayerIDScore 1397261456 76
+AddPlayer 28020213 61 102
+AddPlayer 2075910547 41 119
+MergeGroups 27 12
+MergeGroups 54 74
+IncreasePlayerIDLevel 485031919 7
+AddPlayer 1101906913 47 9
+AddPlayer 308252481 60 124
+ChangePlayerIDScore 977714810 62
+AverageHighestPlayerLevelByGroup 39 8
+IncreasePlayerIDLevel 670177254 8
+IncreasePlayerIDLevel 977714810 9
+MergeGroups 35 69
+ChangePlayerIDScore 1397261456 1
+GetPercentOfPlayersWithScoreInBounds 64 44 17 0
+GetPercentOfPlayersWithScoreInBounds 0 140 9 25
+ChangePlayerIDScore 1371801439 5
+RemovePlayer 28020213
+ChangePlayerIDScore 1366575209 136
+MergeGroups 63 3
+IncreasePlayerIDLevel 755318936 2
+GetPercentOfPlayersWithScoreInBounds 0 99 0 17
+AddPlayer -5 69 121
+AverageHighestPlayerLevelByGroup 0 12
+AddPlayer 1586822231 54 29
+IncreasePlayerIDLevel 184884211 7
+IncreasePlayerIDLevel 485031919 9
+AddPlayer 829905459 73 19
+IncreasePlayerIDLevel 1586822231 3
+GetPercentOfPlayersWithScoreInBounds 0 100 2 17
+ChangePlayerIDScore 631330412 111
+IncreasePlayerIDLevel 1215900011 5
+AddPlayer 1930368140 24 135
+AverageHighestPlayerLevelByGroup 0 13
+AverageHighestPlayerLevelByGroup 0 10
+GetPercentOfPlayersWithScoreInBounds 34 101 0 0
+RemovePlayer 1676732589
+GetPercentOfPlayersWithScoreInBounds 70 -5 1 0
+RemovePlayer 2090878336
+ChangePlayerIDScore 1715418634 89
+IncreasePlayerIDLevel 631330412 6
+GetPercentOfPlayersWithScoreInBounds 74 111 8 17
+RemovePlayer 977714810
+ChangePlayerIDScore 829905459 106
+AddPlayer 869391010 66 26
+MergeGroups 49 46
+ChangePlayerIDScore 1366575209 136
+GetPercentOfPlayersWithScoreInBounds 25 26 7 8
+MergeGroups 76 68
+AddPlayer 310158181 65 138
+RemovePlayer 1427073755
+IncreasePlayerIDLevel 308252481 6
+MergeGroups 65 44
+IncreasePlayerIDLevel 388953046 5
+AverageHighestPlayerLevelByGroup 0 4640
+AddPlayer 933555365 36 82
+RemovePlayer 869391010
+ChangePlayerIDScore 485031919 73
+IncreasePlayerIDLevel 2108457136 6
+RemovePlayer 1084220002
+AddPlayer 699084874 73 62
+AverageHighestPlayerLevelByGroup 18 2
+GetPercentOfPlayersWithScoreInBounds 5 87 5 5
+RemovePlayer 2108457136
+GetPercentOfPlayersWithScoreInBounds 0 93 6 25
+RemovePlayer 1101906913
+AverageHighestPlayerLevelByGroup 0 19
+AddPlayer 1586822231 66 86
+GetPercentOfPlayersWithScoreInBounds 65 -8 1 0
+AddPlayer 836240644 24 23
+AverageHighestPlayerLevelByGroup 0 13
+RemovePlayer 388953046
+AddPlayer 1922869143 235714971 141
+AddPlayer 863716304 24 139
+MergeGroups 49 48
+AverageHighestPlayerLevelByGroup 27 -8
+ChangePlayerIDScore 502758623 38
+MergeGroups 15 48
+AverageHighestPlayerLevelByGroup -3 1
+IncreasePlayerIDLevel 692722494 1
+MergeGroups 8 15
+RemovePlayer 699084874
+GetPercentOfPlayersWithScoreInBounds 0 120 0 11
+AverageHighestPlayerLevelByGroup 16 3
+AverageHighestPlayerLevelByGroup 74 3
+GetPercentOfPlayersWithScoreInBounds 0 138 0 6
+IncreasePlayerIDLevel 1984436989 2
+MergeGroups 6 36
+GetPercentOfPlayersWithScoreInBounds 27 82 0 8
+AddPlayer 1559032964 1 87
+GetPercentOfPlayersWithScoreInBounds 36 96 0 3
+RemovePlayer 453359702
+IncreasePlayerIDLevel 308252481 6
+GetPercentOfPlayersWithScoreInBounds 0 1 9 17
+GetPercentOfPlayersWithScoreInBounds 0 26 3 8
+MergeGroups -5 23
+AverageHighestPlayerLevelByGroup 0 24
+MergeGroups 35 39
+RemovePlayer 485031919
+ChangePlayerIDScore 259023097 118
+GetPercentOfPlayersWithScoreInBounds 0 53 17 25
+ChangePlayerIDScore 1891622212 48
+AverageHighestPlayerLevelByGroup 0 4
+ChangePlayerIDScore 1559032964 90
+GetPercentOfPlayersWithScoreInBounds 0 139 0 0
+AddPlayer 1577978356 38 52
+RemovePlayer -3
+RemovePlayer 829905459
+MergeGroups 44 13
+GetPercentOfPlayersWithScoreInBounds 73 76 8 0
+ChangePlayerIDScore 308252481 82
+RemovePlayer 1586822231
+AverageHighestPlayerLevelByGroup 0 19
+MergeGroups 8 39
+GetPercentOfPlayersWithScoreInBounds 0 48 0 17
+AddPlayer -5 68 34
+MergeGroups 47 74
+AddPlayer 1984503166 69 37
+IncreasePlayerIDLevel 197156324 2
+GetPercentOfPlayersWithScoreInBounds 0 26 2 9
+ChangePlayerIDScore 2075910547 15
+GetPercentOfPlayersWithScoreInBounds 72 2033478857 1 0
+MergeGroups 53 40
+IncreasePlayerIDLevel 1891622212 8
+RemovePlayer 456889781
+AverageHighestPlayerLevelByGroup 0 23
+AddPlayer 1733281219 58 51
+AddPlayer 1388050646 66 82
+AverageHighestPlayerLevelByGroup 68 2
+AverageHighestPlayerLevelByGroup 6 7
+MergeGroups 4 50
+ChangePlayerIDScore 1930368140 73
+MergeGroups 19 35
+IncreasePlayerIDLevel 798394753 1
+AverageHighestPlayerLevelByGroup -9 1
+RemovePlayer 1176922781
+MergeGroups 66 45
+ChangePlayerIDScore 1919736294 18
+AverageHighestPlayerLevelByGroup 0 6086
+ChangePlayerIDScore 1577978356 23
+RemovePlayer 1733281219
+AverageHighestPlayerLevelByGroup 46 10
+ChangePlayerIDScore 1461140366 92
+AverageHighestPlayerLevelByGroup 63 2
+MergeGroups 1280240241 1
+IncreasePlayerIDLevel 1984436989 3
+GetPercentOfPlayersWithScoreInBounds 66 138 0 5
+ChangePlayerIDScore 1559032964 137
+ChangePlayerIDScore 1577978356 16
+AverageHighestPlayerLevelByGroup 60 6365
+IncreasePlayerIDLevel 927207089 9
+RemovePlayer 308252481
+AverageHighestPlayerLevelByGroup 35 8
+IncreasePlayerIDLevel 1984503166 -4
+ChangePlayerIDScore 863716304 104
+RemovePlayer 371594730
+IncreasePlayerIDLevel 933555365 6
+GetPercentOfPlayersWithScoreInBounds 55 1856819703 1 0
+MergeGroups 9 34
+ChangePlayerIDScore 1984503166 105
+MergeGroups 9 13
+IncreasePlayerIDLevel 1397261456 6
+ChangePlayerIDScore 1388050646 1934400858
+RemovePlayer 1984436989
+IncreasePlayerIDLevel 798394753 1
+GetPercentOfPlayersWithScoreInBounds 25 18 25 8
+ChangePlayerIDScore 310158181 22
+AddPlayer 1186595937 -7 137
+GetPercentOfPlayersWithScoreInBounds 35 53 0 0
+IncreasePlayerIDLevel 155256237 9
+AddPlayer 2098891702 7 113
+AverageHighestPlayerLevelByGroup 7 3
+IncreasePlayerIDLevel 692722494 9
+MergeGroups 55 35
+ChangePlayerIDScore 1577978356 10
+GetPercentOfPlayersWithScoreInBounds 0 73 0 0
+RemovePlayer 2075910547
+ChangePlayerIDScore 251328268 92
+AverageHighestPlayerLevelByGroup 0 10
+AddPlayer 747741842 6 69
+IncreasePlayerIDLevel 2098891702 2
+IncreasePlayerIDLevel 1577978356 8
+MergeGroups 29 7
+AverageHighestPlayerLevelByGroup 73 15
+RemovePlayer 498806948
+AddPlayer 461458428 57 31
+AverageHighestPlayerLevelByGroup 0 23
+AverageHighestPlayerLevelByGroup 60 1
+AverageHighestPlayerLevelByGroup 0 13
+AverageHighestPlayerLevelByGroup 0 23
+GetPercentOfPlayersWithScoreInBounds 0 105 0 2
+ChangePlayerIDScore 1397261456 8
+IncreasePlayerIDLevel 1758688133 8
+ChangePlayerIDScore 1758688133 31
+GetPercentOfPlayersWithScoreInBounds 40 66 0 0
+IncreasePlayerIDLevel 2029337395 1
+ChangePlayerIDScore 1919736294 50
+GetPercentOfPlayersWithScoreInBounds 0 59 17 8
+ChangePlayerIDScore 1397261456 128
+RemovePlayer 2098891702
+IncreasePlayerIDLevel -4 9
+AddPlayer 1334243374 71 27
+MergeGroups 36 3
+AddPlayer 437191081 6 118
+MergeGroups 4 34
+IncreasePlayerIDLevel 1919078290 3
+AddPlayer 279385365 42 30
+MergeGroups 43 26
+RemovePlayer 155256237
+GetPercentOfPlayersWithScoreInBounds 0 53 28 28
+MergeGroups 61 41
+ChangePlayerIDScore 279385365 25
+AddPlayer 1685311726 11 66
+RemovePlayer -3
+IncreasePlayerIDLevel 631330412 3
+RemovePlayer 0
+RemovePlayer 1984503166
+AddPlayer 62504417 23 112
+AverageHighestPlayerLevelByGroup 60 1
+MergeGroups 23 42
+AverageHighestPlayerLevelByGroup 76 -5
+AddPlayer 231597510 71 104
+RemovePlayer 310158181
+GetPercentOfPlayersWithScoreInBounds 0 65 8 0
+GetPercentOfPlayersWithScoreInBounds 0 133 8 15
+ChangePlayerIDScore 1577978356 54
+RemovePlayer 692722494
+MergeGroups 55 31
+MergeGroups 51 23
+AverageHighestPlayerLevelByGroup 0 10
+AverageHighestPlayerLevelByGroup 0 17
+ChangePlayerIDScore 798394753 48
+ChangePlayerIDScore 2029337395 47
+IncreasePlayerIDLevel 863716304 -7
+AverageHighestPlayerLevelByGroup 0 20
+IncreasePlayerIDLevel 1891622212 8
+IncreasePlayerIDLevel 1397261456 2
+RemovePlayer 836240644
+AddPlayer 461458428 43 17
+GetPercentOfPlayersWithScoreInBounds 33 57 17 17
+AddPlayer 1481433079 34 33
+AddPlayer 231597510 29 113
+GetPercentOfPlayersWithScoreInBounds 14 1453524404 1 0
+ChangePlayerIDScore 461458428 69
+IncreasePlayerIDLevel 1685311726 3
+GetPercentOfPlayersWithScoreInBounds -9 90 0 0
+IncreasePlayerIDLevel 1481433079 4
+IncreasePlayerIDLevel 1559032964 2
+RemovePlayer 437191081
+RemovePlayer 863716304
+AddPlayer 827266717 47 117
+GetPercentOfPlayersWithScoreInBounds 5 33 0 4
+IncreasePlayerIDLevel 165160989 8
+MergeGroups 43 53
+ChangePlayerIDScore 1481433079 139
+AddPlayer 1153405080 77 39
+IncreasePlayerIDLevel 1930368140 1
+RemovePlayer 1783302330
+AddPlayer 1089079463 4 129
+IncreasePlayerIDLevel 798394753 -10
+AverageHighestPlayerLevelByGroup 24 10
+RemovePlayer 933555365
+RemovePlayer 461458428
+ChangePlayerIDScore 827266717 51
+RemovePlayer 798394753
+AddPlayer 433416929 45 120
+IncreasePlayerIDLevel 1089079463 6
+IncreasePlayerIDLevel 1891622212 1
+ChangePlayerIDScore 1388050646 16
+AverageHighestPlayerLevelByGroup 61 11
+AverageHighestPlayerLevelByGroup 17 19
+ChangePlayerIDScore 231597510 64
+ChangePlayerIDScore 827266717 82
+AddPlayer 1336301615 36 71
+AddPlayer 1439433307 13 14
+ChangePlayerIDScore 1397261456 43
+GetPercentOfPlayersWithScoreInBounds 0 126 0 17
+MergeGroups 51 -4
+RemovePlayer 1336301615
+MergeGroups 16 62
+IncreasePlayerIDLevel 1919078290 6
+ChangePlayerIDScore 1388050646 94
+AddPlayer 2146486370 7 80
+AddPlayer 1218380474 1892974167 128
+GetPercentOfPlayersWithScoreInBounds 33 69 17 34
+RemovePlayer 1089079463
+RemovePlayer 231597510
+ChangePlayerIDScore 1439433307 30
+ChangePlayerIDScore 1439433307 13
+RemovePlayer 279385365
+IncreasePlayerIDLevel 839904576 3
+ChangePlayerIDScore 1397261456 2
+ChangePlayerIDScore 62504417 89
+IncreasePlayerIDLevel 1334243374 8
+ChangePlayerIDScore 747741842 59
+AverageHighestPlayerLevelByGroup 61 10
+RemovePlayer 747741842
+GetPercentOfPlayersWithScoreInBounds 0 139 2 34
+MergeGroups 26 6
+AddPlayer 1226812063 50 122
+AddPlayer 514624558 15 102
+ChangePlayerIDScore 1758688133 60
+GetPercentOfPlayersWithScoreInBounds 0 94 0 0
+GetPercentOfPlayersWithScoreInBounds 72 60 8 8
+AddPlayer 1118742956 67 117
+IncreasePlayerIDLevel 313493527 5
+RemovePlayer 1930368140
+GetPercentOfPlayersWithScoreInBounds 0 50 17 34
+GetPercentOfPlayersWithScoreInBounds 49 82 0 17
+GetPercentOfPlayersWithScoreInBounds 29 127 0 17
+GetPercentOfPlayersWithScoreInBounds 63 80 0 0
+ChangePlayerIDScore 1577978356 120
+IncreasePlayerIDLevel 1891622212 8
+AddPlayer 1198558428 52 130
+ChangePlayerIDScore 1919736294 62
+ChangePlayerIDScore 1153405080 95
+MergeGroups 19 22
+AddPlayer 1944212653 7 27
+AddPlayer 1402245024 44 55
+MergeGroups 69 73
+AddPlayer 1353624011 -10 38
+AverageHighestPlayerLevelByGroup 0 23
+MergeGroups 63 59
+ChangePlayerIDScore 1758688133 32
+ChangePlayerIDScore 1198558428 85
+GetPercentOfPlayersWithScoreInBounds 55 4 0 17
+MergeGroups 45 71
+ChangePlayerIDScore 827266717 89
+AddPlayer 473603226 7 107
+MergeGroups 4 45
+IncreasePlayerIDLevel 1758688133 9
+RemovePlayer 1685311726
+ChangePlayerIDScore 1944212653 56
+GetPercentOfPlayersWithScoreInBounds 69 137 2 4
+RemovePlayer 2029337395
+ChangePlayerIDScore 1366575209 95
+AddPlayer 244771809 70 29
+ChangePlayerIDScore 1439433307 41
+MergeGroups 76 23
+GetPercentOfPlayersWithScoreInBounds 0 32 8 17
+ChangePlayerIDScore 1402245024 11
+IncreasePlayerIDLevel 1198558428 -1
+RemovePlayer 1891622212
+MergeGroups 1516475584 15
+IncreasePlayerIDLevel 1559032964 3
+AddPlayer 2146486370 29 72
+RemovePlayer 1919078290
+ChangePlayerIDScore 514624558 98
+AddPlayer 602017784 3 91
+RemovePlayer 1944212653
+MergeGroups 1208433052 9
+AverageHighestPlayerLevelByGroup 62 7859
+RemovePlayer 602017784
+RemovePlayer 1153405080
+GetPercentOfPlayersWithScoreInBounds 11 56 17 8
+AverageHighestPlayerLevelByGroup 22 2
+RemovePlayer 1118742956
+ChangePlayerIDScore 244771809 43
+IncreasePlayerIDLevel 1402245024 9
+ChangePlayerIDScore -5 112
+AverageHighestPlayerLevelByGroup -8 1
+IncreasePlayerIDLevel 1397261456 -1
+ChangePlayerIDScore 1559032964 4
+AddPlayer 462837301 34 58
+IncreasePlayerIDLevel 1402245024 7
+GetPercentOfPlayersWithScoreInBounds 0 32 11 17
+RemovePlayer 62504417
+GetPercentOfPlayersWithScoreInBounds 21 26 0 0
+RemovePlayer 2146486370
+GetPercentOfPlayersWithScoreInBounds 0 111 11 5
+IncreasePlayerIDLevel 473603226 9
+AddPlayer 1525394606 49 15
+IncreasePlayerIDLevel 244771809 3
+RemovePlayer -1
+AverageHighestPlayerLevelByGroup 0 4
+AddPlayer 1485626011 1 123
+GetPercentOfPlayersWithScoreInBounds 38 120 8 8
+IncreasePlayerIDLevel 462837301 3
+MergeGroups 1186244259 13
+GetPercentOfPlayersWithScoreInBounds 0 41 0 16
+AddPlayer 441054724 60 1505384062
+ChangePlayerIDScore 1198558428 57
+AddPlayer 799513954 18 35
+RemovePlayer 1334243374
+AverageHighestPlayerLevelByGroup 27 18
+AddPlayer 273789926 42 -6
+AddPlayer 1308304560 29 59
+MergeGroups 51 25
+AddPlayer 181206820 21 85
+ChangePlayerIDScore -4 127
+MergeGroups 74 77
+AddPlayer 954098405 77 136
+IncreasePlayerIDLevel -1 2
+RemovePlayer 181206820
+AddPlayer 318121019 17 69
+GetPercentOfPlayersWithScoreInBounds 0 2 0 16
+IncreasePlayerIDLevel 244771809 7
+MergeGroups 63 25
+AverageHighestPlayerLevelByGroup 60 -5
+MergeGroups 11 12
+RemovePlayer 1655331848
+ChangePlayerIDScore 318121019 92
+ChangePlayerIDScore 433416929 107
+GetPercentOfPlayersWithScoreInBounds 65 116 0 0
+ChangePlayerIDScore 1919736294 110
+AddPlayer 24117920 16 141
+MergeGroups 46 48
+RemovePlayer 1919736294
+IncreasePlayerIDLevel 1559032964 2
+IncreasePlayerIDLevel 318121019 -4
+AddPlayer 2141474066 49 104
+RemovePlayer 904722588
+AddPlayer 1481433079 25 56
+MergeGroups 42 73
+GetPercentOfPlayersWithScoreInBounds 0 35 0 11
+AverageHighestPlayerLevelByGroup 12 4
+ChangePlayerIDScore 1870986853 110
+GetPercentOfPlayersWithScoreInBounds 0 107 11 0
+RemovePlayer 473603226
+RemovePlayer 1559032964
+GetPercentOfPlayersWithScoreInBounds 0 95 0 0
+RemovePlayer 1481433079
+IncreasePlayerIDLevel 799513954 -2
+ChangePlayerIDScore 318121019 6
+RemovePlayer 462837301
+AverageHighestPlayerLevelByGroup 33 3
+MergeGroups 27 76
+MergeGroups 51 68
+AverageHighestPlayerLevelByGroup 39 11
+AverageHighestPlayerLevelByGroup 0 14
+AverageHighestPlayerLevelByGroup 46 8
+MergeGroups 54 33
+MergeGroups 48 75
+ChangePlayerIDScore 1402245024 99
+IncreasePlayerIDLevel 433416929 9
+IncreasePlayerIDLevel -7 7
+AddPlayer 1241736507 48 96
+IncreasePlayerIDLevel 1229672964 9
+AverageHighestPlayerLevelByGroup 0 7
+AddPlayer 1673022244 53 1052175229
+AddPlayer 736511780 39 127
+RemovePlayer 318121019
+IncreasePlayerIDLevel 631330412 7
+GetPercentOfPlayersWithScoreInBounds 3 -6 1 0
+AverageHighestPlayerLevelByGroup 26 2
+GetPercentOfPlayersWithScoreInBounds 0 41 0 0
+ChangePlayerIDScore 1432419395 58
+AddPlayer 2048146952 21 115
+AverageHighestPlayerLevelByGroup 42 2401
+GetPercentOfPlayersWithScoreInBounds 0 30 0 0
+AddPlayer 1402245024 23 103
+RemovePlayer 2048146952
+RemovePlayer 1226812063
+AddPlayer 227065449 57 93
+ChangePlayerIDScore 1758688133 142
+ChangePlayerIDScore 1485626011 138
+RemovePlayer 954098405
+ChangePlayerIDScore 2141474066 62
+AddPlayer 629583949 76 3
+MergeGroups 39 59
+MergeGroups 64 2
+AverageHighestPlayerLevelByGroup 0 7872
+IncreasePlayerIDLevel 24117920 8
+AddPlayer 588252400 45 99
+IncreasePlayerIDLevel 244771809 2
+AverageHighestPlayerLevelByGroup 0 7511
+IncreasePlayerIDLevel 1525394606 3
+IncreasePlayerIDLevel 433416929 1
+RemovePlayer 799513954
+IncreasePlayerIDLevel 1485626011 7
+MergeGroups 33 52
+GetPercentOfPlayersWithScoreInBounds 22 67 0 3
+AddPlayer 1949047957 70 -5
+AverageHighestPlayerLevelByGroup 68 15
+RemovePlayer 1525394606
+IncreasePlayerIDLevel 1485626011 7
+GetPercentOfPlayersWithScoreInBounds 0 99 10 16
+ChangePlayerIDScore 1758688133 132
+IncreasePlayerIDLevel 1308304560 2
+ChangePlayerIDScore 433416929 60
+MergeGroups 27 2031594255
+AverageHighestPlayerLevelByGroup 1 8
+RemovePlayer 1366575209
+ChangePlayerIDScore 1485626011 114
+AddPlayer 306132505 36 116
+AverageHighestPlayerLevelByGroup 0 9
+AverageHighestPlayerLevelByGroup 12 9
+RemovePlayer 1577978356
+ChangePlayerIDScore 1388050646 121
+MergeGroups 31 42
+GetPercentOfPlayersWithScoreInBounds 77 59 0 10
+MergeGroups -8 49
+GetPercentOfPlayersWithScoreInBounds 60 -5 1 0
+RemovePlayer 1241736507
+GetPercentOfPlayersWithScoreInBounds 0 111 18 18
+AddPlayer 766677236 27 143
+ChangePlayerIDScore 1397261456 62
+ChangePlayerIDScore 1308304560 5
+MergeGroups 26 75
+RemovePlayer 766677236
+RemovePlayer 1323146211
+AverageHighestPlayerLevelByGroup 0 17
+MergeGroups 68 72
+AddPlayer 992629830 52 44
+RemovePlayer 514624558
+MergeGroups 60 33
+MergeGroups 0 34
+AddPlayer 1870759020 36 66
+ChangePlayerIDScore 1758688133 56
+AddPlayer -5 31 39
+MergeGroups 56 36
+IncreasePlayerIDLevel 433416929 6
+GetPercentOfPlayersWithScoreInBounds 0 116 0 2
+RemovePlayer 1485626011
+GetPercentOfPlayersWithScoreInBounds 53 44 0 0
+AverageHighestPlayerLevelByGroup 60 18
+AddPlayer 349227882 50 120
+GetPercentOfPlayersWithScoreInBounds 5 141 0 0
+ChangePlayerIDScore 24117920 32
+AverageHighestPlayerLevelByGroup 0 14
+IncreasePlayerIDLevel 1870759020 8
+IncreasePlayerIDLevel 588252400 5
+AverageHighestPlayerLevelByGroup 0 12
+AverageHighestPlayerLevelByGroup 0 13
+AddPlayer 2066258642 29 73
+MergeGroups 71 76
+GetPercentOfPlayersWithScoreInBounds 0 28 0 0
+IncreasePlayerIDLevel 631330412 4
+AddPlayer 1870759020 5 80
+RemovePlayer 2066258642
+IncreasePlayerIDLevel 992629830 1
+AverageHighestPlayerLevelByGroup 70 1
+MergeGroups 55 75
+AddPlayer 1628839833 60 61
+AverageHighestPlayerLevelByGroup 57 8
+ChangePlayerIDScore 827266717 53
+MergeGroups 726199529 20
+IncreasePlayerIDLevel 992629830 3
+AverageHighestPlayerLevelByGroup -8 1
+MergeGroups 76 63
+RemovePlayer 1628839833
+IncreasePlayerIDLevel 433416929 4
+MergeGroups 41 5
+IncreasePlayerIDLevel 736511780 4
+AddPlayer 1587970022 53 35
+AddPlayer 1947604846 33 67
+ChangePlayerIDScore 1587970022 120
+MergeGroups 14 25
+IncreasePlayerIDLevel 1402245024 6
+AverageHighestPlayerLevelByGroup 0 20
+AddPlayer 683727755 24 13
+MergeGroups 24 26
+RemovePlayer 1198558428
+GetPercentOfPlayersWithScoreInBounds 31 5 0 8
+IncreasePlayerIDLevel 306132505 -8
+GetPercentOfPlayersWithScoreInBounds 0 116 0 0
+AddPlayer 1586827872 11 101
+IncreasePlayerIDLevel 433416929 3
+GetPercentOfPlayersWithScoreInBounds 75 -8 1 0
+ChangePlayerIDScore 736511780 21
+IncreasePlayerIDLevel 992629830 8
+IncreasePlayerIDLevel 827266717 7
+IncreasePlayerIDLevel 588252400 1
+MergeGroups 28 -5
+RemovePlayer 1870759020
+RemovePlayer -5
+AverageHighestPlayerLevelByGroup 77 11
+MergeGroups 34 65
+ChangePlayerIDScore 1586827872 44
+AddPlayer 1085348262 45 130
+AverageHighestPlayerLevelByGroup 57 10
+IncreasePlayerIDLevel 2141474066 9
+AverageHighestPlayerLevelByGroup 0 4
+IncreasePlayerIDLevel 306132505 4
+AddPlayer 213368708 16 11
+RemovePlayer 1758688133
+GetPercentOfPlayersWithScoreInBounds 7 26 0 23
+AverageHighestPlayerLevelByGroup 0 3
+MergeGroups 44 19
+GetPercentOfPlayersWithScoreInBounds 41 60 9 23
+MergeGroups -6 45
+AverageHighestPlayerLevelByGroup 2126489096 1
+IncreasePlayerIDLevel 433416929 9
+ChangePlayerIDScore 2141474066 81
+RemovePlayer 631330412
+GetPercentOfPlayersWithScoreInBounds 8 72 22 22
+MergeGroups 28 37
+AddPlayer 1043631607 -2 9
+AddPlayer 1152632673 55 91
+AddPlayer 1041200082 14 74
+IncreasePlayerIDLevel 306132505 7
+ChangePlayerIDScore 1439433307 95
+MergeGroups 27 19
+GetPercentOfPlayersWithScoreInBounds 0 25 12 12
+IncreasePlayerIDLevel 1308304560 4
+ChangePlayerIDScore 1308304560 121
+AverageHighestPlayerLevelByGroup 0 11
+RemovePlayer 827266717
+MergeGroups 39 36
+AverageHighestPlayerLevelByGroup 0 15
+IncreasePlayerIDLevel 1388050646 6
+RemovePlayer 683727755
+RemovePlayer 306132505
+AddPlayer 736511780 30 92
+IncreasePlayerIDLevel 2141474066 4
+GetPercentOfPlayersWithScoreInBounds 24 17 6 0
+RemovePlayer 24117920
+GetPercentOfPlayersWithScoreInBounds 36 75 0 0
+MergeGroups 71 2
+GetPercentOfPlayersWithScoreInBounds 0 121 6 6
+ChangePlayerIDScore 1947604846 114
+AddPlayer 992629830 73 127
+GetPercentOfPlayersWithScoreInBounds 34 60 12 32
+RemovePlayer 213368708
+GetPercentOfPlayersWithScoreInBounds 0 20 0 0
+RemovePlayer 1308304560
+ChangePlayerIDScore 2038832197 96
+MergeGroups 8 10
+AverageHighestPlayerLevelByGroup 11 13
+IncreasePlayerIDLevel 1041200082 1
+GetPercentOfPlayersWithScoreInBounds 0 44 0 12
+IncreasePlayerIDLevel 992629830 5
+IncreasePlayerIDLevel 227065449 3
+AddPlayer 1033606240 333740778 63
+RemovePlayer 1439433307
+IncreasePlayerIDLevel 349227882 6
+AverageHighestPlayerLevelByGroup 0 5
+GetPercentOfPlayersWithScoreInBounds 0 135 3 22
+ChangePlayerIDScore 1085348262 139
+IncreasePlayerIDLevel 588252400 5
+IncreasePlayerIDLevel 1587970022 8
+GetPercentOfPlayersWithScoreInBounds 76 62 32 8
+RemovePlayer 588252400
+RemovePlayer 1397261456
+IncreasePlayerIDLevel 349227882 6
+IncreasePlayerIDLevel 244771809 -3
+AverageHighestPlayerLevelByGroup 0 6468
+MergeGroups 27 65
+MergeGroups 56 65
+GetPercentOfPlayersWithScoreInBounds 51 99 13 32
+RemovePlayer 1402245024
+ChangePlayerIDScore 629583949 143
+MergeGroups 50 43
+ChangePlayerIDScore 1041200082 3
+RemovePlayer 736511780
+ChangePlayerIDScore 104281323 94
+GetPercentOfPlayersWithScoreInBounds 14 -5 1 0
+IncreasePlayerIDLevel 426892535 2
+AverageHighestPlayerLevelByGroup 0 10
+GetPercentOfPlayersWithScoreInBounds 71 20 0 0
+MergeGroups 45 36
+MergeGroups 254235280 22
+GetPercentOfPlayersWithScoreInBounds 64 106 32 13
+RemovePlayer 1947604846
+MergeGroups 6 41
+AddPlayer 1071880430 54 5
+MergeGroups 55 6
+AverageHighestPlayerLevelByGroup 0 5
+GetPercentOfPlayersWithScoreInBounds 36 47 0 0
+IncreasePlayerIDLevel 1085348262 5
+AverageHighestPlayerLevelByGroup 64 -9
+AddPlayer 287278434 75 86
+GetPercentOfPlayersWithScoreInBounds 0 30 0 0
+AddPlayer 894027111 31 107
+MergeGroups 2 42
+RemovePlayer 1586827872
+AddPlayer 1335916401 58 13
+ChangePlayerIDScore 1388050646 129
+GetPercentOfPlayersWithScoreInBounds 0 60 32 32
+AverageHighestPlayerLevelByGroup 54 14
+ChangePlayerIDScore 244771809 131
+IncreasePlayerIDLevel 1041200082 6
+RemovePlayer 1388050646
+GetPercentOfPlayersWithScoreInBounds 50 78 3 8
+GetPercentOfPlayersWithScoreInBounds 39 131 0 0
+IncreasePlayerIDLevel 433416929 4
+AddPlayer 1060883776 27 14
+AddPlayer 1281112868 10 75
+ChangePlayerIDScore 2141474066 7
+GetPercentOfPlayersWithScoreInBounds 74 131 13 36
+IncreasePlayerIDLevel 173934588 9
+MergeGroups 41 18
+IncreasePlayerIDLevel 1335916401 3
+RemovePlayer 1281112868
+GetPercentOfPlayersWithScoreInBounds 33 44 36 12
+ChangePlayerIDScore 992629830 15
+ChangePlayerIDScore 244771809 5
+ChangePlayerIDScore 244771809 115
+IncreasePlayerIDLevel -2 1
+IncreasePlayerIDLevel 992629830 9
+ChangePlayerIDScore 1315451673 33
+ChangePlayerIDScore 287278434 1390671330
+MergeGroups 31 11
+AverageHighestPlayerLevelByGroup 9 4
+RemovePlayer 894027111
+ChangePlayerIDScore 1060883776 -5
+AverageHighestPlayerLevelByGroup 64 11
+MergeGroups 75 32
+MergeGroups 58 14
+IncreasePlayerIDLevel 992629830 7
+AddPlayer 752034589 19 108
+MergeGroups 43 44
+RemovePlayer 349227882
+GetPercentOfPlayersWithScoreInBounds 17 61 3 7
+MergeGroups 9 19
+AverageHighestPlayerLevelByGroup 0 3
+AverageHighestPlayerLevelByGroup 0 9
+IncreasePlayerIDLevel 244771809 6
+GetPercentOfPlayersWithScoreInBounds 0 115 7 18
+RemovePlayer 982405749
+GetPercentOfPlayersWithScoreInBounds 57 5 0 0
+RemovePlayer 433416929
+AddPlayer 1594993840 73 48
+ChangePlayerIDScore 1152632673 41
+RemovePlayer 287278434
+AverageHighestPlayerLevelByGroup 0 3
+RemovePlayer 1152632673
+GetPercentOfPlayersWithScoreInBounds 57 120 8 8
+AddPlayer 2102764518 62 28
+AddPlayer 607317144 56 23
+MergeGroups 69 38
+GetPercentOfPlayersWithScoreInBounds 21 112 5 7
+AverageHighestPlayerLevelByGroup 3 8159
+IncreasePlayerIDLevel 27607443 8
+AverageHighestPlayerLevelByGroup 17 2
+RemovePlayer 2102764518
+AverageHighestPlayerLevelByGroup 0 3
+AverageHighestPlayerLevelByGroup 0 8
+ChangePlayerIDScore 1041200082 100
+AverageHighestPlayerLevelByGroup 0 5
+MergeGroups 71 54
+AddPlayer 1742901095 57 103
+RemovePlayer 40799405
+RemovePlayer 2141474066
+AddPlayer 1000557862 64 21
+IncreasePlayerIDLevel 1335916401 7
+MergeGroups 29 4
+GetPercentOfPlayersWithScoreInBounds 41 -9 1 0
+MergeGroups 39 73
+MergeGroups 42 25
+RemovePlayer 1594993840
+RemovePlayer -1
+ChangePlayerIDScore 1587970022 116
+ChangePlayerIDScore 1060883776 48
+AverageHighestPlayerLevelByGroup 0 8
+GetPercentOfPlayersWithScoreInBounds 52 15 33 33
+GetPercentOfPlayersWithScoreInBounds 0 103 0 0
+RemovePlayer 629583949
+IncreasePlayerIDLevel 1085348262 3
+IncreasePlayerIDLevel 1335916401 8
+ChangePlayerIDScore 1742901095 78
+RemovePlayer 752034589
+AverageHighestPlayerLevelByGroup 27 8
+MergeGroups 28 22
+AverageHighestPlayerLevelByGroup 12 9
+GetPercentOfPlayersWithScoreInBounds 67 19 0 8
+IncreasePlayerIDLevel 244771809 7
+RemovePlayer 1000557862
+RemovePlayer 1060883776
+MergeGroups 36 34
+MergeGroups 49 1171224565
+AverageHighestPlayerLevelByGroup 0 6
+GetPercentOfPlayersWithScoreInBounds 0 115 8 33
+IncreasePlayerIDLevel -9 5
+GetPercentOfPlayersWithScoreInBounds 0 132 0 8
+MergeGroups 38 77
+ChangePlayerIDScore 1085348262 48
+RemovePlayer 1742901095
+IncreasePlayerIDLevel 371033120 4
+RemovePlayer 1335916401
+AverageHighestPlayerLevelByGroup 21 -3
+RemovePlayer 1041200082
+ChangePlayerIDScore 1071880430 93
+IncreasePlayerIDLevel 227065449 6
+RemovePlayer 1071880430
+ChangePlayerIDScore 1160903565 49
+RemovePlayer 244771809
+MergeGroups 15 39
+IncreasePlayerIDLevel 1085348262 2
+AverageHighestPlayerLevelByGroup 21 2
+AverageHighestPlayerLevelByGroup 40 -8
+ChangePlayerIDScore 1085348262 143
+GetPercentOfPlayersWithScoreInBounds 686463698 130 0 0
+RemovePlayer -9
+MergeGroups 67 11
+AverageHighestPlayerLevelByGroup 15 5
+GetPercentOfPlayersWithScoreInBounds 72 143 10 33
+MergeGroups 73 75
+MergeGroups 21 59
+MergeGroups 27 52
+AverageHighestPlayerLevelByGroup 2 1
+AverageHighestPlayerLevelByGroup 61 4
+ChangePlayerIDScore 1085348262 61
+GetPercentOfPlayersWithScoreInBounds 28 97 33 33
+AverageHighestPlayerLevelByGroup 32 1
+GetPercentOfPlayersWithScoreInBounds 0 68 33 33
+MergeGroups 11 1132368947
+GetPercentOfPlayersWithScoreInBounds 0 9 33 33
+GetPercentOfPlayersWithScoreInBounds 45 61 9 33
+AverageHighestPlayerLevelByGroup 0 5
+IncreasePlayerIDLevel -3 2
+ChangePlayerIDScore 227065449 26
+AddPlayer 1498280676 67 10
+ChangePlayerIDScore 992629830 128
+RemovePlayer 992629830
+RemovePlayer 67663692
+GetPercentOfPlayersWithScoreInBounds 46 93 0 9
+ChangePlayerIDScore 227065449 61
+RemovePlayer 227065449
+RemovePlayer 1049579202
+AddPlayer 418230525 50 81
+RemovePlayer -9
+IncreasePlayerIDLevel 1498280676 2
+IncreasePlayerIDLevel 1498280676 2
+MergeGroups 57 6
+IncreasePlayerIDLevel 607317144 2
+GetPercentOfPlayersWithScoreInBounds 68 61 8 10
+GetPercentOfPlayersWithScoreInBounds 57 116 8 8
+MergeGroups 44 50
+RemovePlayer 1587970022
+IncreasePlayerIDLevel 607317144 6
+AverageHighestPlayerLevelByGroup 45 4
+MergeGroups 20 29
+AverageHighestPlayerLevelByGroup 12 4
+MergeGroups 62 54
+RemovePlayer 418230525
+RemovePlayer 1498280676
+ChangePlayerIDScore 607317144 46
+AddPlayer 2054128364 66 8
+IncreasePlayerIDLevel 607317144 -8
+AddPlayer 2054128364 5 73
+AddPlayer 1930437057 60 37
+GetPercentOfPlayersWithScoreInBounds 4 46 0 8
+IncreasePlayerIDLevel 2054128364 5
+AverageHighestPlayerLevelByGroup 66 4
+GetPercentOfPlayersWithScoreInBounds 74 61 10 10
+RemovePlayer 1930437057
+MergeGroups 32 44
+AverageHighestPlayerLevelByGroup 13 310
+MergeGroups 24 60
+GetPercentOfPlayersWithScoreInBounds 34 8 5 5
+GetPercentOfPlayersWithScoreInBounds 0 61 10 8
+GetPercentOfPlayersWithScoreInBounds 45 52 8 8
+MergeGroups 33 2023768543
+AddPlayer 606937044 60 83
+MergeGroups 74 18
+GetPercentOfPlayersWithScoreInBounds 16 -2 1 0
+RemovePlayer 1085348262
+RemovePlayer 606937044
+GetPercentOfPlayersWithScoreInBounds 38 46 8 8
+RemovePlayer 607317144
+ChangePlayerIDScore 195464691 43
+MergeGroups 67 54
+AddPlayer 428540437 50 112
+GetPercentOfPlayersWithScoreInBounds 0 112 0 0
+GetPercentOfPlayersWithScoreInBounds 56 -10 1 0
+AverageHighestPlayerLevelByGroup 0 1
+IncreasePlayerIDLevel 428540437 9
+AverageHighestPlayerLevelByGroup 2 1
+Quit
