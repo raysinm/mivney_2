@@ -150,10 +150,15 @@ StatusType PlayersManager::ChangePlayerIDScore(int PlayerID, int NewScore) {
 }
 
 StatusType PlayersManager::GetPercentOfPlayersWithScoreInBounds(int GroupID, int score, int lowerLevel, int higherLevel, double *players) {
+    if(lowerLevel > higherLevel)
+    {
+        return FAILURE;
+    }
+    
     if (score <= 0 || score > scale) {
         *players = 0;
         return SUCCESS;
-    }
+    } // ! probily need to be checked in the end to return all failiures first
 
     int players_in_score;
     int total_players_in_range;
