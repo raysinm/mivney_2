@@ -88,7 +88,7 @@ void UnionFind<Data>::Union(int group1, int group2) {
     }
 
     if (g1_node->group_num == g2_node->group_num) {
-        //return SUCCESS;
+        return;
     }
 
     UnionGroup* g1 = &groups[g1_node->group_num];
@@ -96,10 +96,10 @@ void UnionFind<Data>::Union(int group1, int group2) {
 
     if (g1->size > g2->size) {
         mergeIntoGroup(g1, g2);
-        g2_node->father = g1_node->father;
-    } else {
+        g2_node->father = g1_node;
+    } else if( g1->size <= g2->size){
         mergeIntoGroup(g2, g1);
-        g1_node->father = g1_node->father;
+        g1_node->father = g2_node;
     }
 }
 

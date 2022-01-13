@@ -142,9 +142,8 @@ class AVLTree {
     void AVLRemoveFromFathersRank(TNode *node, Rank rank);
     void IgnoreSonsRank(TNode *node);
     void AddSonsRank(TNode *node);
-    Rank FindRank(const KeyElem &key) const;
-    Rank FindRank_reverse(const KeyElem &key) const;
-    double AvgHighRankRec(Rank m, TNode *current_node, Rank *node_rank, const AVLTree &multiTree);
+    Rank FindRank(const KeyElem &key);
+    double AvgHighRankRec(Rank m, TNode *current_node, Rank *node_rank, const AVLTree &multiTree, Rank* left_over);
 
    public:
     AVLTree() : root(nullptr), tree_size(0){};
@@ -260,7 +259,7 @@ class AVLTree {
     int size() const;
     KeyElem &AVLMin() const;
     RankStatus RankInRange(const KeyElem &lower, const KeyElem &higher, Rank &rank_in_range);
-    double AvgHighRank(Rank m, const AVLTree &multiTree);
+    double AvgHighRank(Rank m, const AVLTree &multiTree, Rank* left_over);
 
     void printTree() const;
     void printTreeData() const;
@@ -1057,7 +1056,7 @@ RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const
 }
 
 template <class KeyElem, class Data, class Rank>
-Rank AVLTree<KeyElem, Data, Rank>::FindRank(const KeyElem &key) const {  // ! assume key exists in tree
+Rank AVLTree<KeyElem, Data, Rank>::FindRank(const KeyElem &key) {  // ! assume key exists in tree
     TNode *current_node = root;
     Rank node_rank(root->rank);  // *we have to give it some value
 
@@ -1085,8 +1084,9 @@ Rank AVLTree<KeyElem, Data, Rank>::FindRank(const KeyElem &key) const {  // ! as
 }
 
 template <class KeyElem, class Data, class Rank>
-double AVLTree<KeyElem, Data, Rank>::AvgHighRank(Rank m, const AVLTree &multiTree) {
+double AVLTree<KeyElem, Data, Rank>::AvgHighRank(Rank m, const AVLTree &multiTree, Rank* left_over) {
     if(root == nullptr){
+        *left_over = m;
         return 0;
     }
     TNode *current_node = root;
@@ -1096,99 +1096,70 @@ double AVLTree<KeyElem, Data, Rank>::AvgHighRank(Rank m, const AVLTree &multiTre
         node_rank -= current_node->left_son->rank;
     }
 
-    return AvgHighRankRec(m, current_node, &node_rank, multiTree);
+    if(root->rank < m){
+        *left_over = m - root->rank;
+    }
+    else{
+        *left_over = 0;
+    }
+
+    return AvgHighRankRec(m, current_node, &node_rank, multiTree, left_over);
 }
 
 template <class KeyElem, class Data, class Rank>
-Rank AVLTree<KeyElem, Data, Rank>::FindRank_reverse(const KeyElem &key) const{  // ! assume key exists in tree
-    TNode *current_node = root;
-    Rank node_rank(root->rank);  // *we have to give it some value
-
-    if (current_node->left_son) {
-        node_rank -= current_node->left_son->rank;
-    }
-
-    while (current_node->key != key)  // ! what if root has the right key?
-    {
-        if (key < current_node->key) {
-            current_node = current_node->left_son;
-            node_rank += current_node->rank;
-            if (current_node->left_son) {
-                node_rank -= current_node->left_son->rank;
-            }
-        } else if (key > current_node->key) {
-            current_node = current_node->right_son;
-            node_rank = current_node->rank;
-            if (current_node->left_son) {
-                node_rank -= current_node->left_son->rank;
-            }
-        }
-    }
-    return node_rank;
-}
-
-template <class KeyElem, class Data, class Rank>
-double AVLTree<KeyElem, Data, Rank>::AvgHighRankRec(Rank m, TNode *current_node, Rank *node_rank, const AVLTree &multiTree) {
+double AVLTree<KeyElem, Data, Rank>::AvgHighRankRec(Rank m, TNode *current_node, Rank *node_rank, const AVLTree &multiTree, Rank* left_over) {
     if (*node_rank == m) {  //node has the exact num of players to "fill" m
-        /* TNode *multi_node = multiTree.AVLFind(current_node->key);
+        TNode *multi_node = multiTree.AVLFind(current_node->key);
         Rank multi_rank(multi_node->rank);
         if (multi_node->left_son) {
             multi_rank -= multi_node->left_son->rank;
-        } */
+        }
         //multiTree.printTreeRank();
-        Rank multi_rank = multiTree.FindRank_reverse(current_node->key);
         return double(multi_rank) / double(m);
     } else if (*node_rank < m) {        //not enough players to "fill" m
         if (!current_node->left_son) {  //no left son means lowest level, we dont have enough players in tree
-            /* TNode *multi_node = multiTree.AVLFind(current_node->key);
+            TNode *multi_node = multiTree.AVLFind(current_node->key);
             Rank multi_rank(multi_node->rank);
             if (multi_node->left_son) {
                 multi_rank -= multi_node->left_son->rank;
-            } */
-            Rank multi_rank = multiTree.FindRank_reverse(current_node->key);
-            return double(multi_rank) / double(m);
+            }
+            return double(multi_rank) / double(m - *left_over);
         }
         current_node = current_node->left_son;
-        *node_rank += current_node->rank;
+        node_rank += current_node->rank;
         if (current_node->left_son) {
-            *node_rank -= current_node->left_son->rank;
+            node_rank -= current_node->left_son->rank;
         }
-        return AvgHighRankRec(m, current_node, node_rank, multiTree);
+        return AvgHighRankRec(m, current_node, node_rank, multiTree, left_over);
     } else {                        //more players in level or above than m
         Rank extra = *node_rank - m;  //how many more than m
         Rank this_rank(current_node->rank);
         if (current_node->right_son) {
             this_rank -= current_node->right_son->rank;
         }
-        if (current_node->left_son) {
-            this_rank -= current_node->left_son->rank;
-        }   //!  repeated from above
-            
+        if (current_node->right_son) {
+            this_rank -= current_node->right_son->rank;
+        }
         if (extra > this_rank) {  //if extra is more than players in level, level cant be the one to "fill" m
-            //current_node = current_node->right_son;   //! --->this is causing bugs if there is no right son
-            if(current_node->right_son){
-                *node_rank += current_node->right_son->rank;
-                if (current_node->right_son->left_son) {
-                    *node_rank -= current_node->right_son->left_son->rank;
-                }
-                return AvgHighRankRec(m, current_node->right_son, node_rank, multiTree);
+            current_node = current_node->right_son;
+            *node_rank = current_node->rank;
+            if (current_node->left_son) {
+                *node_rank -= current_node->left_son->rank;
             }
+            return AvgHighRankRec(m, current_node, node_rank, multiTree, left_over);
         }
         //we found the node that "fills" m
         // go to next node, get next node multi, add to extra in this level and devide by m to get avg
         TNode *next_node = current_node->nextInOrder();
         if (!next_node) {
-            return double(current_node->key); 
+            return double(current_node->key);
         }
-        /* TNode *multi_node = multiTree.AVLFind(next_node->key);
-        Rank multi_rank(multi_node->rank); */
-        
-        /* if (multi_node->left_son) {
+        TNode *multi_node = multiTree.AVLFind(next_node->key);
+        Rank multi_rank(multi_node->rank);
+        if (multi_node->left_son) {
             multi_rank -= multi_node->left_son->rank;
-        }  */   
-        Rank multi_rank = multiTree.FindRank_reverse(current_node->key);
-        
-        return double((double(multi_rank) + double((double(extra) * double(current_node->key))) / double(m)));
+        }
+        return double((double(multi_rank) + double((double(extra) * double(current_node->key))) / double(m - *left_over)));
     }
 }
 

@@ -54,16 +54,18 @@ class ScoreArray {
     }
 
 
-    void operator+=(const ScoreArray &other) {
+    ScoreArray& operator+=(const ScoreArray &other) {
         for (int i = 1; i < size; i++) {
             scores[i] += other.scores[i];
         }
+        return *this;
     }
 
-    void operator-=(const ScoreArray &other) {
+    ScoreArray& operator-=(const ScoreArray &other) {
         for (int i = 1; i < size; i++) {
             scores[i] -= other.scores[i];
         }
+        return *this;
     }
 
     int &operator[](int index) {
