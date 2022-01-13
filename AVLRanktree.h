@@ -259,7 +259,7 @@ class AVLTree {
     void updateRank(const KeyElem &key, const Rank &rank);
     int size() const;
     KeyElem &AVLMin() const;
-    RankStatus RankInRange(const KeyElem &lower, const KeyElem &higher, Rank &rank_in_range);
+    RankStatus RankInRange(const KeyElem &lower, const KeyElem &higher, Rank *rank_in_range);
     double AvgHighRank(Rank m, const AVLTree &multiTree);
 
     void printTree() const;
@@ -991,7 +991,7 @@ void AVLTree<KeyElem, Data, Rank>::AVLDestroy_rec(TNode *node) const {
 }
 
 template <class KeyElem, class Data, class Rank>
-RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const KeyElem &higher, Rank &rank_in_range) {
+RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const KeyElem &higher, Rank *rank_in_range) {
     TNode *lowerNode;
     TNode *higherNode;
 
@@ -1016,6 +1016,8 @@ RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const
         }
     }
 
+    //this->printTreeRank();
+
     if (AVLExist(higher)) {
         higherNode = AVLFind(higher);
     } else {
@@ -1039,8 +1041,20 @@ RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const
     Rank lower_rank = FindRank(lowerNode->key);
     Rank higher_rank = FindRank(higherNode->key);
 
-    rank_in_range += higher_rank;
-    rank_in_range -= lower_rank;
+     /* std::cout << "lower rank: " <<std::endl;
+    lower_rank.Print();
+    std::cout << "higher rank: " <<std::endl;
+    higher_rank.Print();  */
+
+    (*rank_in_range) += higher_rank;
+    
+    /* std::cout << "rank_in_range += higher_rank: " <<std::endl;
+    rank_in_range.Print();  */
+
+    (*rank_in_range) -= lower_rank;
+    
+    /* std::cout << "rank_in_range -= lower_rank: " <<std::endl;
+    rank_in_range.Print();  */
 
     Rank lowerNode_rank = lowerNode->rank;
 
@@ -1051,7 +1065,9 @@ RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const
         lowerNode_rank -= lowerNode->right_son->rank;
     }
 
-    rank_in_range += lowerNode_rank;
+    /*  std::cout << "lowerNode_rank: " <<std::endl;
+    lowerNode_rank.Print(); */ 
+    (*rank_in_range) += lowerNode_rank;
     return RANK_SUCCESS;
     // ! need to delete all ranks I created? no, and now they are not created at all
 }
@@ -1068,8 +1084,12 @@ Rank AVLTree<KeyElem, Data, Rank>::FindRank(const KeyElem &key) const {  // ! as
     while (current_node->key != key)  // ! what if root has the right key?
     {
         if (key < current_node->key) {
+            node_rank -= current_node->rank;
+            if(current_node->right_son){
+                node_rank += current_node->right_son->rank;    //! CHANGE THIS (in reverse)
+            }
             current_node = current_node->left_son;
-            node_rank = current_node->rank;
+            node_rank += current_node->rank;
             if (current_node->right_son) {
                 node_rank -= current_node->right_son->rank;
             }
@@ -1117,8 +1137,12 @@ Rank AVLTree<KeyElem, Data, Rank>::FindRank_reverse(const KeyElem &key) const{  
                 node_rank -= current_node->left_son->rank;
             }
         } else if (key > current_node->key) {
+            node_rank -= current_node->rank;
+            if(current_node->left_son){
+                node_rank += current_node->left_son->rank;     //! CHANGE THIS (in reverse)
+            }
             current_node = current_node->right_son;
-            node_rank = current_node->rank;
+            node_rank += current_node->rank;
             if (current_node->left_son) {
                 node_rank -= current_node->left_son->rank;
             }
@@ -1127,6 +1151,8 @@ Rank AVLTree<KeyElem, Data, Rank>::FindRank_reverse(const KeyElem &key) const{  
     return node_rank;
 }
 
+
+//TODO: same as findRank (raplace = with -= & =+ of left_son)
 template <class KeyElem, class Data, class Rank>
 double AVLTree<KeyElem, Data, Rank>::AvgHighRankRec(Rank m, TNode *current_node, Rank *node_rank, const AVLTree &multiTree) {
     if (*node_rank == m) {  //node has the exact num of players to "fill" m

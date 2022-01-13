@@ -152,7 +152,7 @@ StatusType PlayersManager::ChangePlayerIDScore(int PlayerID, int NewScore) {
     player_data.score = NewScore;
     return SUCCESS;
 }
-
+//tryyyyy
 StatusType PlayersManager::GetPercentOfPlayersWithScoreInBounds(int GroupID, int score, int lowerLevel, int higherLevel, double *players) {
     if (lowerLevel > higherLevel) {
         return FAILURE;
@@ -180,8 +180,10 @@ StatusType PlayersManager::GetPercentOfPlayersWithScoreInBounds(int GroupID, int
     }
 
     if (higherLevel > 0) {
+        
+        
         RankTreeScoreArray *tree;
-
+        //tree->printTreeData();
         if (GroupID == 0) {  //*all players
             tree = &all_players_by_level;
             //TODO: check if lower/higher bound lower than minimum key in tree
@@ -191,8 +193,8 @@ StatusType PlayersManager::GetPercentOfPlayersWithScoreInBounds(int GroupID, int
         }
 
         ScoreArray scores_in_range(scale);
-        auto result = tree->RankInRange(lowerLevel, higherLevel, scores_in_range);
-
+        auto result = tree->RankInRange(lowerLevel, higherLevel, &scores_in_range);
+        //scores_in_range.Print();
         if (result == AVLRank::RankStatus::RANK_OUT_OF_RANGE) {
             if (!(lowerLevel <= 0 && higherLevel >= 0)) {
                 throw Failure();
@@ -265,7 +267,7 @@ void modifyRankTreesByPlayerScores(RankTreeScoreArray *tree, int level, int scor
         tree->AVLInsert(level, 1, player_score_as_array);
         return;
 
-    } else if(action == PLAYER_REMOVE){
+    } else{
         tree->updateRank(level, player_score_as_array);
     }
 
@@ -306,15 +308,17 @@ void modifyRankTreesMulti(RankTreeInt *tree, int level, int score, int scale, co
     if (action == PLAYER_ADD) {
         //*for updating data:
         change_to_level = 1;
-    } else if (action == PLAYER_REMOVE) {
+    } else{
         change_to_level = -1;
     }
 
     if (!(tree->AVLExist(level)) && action == PLAYER_ADD) {  //*if level doesnt exist in tree, we add it
         tree->AVLInsert(level, 1, level);
         return;
-    } else {
+    } else if (action == PLAYER_ADD){
         tree->updateRank(level, level);
+    }else if(action == PLAYER_REMOVE){
+        tree->updateRank(level, -level);
     }
 
     int &players_in_level = tree->AVLGet(level);
