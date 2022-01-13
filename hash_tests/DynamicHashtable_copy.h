@@ -37,8 +37,37 @@ class DynamicHashtable {
        public:
         Head() : first_cell(nullptr){};
         Head(const Head& other):first_cell(other.first_cell){};
-        Head& operator=(const Head& other){
-            this->first_cell = other.first_cell;
+        Head& operator=(const Head& other)
+        {   
+
+            this->first_cell = nullptr;
+            if(other.first_cell == nullptr){
+                return *this;
+            }
+
+            first_cell = new Cell(other.first_cell->key, other.first_cell->data);
+            Cell* other_cell = other.first_cell;
+            Cell* this_cell = first_cell;
+
+            while(other_cell->next){
+                Cell* new_cell = new Cell(other_cell->next->key, other_cell->next->data);
+                this_cell->next = new_cell;
+                this_cell = this_cell ->next;
+
+                other_cell = other_cell->next;
+            }
+
+            /* Cell* new_cell = new Cell(other.first_cell->key, other.first_cell->data);
+            first_cell = new_cell;
+            Cell* this_next_cell = first_cell->next;
+            while(other_cell->next){
+                Cell* new_next_cell = new Cell(other)
+                this_next_cell = other_cell->next;
+                if(this_next_cell){
+                    this_next_cell = this_next_cell->next;
+                }
+                other_cell = other_cell->next;
+            } */
             return *this;
         }
         ~Head() {
@@ -117,13 +146,11 @@ class DynamicHashtable {
             //! doesnt work: memcpy(old_table, this->table, sizeof(this->table));
 
             for (int i = 0; i < old_cap; i++) {
-                Head& head = table[i];
-                old_table[i](head);
+                old_table[i] = table[i];
             }
 
             //deleteTable();
             delete[] table;
-
             capacity = new_capacity;
             used_size = 0;
             table = new Head[capacity];
@@ -138,6 +165,8 @@ class DynamicHashtable {
                     cell = cell->next;
                 }
             }
+
+            
 
             delete[] old_table;
 

@@ -1,0 +1,1 @@
+ ./pm_main < ../test_almog/input_0.txt > ../test_almog_out/test0
