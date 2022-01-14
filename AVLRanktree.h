@@ -673,14 +673,25 @@ void AVLTree<KeyElem, Data, Rank>::AVLRemove_rec(TNode *node, const KeyElem &key
             delete node;
             return;
         } else if (node->leftSonExists() && node->rightSonExists()) {  //Has TWO sons
-            // ! update rank in replacer case
             auto replacer = findReplacingNode(node);  //replacer is the biggest node that is smaller than our node
 
-            node->rank -= node->right_son->rank;
-            node->rank -= node->left_son->rank;
-            if (replacer->left_son) {
-                node->rank += replacer->left_son->rank;
+            Rank node_rank_raw(node->rank);
+            node_rank_raw -= node->right_son->rank;
+            node_rank_raw -= node->left_son->rank;
+
+            if(replacer->left_son){
                 replacer->rank -= replacer->left_son->rank;
+            }
+            if(replacer->right_son){
+                replacer->rank -= replacer->left_son->rank;
+            }
+
+            TNode *temp_for_replacer = replacer->father;
+
+            while (temp_for_replacer != node)
+            {
+                temp_for_replacer->rank -= replacer->rank;
+                temp_for_replacer = temp_for_replacer->father;
             }
 
             if (node == this->root) {
@@ -714,9 +725,6 @@ void AVLTree<KeyElem, Data, Rank>::AVLRemove_rec(TNode *node, const KeyElem &key
             replacer->right_son->father = replacer;
             replacer->left_son->father = replacer;
 
-            replacer->rank += replacer->left_son->rank;
-            replacer->rank += replacer->right_son->rank;
-
             replacer->BF = node->BF;
             replacer->height = node->height;
             AVLNodeRefreshHeight(node);
@@ -725,12 +733,12 @@ void AVLTree<KeyElem, Data, Rank>::AVLRemove_rec(TNode *node, const KeyElem &key
             if (!node->leftSonExists() && !node->rightSonExists()) {  //This is a leaf
 
                 if (node->father == replacer) {
-                    AVLRemoveFromFathersRank(node->father, node->rank);
                     node->father->left_son = nullptr;
                 } else {
-                    AVLRemoveFromFathersRank(node->father, node->rank);
                     node->father->right_son = nullptr;
                 }
+                replacer->rank += replacer->left_son->rank;
+                replacer->rank += replacer->right_son->rank;
                 AVLBalance(node->father);
                 delete node;
                 return;
@@ -741,17 +749,13 @@ void AVLTree<KeyElem, Data, Rank>::AVLRemove_rec(TNode *node, const KeyElem &key
                 TNode *node_son = node->leftSonExists() ? node->left_son : node->right_son;
 
                 if (node->father == replacer) {
-                    node->rank -= node_son->rank;
-                    AVLRemoveFromFathersRank(node->father, node->rank);
-
                     node->father->left_son = node_son;
                 } else {
-                    node->rank -= node_son->rank;
-                    AVLRemoveFromFathersRank(node->father, node->rank);
-
                     node->father->right_son = node_son;
                 }
                 node_son->father = node->father;
+                replacer->rank += replacer->left_son->rank;
+                replacer->rank += replacer->right_son->rank;
             }
             AVLBalance(node->father);
             delete node;
@@ -1042,7 +1046,7 @@ RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const
         }
     }
 
-    this->printTreeRank();
+    //this->printTreeRank();
     //this->printTreeRank(20);
 
     if (AVLExist(higher)) {
@@ -1068,10 +1072,10 @@ RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const
     Rank lower_rank = FindRank(lowerNode->key);
     Rank higher_rank = FindRank(higherNode->key);
 
-    std::cout << "lower rank: " <<std::endl;
+   /* std::cout << "lower rank: " <<std::endl;
     lower_rank.Print();
     std::cout << "higher rank: " <<std::endl;
-    higher_rank.Print();
+    higher_rank.Print();*/
 
     (*rank_in_range) += higher_rank;
     
@@ -1092,8 +1096,8 @@ RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const
         lowerNode_rank -= lowerNode->right_son->rank;
     }
 
-    std::cout << "lowerNode_rank: " <<std::endl;
-    lowerNode_rank.Print();
+    /*std::cout << "lowerNode_rank: " <<std::endl;
+    lowerNode_rank.Print();*/
     (*rank_in_range) += lowerNode_rank;
     return RANK_SUCCESS;
     // ! need to delete all ranks I created? no, and now they are not created at all
@@ -1104,15 +1108,15 @@ Rank AVLTree<KeyElem, Data, Rank>::FindRank(const KeyElem &key) const {  // ! as
     TNode *current_node = root;
     Rank node_rank(root->rank);  // *we have to give it some value
 
-    std::cout << "raw root rank: " <<std::endl;
-    node_rank.Print();
+    /*std::cout << "raw root rank: " <<std::endl;
+    node_rank.Print();*/
 
     if (current_node->right_son) {
         node_rank -= current_node->right_son->rank;
     }
 
-    std::cout << "root rank: " <<std::endl;
-    node_rank.Print();
+    /*std::cout << "root rank: " <<std::endl;
+    node_rank.Print();*/
 
     while (current_node->key != key)  // ! what if root has the right key?
     {
@@ -1133,8 +1137,8 @@ Rank AVLTree<KeyElem, Data, Rank>::FindRank(const KeyElem &key) const {  // ! as
                 node_rank -= current_node->right_son->rank;
             }
         }
-        std::cout << "node rank: " <<std::endl;
-        node_rank.Print();
+        /*std::cout << "node rank: " <<std::endl;
+        node_rank.Print();*/
     }
     return node_rank;
 }

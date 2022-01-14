@@ -32,6 +32,8 @@ StatusType PlayersManager::AddPlayer(int PlayerID, int GroupID, int score) {
     ++group.group_size;
     ++players_num;
 
+    //all_players_by_level.printTreeRank(24);
+
     return SUCCESS;
 }
 
@@ -70,6 +72,8 @@ StatusType PlayersManager::RemovePlayer(int PlayerID) {
     all_players_hash.Remove(PlayerID);
 
     --players_num;
+
+    //all_players_by_level.printTreeRank(24);
 
     return SUCCESS;
 }
@@ -120,6 +124,8 @@ StatusType PlayersManager::IncreasePlayerIDLevel(int PlayerID, int LevelIncrease
 
     player_data.level = new_level;
 
+    //all_players_by_level.printTreeRank(24);
+
     return SUCCESS;
 }
 
@@ -149,6 +155,9 @@ StatusType PlayersManager::ChangePlayerIDScore(int PlayerID, int NewScore) {
         modifyRankTreesByPlayerScores(&all_players_by_level, player_data.level, NewScore, scale, PLAYER_ADD);
     }
     player_data.score = NewScore;
+
+    //all_players_by_level.printTreeRank(24);
+
     return SUCCESS;
 }
 //tryyyyy
@@ -194,7 +203,7 @@ StatusType PlayersManager::GetPercentOfPlayersWithScoreInBounds(int GroupID, int
 
         ScoreArray scores_in_range(scale);
         auto result = tree->RankInRange(lowerLevel, higherLevel, &scores_in_range);
-        scores_in_range.Print();
+        //scores_in_range.Print();
         if (result == AVLRank::RankStatus::RANK_OUT_OF_RANGE) {
             if (!(lowerLevel <= 0 && higherLevel >= 0)) {
                 throw Failure();

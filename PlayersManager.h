@@ -202,7 +202,6 @@ class PlayersManager {
     RankTreeScoreArray all_players_by_level;
     RankTreeInt all_players_by_level_sums;
     RankTreeInt all_players_by_level_multi;
-    
     ScoreArray level_0;
 
     //friend void modifyRankTrees(RankTreeInt *tree, int level, int score, const PlayerAction &action);

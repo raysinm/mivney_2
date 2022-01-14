@@ -62,3 +62,131 @@ double AVLTree<KeyElem, Data, Rank>::AvgHighRankRec(Rank m, TNode *current_node,
         return double((double(multi_rank) + double((double(extra) * double(current_node->key))) / double(m)));
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+template <class KeyElem, class Data, class Rank>
+void AVLTree<KeyElem, Data, Rank>::AVLRemove_rec(TNode *node, const KeyElem &key) {
+    if (!node) {
+        return;
+    }
+    if (node->key == key) {
+        auto temp_father = node->father;
+        if (!node->leftSonExists() && !node->rightSonExists()) {  //This is a leaf
+            if (node == this->root) {
+                this->root = nullptr;
+            } else if (node->isLeftSon()) {
+                AVLRemoveFromFathersRank(node->father, node->rank);
+                node->father->left_son = nullptr;
+            } else if (node->isRightSon()) {
+                AVLRemoveFromFathersRank(node->father, node->rank);
+                node->father->right_son = nullptr;
+            }
+            AVLBalance(temp_father);
+            delete node;
+            return;
+        } else if (!node->leftSonExists() || !node->rightSonExists()) {  //Has only a right son or a left son
+
+            TNode *node_son = node->leftSonExists() ? node->left_son : node->right_son;
+
+            if (node == this->root) {
+                this->root = node_son;
+            } else if (node->isLeftSon()) {
+                node->rank -= node_son->rank;
+                AVLRemoveFromFathersRank(node->father, node->rank);
+
+                node->father->left_son = node_son;
+            } else if (node->isRightSon()) {
+                node->rank -= node_son->rank;
+                AVLRemoveFromFathersRank(node->father, node->rank);
+
+                node->father->right_son = node_son;
+            }
+            node_son->father = node->father;
+            AVLBalance(temp_father);
+            delete node;
+            return;
+        } else if (node->leftSonExists() && node->rightSonExists()) {  //Has TWO sons
+            // ! update rank in replacer case
+            auto replacer = findReplacingNode(node);  //replacer is the biggest node that is smaller than our node
+
+            node->rank -= node->right_son->rank;
+            node->rank -= node->left_son->rank;
+            if (replacer->left_son) {
+                node->rank += replacer->left_son->rank;
+                replacer->rank -= replacer->left_son->rank;
+            }
+
+            if (node == this->root) {
+                this->root = replacer;
+            } else if (node->isLeftSon()) {
+                node->father->left_son = replacer;
+            } else if (node->isRightSon()) {
+                node->father->right_son = replacer;
+            }
+
+            TNode *temp_node_left_son = node->left_son;
+            TNode *temp_node_right_son = node->right_son;
+            TNode *temp_replacer_left_son = replacer->left_son;
+
+            if (node == replacer->father) {  // special case. They are direct relatives, and therfore point to eachother
+
+                replacer->father = temp_father;
+                node->father = replacer;
+                replacer->left_son = node;
+                temp_father = node->father;
+            } else {
+                auto temp_replacer_father = replacer->father;
+                replacer->father = node->father;
+                node->father = temp_replacer_father;
+                replacer->left_son = temp_node_left_son;
+            }
+
+            node->left_son = temp_replacer_left_son;
+            node->right_son = replacer->right_son;
+            replacer->right_son = temp_node_right_son;
+            replacer->right_son->father = replacer;
+            replacer->left_son->father = replacer;
+
+            replacer->rank += replacer->left_son->rank;
+            replacer->rank += replacer->right_son->rank;
+
+            replacer->BF = node->BF;
+            replacer->height = node->height;
+            AVLNodeRefreshHeight(node);
+            AVLNodeRefreshBF(node);
+
+            if (!node->leftSonExists() && !node->rightSonExists()) {  //This is a leaf
+
+                if (node->father == replacer) {
+                    AVLRemoveFromFathersRank(node->father, node->rank);
+                    node->father->left_son = nullptr;
+                } else {
+                    AVLRemoveFromFathersRank(node->father, node->rank);
+                    node->father->right_son = nullptr;
+                }
+                AVLBalance(node->father);
+                delete node;
+                return;
+            }
