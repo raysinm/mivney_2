@@ -135,20 +135,19 @@ StatusType PlayersManager::ChangePlayerIDScore(int PlayerID, int NewScore) {
     ScoreArray *all_score_array;
 
     if (player_data.level == 0) {
-        group_score_array = &(group.group_level_0);
-        all_score_array = &level_0;
+        --(group.group_level_0[player_data.score]);
+        ++(group.group_level_0[NewScore]);
+
+        --(level_0[player_data.score]);
+        ++(level_0[NewScore]);
 
     } else {
-        group_score_array = &(group.group_levels_scores.AVLGetRank(player_data.level));
-        all_score_array = &(all_players_by_level.AVLGetRank(player_data.level));
+        modifyRankTreesByPlayerScores(&group.group_levels_scores, player_data.level, player_data.score, scale, PLAYER_REMOVE);
+        modifyRankTreesByPlayerScores(&group.group_levels_scores, player_data.level, NewScore , scale, PLAYER_ADD);
+
+        modifyRankTreesByPlayerScores(&all_players_by_level, player_data.level, player_data.score, scale, PLAYER_REMOVE);
+        modifyRankTreesByPlayerScores(&all_players_by_level, player_data.level, NewScore, scale, PLAYER_ADD);
     }
-
-    --(*group_score_array)[player_data.score];
-    ++(*group_score_array)[NewScore];
-
-    --(*all_score_array)[player_data.score];
-    ++(*all_score_array)[NewScore];
-
     player_data.score = NewScore;
     return SUCCESS;
 }
@@ -195,13 +194,13 @@ StatusType PlayersManager::GetPercentOfPlayersWithScoreInBounds(int GroupID, int
 
         ScoreArray scores_in_range(scale);
         auto result = tree->RankInRange(lowerLevel, higherLevel, &scores_in_range);
-        //scores_in_range.Print();
+        scores_in_range.Print();
         if (result == AVLRank::RankStatus::RANK_OUT_OF_RANGE) {
             if (!(lowerLevel <= 0 && higherLevel >= 0)) {
                 throw Failure();
             }
         }
-        //scores_in_range.Print();
+        
         //tree->printTreeData();
         else {
             players_in_score += scores_in_range[score];

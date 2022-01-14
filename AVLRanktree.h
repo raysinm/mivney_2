@@ -136,7 +136,7 @@ class AVLTree {
     void printTree_rec(const std::string &prefix, const TNode *node, bool isLeft) const;
     void printTreeData_rec(const std::string &prefix, const TNode *node, bool isLeft) const;
     void printTreeRank_rec(const std::string &prefix, const TNode *node, bool isLeft) const;
-    
+    void printTreeRank_rec(const std::string &prefix, const TNode *node, bool isLeft, int score) const;
     void AVLDestroy_rec(TNode *) const;
     void AVLAddToFathersRank(TNode *node, Rank rank);
     void AVLRemoveFromFathersRank(TNode *node, Rank rank);
@@ -265,6 +265,7 @@ class AVLTree {
     void printTree() const;
     void printTreeData() const;
     void printTreeRank() const;
+    void printTreeRank(int score) const;
 };
 
 //___________***___PUBLIC FUNCTIONS IMPLEMENTATION___***___________//
@@ -319,7 +320,7 @@ void AVLTree<KeyElem, Data, Rank>::AVLRemoveFromFathersRank(TNode *node, Rank ra
         return;
     }
     node->rank -= rank;
-    AVLAddToFathersRank(node->father, rank);
+    AVLRemoveFromFathersRank(node->father, rank);
 }
 
 template <class KeyElem, class Data, class Rank>
@@ -442,6 +443,14 @@ void AVLTree<KeyElem, Data, Rank>::printTreeRank() const{
               << std::endl;
 }
 
+template <class KeyElem, class Data, class Rank>
+void AVLTree<KeyElem, Data, Rank>::printTreeRank(int score) const{
+    std::cout << "\n"
+              << std::endl;
+    this->printTreeRank_rec("", this->root, false, score);
+    std::cout << "\n"
+              << std::endl;
+}
 //___________***___PRIVATE FUNCTIONS IMPLEMENTATION___***___________//
 
 template <class KeyElem, class Data, class Rank>
@@ -803,10 +812,10 @@ void AVLTree<KeyElem, Data, Rank>::IgnoreSonsRank(TNode *node) {
     IgnoreSonsRank(node->right_son);
     IgnoreSonsRank(node->left_son);
     if (node->right_son) {
-        node->rank += node->right_son->rank;
+        node->rank -= node->right_son->rank;
     }
     if (node->left_son) {
-        node->rank += node->left_son->rank;
+        node->rank -= node->left_son->rank;
     }
 }
 
@@ -972,6 +981,23 @@ void AVLTree<KeyElem, Data, Rank>::printTreeRank_rec(const std::string &prefix, 
     }
 }
 
+
+template <class KeyElem, class Data, class Rank>
+void AVLTree<KeyElem, Data, Rank>::printTreeRank_rec(const std::string &prefix, const AVLTree<KeyElem, Data, Rank>::TNode *node, bool isLeft, int score) const {
+    if (node != nullptr) {
+        std::cout << prefix;
+
+        std::cout << (isLeft ? "├──────" : "└──────");
+        //         print the value of the node
+        Rank rank = node->rank;
+        std::cout << "level: " << node->key << ", rank: " << rank[score]  << std::endl;
+
+        //         enter the next tree level - left and right branch
+        printTreeRank_rec(prefix + (isLeft ? "│       " : "        "), node->right_son, true, score);
+        printTreeRank_rec(prefix + (isLeft ? "│       " : "        "), node->left_son, false, score);
+    }
+}
+
 template <class KeyElem, class Data, class Rank>
 void AVLTree<KeyElem, Data, Rank>::AVLDestroy_rec(TNode *node) const {
     if (!node) {
@@ -1016,7 +1042,8 @@ RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const
         }
     }
 
-    //this->printTreeRank();
+    this->printTreeRank();
+    //this->printTreeRank(20);
 
     if (AVLExist(higher)) {
         higherNode = AVLFind(higher);
@@ -1056,7 +1083,7 @@ RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const
     /* std::cout << "rank_in_range -= lower_rank: " <<std::endl;
     rank_in_range.Print();  */
 
-    Rank lowerNode_rank = lowerNode->rank;
+    Rank lowerNode_rank(lowerNode->rank);
 
     if (lowerNode->left_son) {
         lowerNode_rank -= lowerNode->left_son->rank;
@@ -1221,10 +1248,10 @@ double AVLTree<KeyElem, Data, Rank>::AvgHighRankRec(Rank m, TNode *current_node,
         /* if (multi_node->left_son) {
             multi_rank -= multi_node->left_son->rank;
         }  */   
-        Rank multi_rank = multiTree.FindRank_reverse(current_node->key);
+        Rank multi_rank = multiTree.FindRank_reverse(next_node->key);
         Rank extra(m);
         extra -= without_current;
-        return double((double(multi_rank) + double((double(extra) * double(current_node->key))) / double(m)));
+        return double((double(multi_rank) + double((double(extra) * double(current_node->key)))) / double(m));
     }
 }
 
