@@ -84,7 +84,7 @@ void UnionFind<Data>::Union(int group1, int group2) {
         g1_node = g1_node->father;
     }
     while (g2_node->father) {
-        g2_node = g1_node->father;
+        g2_node = g2_node->father;
     }
 
     if (g1_node->group_num == g2_node->group_num) {

@@ -154,6 +154,7 @@ StatusType PlayersManager::ChangePlayerIDScore(int PlayerID, int NewScore) {
 }
 //tryyyyy
 StatusType PlayersManager::GetPercentOfPlayersWithScoreInBounds(int GroupID, int score, int lowerLevel, int higherLevel, double *players) {
+
     if (lowerLevel > higherLevel) {
         return FAILURE;
     }

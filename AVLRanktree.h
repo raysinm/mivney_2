@@ -1041,10 +1041,10 @@ RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const
     Rank lower_rank = FindRank(lowerNode->key);
     Rank higher_rank = FindRank(higherNode->key);
 
-     /* std::cout << "lower rank: " <<std::endl;
+    std::cout << "lower rank: " <<std::endl;
     lower_rank.Print();
     std::cout << "higher rank: " <<std::endl;
-    higher_rank.Print();  */
+    higher_rank.Print();
 
     (*rank_in_range) += higher_rank;
     
@@ -1065,8 +1065,8 @@ RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const
         lowerNode_rank -= lowerNode->right_son->rank;
     }
 
-    /*  std::cout << "lowerNode_rank: " <<std::endl;
-    lowerNode_rank.Print(); */ 
+    std::cout << "lowerNode_rank: " <<std::endl;
+    lowerNode_rank.Print();
     (*rank_in_range) += lowerNode_rank;
     return RANK_SUCCESS;
     // ! need to delete all ranks I created? no, and now they are not created at all
@@ -1077,9 +1077,15 @@ Rank AVLTree<KeyElem, Data, Rank>::FindRank(const KeyElem &key) const {  // ! as
     TNode *current_node = root;
     Rank node_rank(root->rank);  // *we have to give it some value
 
+    std::cout << "raw root rank: " <<std::endl;
+    node_rank.Print();
+
     if (current_node->right_son) {
         node_rank -= current_node->right_son->rank;
     }
+
+    std::cout << "root rank: " <<std::endl;
+    node_rank.Print();
 
     while (current_node->key != key)  // ! what if root has the right key?
     {
@@ -1100,6 +1106,8 @@ Rank AVLTree<KeyElem, Data, Rank>::FindRank(const KeyElem &key) const {  // ! as
                 node_rank -= current_node->right_son->rank;
             }
         }
+        std::cout << "node rank: " <<std::endl;
+        node_rank.Print();
     }
     return node_rank;
 }
@@ -1181,7 +1189,7 @@ double AVLTree<KeyElem, Data, Rank>::AvgHighRankRec(Rank m, TNode *current_node,
         }
         return AvgHighRankRec(m, current_node, node_rank, multiTree);
     } else {                        //more players in level or above than m
-        Rank extra = *node_rank - m;  //how many more than m
+        Rank without_current(*node_rank);  //how many more than m
         Rank this_rank(current_node->rank);
         if (current_node->right_son) {
             this_rank -= current_node->right_son->rank;
@@ -1189,11 +1197,12 @@ double AVLTree<KeyElem, Data, Rank>::AvgHighRankRec(Rank m, TNode *current_node,
         if (current_node->left_son) {
             this_rank -= current_node->left_son->rank;
         }   //!  repeated from above
+        without_current -= this_rank;
             
-        if (extra > this_rank) {  //if extra is more than players in level, level cant be the one to "fill" m
+        if (without_current >= m) { 
             //current_node = current_node->right_son;   //! --->this is causing bugs if there is no right son
             if(current_node->right_son){
-                *node_rank += current_node->right_son->rank;
+                *node_rank -= this_rank;
                 if (current_node->right_son->left_son) {
                     *node_rank -= current_node->right_son->left_son->rank;
                 }
@@ -1213,7 +1222,8 @@ double AVLTree<KeyElem, Data, Rank>::AvgHighRankRec(Rank m, TNode *current_node,
             multi_rank -= multi_node->left_son->rank;
         }  */   
         Rank multi_rank = multiTree.FindRank_reverse(current_node->key);
-        
+        Rank extra(m);
+        extra -= without_current;
         return double((double(multi_rank) + double((double(extra) * double(current_node->key))) / double(m)));
     }
 }
