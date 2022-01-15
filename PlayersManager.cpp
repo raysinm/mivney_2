@@ -73,7 +73,7 @@ StatusType PlayersManager::RemovePlayer(int PlayerID) {
 
     --players_num;
 
-    //all_players_by_level.printTreeRank(24);
+    //all_players_by_level.printTreeRank();
 
     return SUCCESS;
 }
