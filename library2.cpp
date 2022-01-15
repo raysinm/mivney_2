@@ -98,7 +98,7 @@ StatusType GetPercentOfPlayersWithScoreInBounds(void *DS, int GroupID, int score
 }
 
 StatusType AverageHighestPlayerLevelByGroup(void *DS, int GroupID, int m, double *level) {
-    if (DS == NULL || level == NULL || GroupID < 0 || GroupID > ((Manager *)DS)->k || m < 0) {
+    if (DS == NULL || level == NULL || GroupID < 0 || GroupID > ((Manager *)DS)->k || m <= 0) {
         return INVALID_INPUT;
     }
     try{

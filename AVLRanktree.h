@@ -447,6 +447,8 @@ template <class KeyElem, class Data, class Rank>
 void AVLTree<KeyElem, Data, Rank>::printTreeRank(int score) const{
     std::cout << "\n"
               << std::endl;
+    std::cout << "score: " << score << std::endl;
+              
     this->printTreeRank_rec("", this->root, false, score);
     std::cout << "\n"
               << std::endl;
@@ -823,14 +825,14 @@ void AVLTree<KeyElem, Data, Rank>::IgnoreSonsRank(TNode *node) {
     if (!node) {
         return;
     }
-    IgnoreSonsRank(node->right_son);
-    IgnoreSonsRank(node->left_son);
     if (node->right_son) {
         node->rank -= node->right_son->rank;
     }
     if (node->left_son) {
         node->rank -= node->left_son->rank;
     }
+    IgnoreSonsRank(node->right_son);
+    IgnoreSonsRank(node->left_son);
 }
 
 template <class KeyElem, class Data, class Rank>
@@ -859,10 +861,12 @@ int AVLTree<KeyElem, Data, Rank>::MergeArray(typename AVLTree<KeyElem, Data, Ran
         if (arr1[index1]->key == arr2[index2]->key) {
             merged_arr[index] = arr1[index1];
             merged_arr[index]->rank += arr2[index2]->rank;
+            merged_arr[index]->data += arr2[index2]->data;
+            
             index1++;
             index2++;
         }
-        if (arr1[index1]->key < arr2[index2]->key) {
+        else if (arr1[index1]->key < arr2[index2]->key) {
             merged_arr[index] = arr1[index1];
             index1++;
         } else {
@@ -1076,26 +1080,25 @@ RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const
         return RANK_OUT_OF_RANGE;
     }
 
-    /* FindRank(higher, higher_rank);
-    FindRank(lower, lower_rank); */
+
 
     Rank lower_rank = FindRank(lowerNode->key);
     Rank higher_rank = FindRank(higherNode->key);
 
-   /* std::cout << "lower rank: " <<std::endl;
+    /* std::cout << "lower rank: " <<std::endl;
     lower_rank.Print();
     std::cout << "higher rank: " <<std::endl;
-    higher_rank.Print();*/
+    higher_rank.Print(); */
 
     (*rank_in_range) += higher_rank;
     
     /* std::cout << "rank_in_range += higher_rank: " <<std::endl;
-    rank_in_range.Print();  */
+    (*rank_in_range).Print();  */
 
     (*rank_in_range) -= lower_rank;
     
     /* std::cout << "rank_in_range -= lower_rank: " <<std::endl;
-    rank_in_range.Print();  */
+    (*rank_in_range).Print(); */
 
     Rank lowerNode_rank(lowerNode->rank);
 
@@ -1106,8 +1109,8 @@ RankStatus AVLTree<KeyElem, Data, Rank>::RankInRange(const KeyElem &lower, const
         lowerNode_rank -= lowerNode->right_son->rank;
     }
 
-    /*std::cout << "lowerNode_rank: " <<std::endl;
-    lowerNode_rank.Print();*/
+    /* std::cout << "lowerNode_rank: " <<std::endl;
+    lowerNode_rank.Print(); */
     (*rank_in_range) += lowerNode_rank;
     return RANK_SUCCESS;
     // ! need to delete all ranks I created? no, and now they are not created at all

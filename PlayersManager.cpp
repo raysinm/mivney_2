@@ -7,6 +7,12 @@ StatusType PlayersManager::MergeGroups(int GroupID1, int GroupID2) {
         return SUCCESS;
     }
     groups.Union(GroupID1, GroupID2);  //INSIDE UF: merge the ranktrees of the groups somehow (or should it be outside? maybe it should.)
+     /* RankTreeScoreArray& tree7 = groups.Find(7).group_levels_scores;
+    tree7.printTreeRank(137);
+    tree7.printTreeRank(132); */
+    
+    
+     
     return SUCCESS;
 }
 
@@ -32,6 +38,7 @@ StatusType PlayersManager::AddPlayer(int PlayerID, int GroupID, int score) {
     ++group.group_size;
     ++players_num;
 
+    
     //all_players_by_level.printTreeRank(24);
 
     return SUCCESS;
@@ -73,6 +80,8 @@ StatusType PlayersManager::RemovePlayer(int PlayerID) {
 
     --players_num;
 
+    /* RankTreeScoreArray& tree7 = groups.Find(7).group_levels_scores;
+    tree7.printTreeRank(); */
     //all_players_by_level.printTreeRank();
 
     return SUCCESS;
@@ -124,6 +133,13 @@ StatusType PlayersManager::IncreasePlayerIDLevel(int PlayerID, int LevelIncrease
 
     player_data.level = new_level;
 
+    /* RankTreeScoreArray& tree7 = groups.Find(7).group_levels_scores;
+    tree7.printTreeRank(137);
+    tree7.printTreeRank(132); */
+    
+
+    
+
     //all_players_by_level.printTreeRank(24);
 
     return SUCCESS;
@@ -155,7 +171,8 @@ StatusType PlayersManager::ChangePlayerIDScore(int PlayerID, int NewScore) {
         modifyRankTreesByPlayerScores(&all_players_by_level, player_data.level, NewScore, scale, PLAYER_ADD);
     }
     player_data.score = NewScore;
-
+    /* RankTreeScoreArray& tree7 = groups.Find(7).group_levels_scores;
+    tree7.printTreeRank(); */
     //all_players_by_level.printTreeRank(24);
 
     return SUCCESS;
