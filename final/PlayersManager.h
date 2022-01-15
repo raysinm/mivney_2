@@ -1,7 +1,7 @@
 #include "./AVLRanktree.h"
 #include "./DynamicHashtable.h"
 #include "./UnionFind.h"
-#include "./course_files/library2.h"
+#include "./library2.h"
 
 #ifndef _PLAYERS_MANAGER_H
 #define _PLAYERS_MANAGER_H

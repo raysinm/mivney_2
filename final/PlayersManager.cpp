@@ -152,8 +152,7 @@ StatusType PlayersManager::ChangePlayerIDScore(int PlayerID, int NewScore) {
 
     PlayerData &player_data = all_players_hash.Find(PlayerID);
     GroupData &group = groups.Find(player_data.owner_group_id);
-
-
+    
     if (player_data.level == 0) {
         --(group.group_level_0[player_data.score]);
         ++(group.group_level_0[NewScore]);
