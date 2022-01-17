@@ -17,7 +17,6 @@ typedef enum {
 
 template <class Data>
 class DynamicHashtable {
-
     class NotFound : public std::exception {};
     class AlreadyExists : public std::exception {};
 
@@ -35,14 +34,13 @@ class DynamicHashtable {
     class Head {
         Cell* first_cell;
         friend class DynamicHashtable;
+
        public:
         Head() : first_cell(nullptr){};
-        Head(const Head& other):first_cell(other.first_cell){};
-        Head& operator=(const Head& other)
-        {   
-
+        Head(const Head& other) : first_cell(other.first_cell){};
+        Head& operator=(const Head& other) {
             this->first_cell = nullptr;
-            if(other.first_cell == nullptr){
+            if (other.first_cell == nullptr) {
                 return *this;
             }
 
@@ -50,25 +48,14 @@ class DynamicHashtable {
             Cell* other_cell = other.first_cell;
             Cell* this_cell = first_cell;
 
-            while(other_cell->next){
+            while (other_cell->next) {
                 Cell* new_cell = new Cell(other_cell->next->key, other_cell->next->data);
                 this_cell->next = new_cell;
-                this_cell = this_cell ->next;
+                this_cell = this_cell->next;
 
                 other_cell = other_cell->next;
             }
 
-            /* Cell* new_cell = new Cell(other.first_cell->key, other.first_cell->data);
-            first_cell = new_cell;
-            Cell* this_next_cell = first_cell->next;
-            while(other_cell->next){
-                Cell* new_next_cell = new Cell(other)
-                this_next_cell = other_cell->next;
-                if(this_next_cell){
-                    this_next_cell = this_next_cell->next;
-                }
-                other_cell = other_cell->next;
-            } */
             return *this;
         }
         ~Head() {
@@ -106,7 +93,7 @@ class DynamicHashtable {
             }
         }
 
-        Data& Find(int key){
+        Data& Find(int key) {
             Cell* cell = first_cell;
 
             while (cell) {
@@ -114,16 +101,16 @@ class DynamicHashtable {
                     return cell->data;
                     break;
                 }
-            cell = cell->next;
+                cell = cell->next;
             }
             throw NotFound();
         }
 
-        bool isEmpty(){
+        bool isEmpty() {
             return (first_cell == nullptr);
         }
 
-        void Print(){
+        void Print() {
             int count = 0;
             Cell* cell = first_cell;
             while (cell) {
@@ -134,10 +121,10 @@ class DynamicHashtable {
             }
         }
     };
-    
+
     Head* table;
     int used_size;
-    int capacity;  //we want to keep: used_size = O(capacity)
+    int capacity;
 
     //PRIVATE METHODS
     void Rehash(int new_capacity) {
@@ -145,13 +132,11 @@ class DynamicHashtable {
             int old_cap = capacity;
 
             Head* old_table = new Head[old_cap];
-            //! doesnt work: memcpy(old_table, this->table, sizeof(this->table));
 
             for (int i = 0; i < old_cap; i++) {
                 old_table[i] = table[i];
             }
 
-            //deleteTable();
             delete[] table;
             capacity = new_capacity;
             used_size = 0;
@@ -168,8 +153,6 @@ class DynamicHashtable {
                 }
             }
 
-            
-
             delete[] old_table;
 
         } catch (std::bad_alloc& e) {
@@ -182,24 +165,10 @@ class DynamicHashtable {
         return hash_key;
     }
 
-    /* void deleteTable() {
-        for (int i = 0; i < capacity; i++) {
-            Cell* cell = table[i];
-            Cell* temp_cell = table[i];
-
-            while (cell) {
-                temp_cell = cell->next;
-                delete cell;
-                cell = temp_cell;
-            }
-        }
-        delete table;
-    } */
-
    public:
     DynamicHashtable() : used_size(0), capacity(10) {
         try {
-            table = new Head [10];
+            table = new Head[10];
         } catch (std::bad_alloc& e) {
             throw e;
         }
@@ -215,7 +184,6 @@ class DynamicHashtable {
     DynamicHashtable(const DynamicHashtable& other) = delete;
 
     ~DynamicHashtable() {
-        //deleteTable();
         delete[] table;
     }
 
@@ -229,38 +197,21 @@ class DynamicHashtable {
 
         head.Add(key, data);
 
-        //Print();
-        /* if (table[index].isEmpty()) {  //! remember to return to nullptr when deleting all players in chain
-            table[index] = new_cell;
-        } else {
-            Cell* cell = table[index];
-            new_cell->next = cell;
-            table[index] = new_cell;
-        } */
-        //Print();
         used_size++;
         if (used_size == capacity) {
             Rehash(capacity * 2);
         }
-        //return SUCCESS;
     }
 
-    Data& Find(int key) {  //*return this after big bug test to Data&
+    Data& Find(int key) {
         int index = Hash(key);
 
-        /* Cell* cell = table[index];
-
-        while (cell) {
-            if (cell->key == key) {
-                return &(cell->data);
-            }
-            cell = cell->next;
-        } */
         Head& head = table[index];
-        try{
+        try {
             return head.Find(key);
-        }catch(...){ throw;}
-        //throw NotFound(); //*return after big bug test
+        } catch (...) {
+            throw;
+        }
     }
 
     void Remove(int key) {
@@ -269,7 +220,6 @@ class DynamicHashtable {
         }
 
         int index = Hash(key);
-       
 
         Head& head = table[index];
         head.Remove(key);
@@ -282,15 +232,10 @@ class DynamicHashtable {
     }
 
     bool Exists(int key) {
-        /* if (Find(key) == nullptr) {
-            return false;
-        }
-        return true; */
-        try{         //*return this after big bug test
+        try {
             Find(key);
             return true;
-        }
-        catch(NotFound& e){
+        } catch (NotFound& e) {
             return false;
         }
     }
@@ -305,14 +250,12 @@ class DynamicHashtable {
             //int count = 0;
 
             std::cout << "row " << i << ": ";
-            
+
             if (head.isEmpty()) {
                 std::cout << " is empty";
-            }
-            else{
+            } else {
                 head.Print();
             }
-            
 
             std::cout << std::endl;
         }
